@@ -1,10 +1,8 @@
 # ParCour
 
-A Courier tracker app for Software Engineering Project
+A Courier tracker app
 
 ## Description
-
-A third party tracking app (like an API). It tracks deliveries and transaction by the supplier and service provider. The drop off address is the customer of the supplier. The customer can track deliveries using the tracking number.
 
 ## Installation
 
@@ -19,7 +17,12 @@ You can play it online here https://demonbane-tic-tac-toe.herokuapp.com/ (may no
 
 **Back end:**
 
+**Javascript Runtime**
+
 - Nodejs
+
+**Node JS web application framework**
+
 - Express
 
 **Front end:**
@@ -27,7 +30,23 @@ You can play it online here https://demonbane-tic-tac-toe.herokuapp.com/ (may no
 - HTML
 - CSS
 - Javascript
+
+**Javascript front end framework**
+
 - VueJS
+
+**Template engine:**
+
+- express-layouts
+
+**CSS-Framework:**
+
+- Tailwind CSS
+- Bootstrap
+
+**Webpack Wrapper**
+
+- laravel-mix
 
 **DBMS**
 
