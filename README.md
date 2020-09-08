@@ -9,11 +9,11 @@ A third party tracking app (like an API). It tracks deliveries and transaction b
 ## Installation
 
 Clone or download the repository, Install the dependencies on the terminal using
-`npm install`
+`yarn install`
 Start the server by
-`npm run start` or `npm run dev` with nodemon and watch
+`yarn run start` or `yarn run dev` with nodemon and watch
 You can also launch the app using heroku by connecting the git repository and then pull from the master branch and deploy.
-You can play it online here https://demonbane-tic-tac-toe.herokuapp.com/ (may not be live at all times)
+You can play it online here https://demonbane-test.herokuapp.com/ (may not be live at all times)
 
 ## Technologies Used
 
@@ -21,6 +21,9 @@ You can play it online here https://demonbane-tic-tac-toe.herokuapp.com/ (may no
 
 - Nodejs
 - Express
+
+**Package Manager**
+- Yarn
 
 **Front end:**
 
