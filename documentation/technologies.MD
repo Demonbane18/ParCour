@@ -52,6 +52,14 @@ You can play it online here https://demonbane-tic-tac-toe.herokuapp.com/ (may no
 
 - MongoDB
 
+**MongoDB GUI**
+
+- MongoDB compass
+
+**Session middleware**
+
+- express-session
+
 **Geolocation API**
 
 - Google Maps API

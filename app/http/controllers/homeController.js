@@ -4,7 +4,7 @@ function homeController() {
   return {
     async index(req, res) {
       const parcels = await Parcel.find();
-      //   console.log(parcels);
+      // console.log(parcels);
       return res.render("home", {
         parcels: parcels,
       });

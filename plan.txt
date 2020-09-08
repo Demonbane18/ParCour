@@ -1,0 +1,35 @@
+
+Parcel 
++   redirect to parcel page after clicking add on landing page
++   reset parcel if clicked a new add but save it to the cart even without confirming
+
+Notification
++   add updates when service provider confirms for the supplier
+
+
+Login System
++   supplier login and register
++   servicce provider login and register
++   rider login 
++   generate session keys
++   session database
+
+Landing page
++   add tracking numnber searchbox
+
+
+
+Supplier Dashboard
+
+Service Provider Dashboard
+
+
+Rider Dashboard
++   phone app??
+
+Supplier Dashboard
+
+
+
+Geolocation tracking
++   activate google maps api 

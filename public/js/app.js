@@ -93,7 +93,12 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-console.log("hello from app.js");
+var addParcel = document.querySelectorAll("class", "vehicle-select");
+addParcel.forEach(function (btn) {
+  btn.addEventlistener('click', function (e) {
+    console.log(e);
+  });
+});
 
 /***/ }),
 
