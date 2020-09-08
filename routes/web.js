@@ -1,19 +1,14 @@
-function initRoutes(app) {
-    app.get('/', function(req, res) {
-        res.render('home')
-    })
+const homeController = require('../app/http/controllers/homeController')
+const authController = require('../app/http/controllers/authController')
+const parcelController = require('../app/http/controllers/suppliers/parcelController')
 
-    app.get('/parcel', (req, res) => {
-        res.render('customer/parcel')
-    })
-    
-    app.get('/login', (req, res) => {
-        res.render('auth/login')
-    })
-    
-    app.get('/register', (req, res) => {
-        res.render('auth/register')
-    })
+function initRoutes(app) {
+
+    //routes
+    app.get('/', homeController().index)
+    app.get('/parcel', parcelController().index)
+    app.get('/login', authController().login)
+    app.get('/register', authController().register)
 }
 
 module.exports = initRoutes

@@ -117,6 +117,8 @@ dist
 **/*.back.*
 
 node_modules
+.DS_Store
+.env
 
 *.sublime*
 
