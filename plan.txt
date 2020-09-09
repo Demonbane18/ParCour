@@ -2,6 +2,9 @@
 Parcel 
 +   redirect to parcel page after clicking add on landing page
 +   reset parcel if clicked a new add but save it to the cart even without confirming
+-   added update cart
++   update basic parcel total price logic calculation 
++   update parcel total price logic calculation with additional services and kilometer
 
 Notification
 +   add updates when service provider confirms for the supplier
@@ -9,13 +12,13 @@ Notification
 
 Login System
 +   supplier login and register
-+   servicce provider login and register
++   service provider login and register
 +   rider login 
 +   generate session keys
 +   session database
 
 Landing page
-+   add tracking numnber searchbox
++   add tracking number search box
 
 
 

@@ -6,9 +6,11 @@ function initRoutes(app) {
 
     //routes
     app.get('/', homeController().index)
-    app.get('/parcel', parcelController().index)
     app.get('/login', authController().login)
     app.get('/register', authController().register)
+
+    app.get('/parcel', parcelController().index)
+    app.post('/update-parcel', parcelController().update)
 }
 
 module.exports = initRoutes

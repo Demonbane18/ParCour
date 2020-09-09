@@ -21,9 +21,12 @@ You can play it online here https://demonbane-tic-tac-toe.herokuapp.com/ (may no
 
 - Nodejs
 
-**Node JS web application framework**
+**Node JS web application framework (MVC)**
 
 - Express
+
+**Monitor Script**
+- nodemon
 
 **Front end:**
 
@@ -31,7 +34,7 @@ You can play it online here https://demonbane-tic-tac-toe.herokuapp.com/ (may no
 - CSS
 - Javascript
 
-**Javascript front end framework**
+**Javascript framework**
 
 - VueJS
 
@@ -55,6 +58,24 @@ You can play it online here https://demonbane-tic-tac-toe.herokuapp.com/ (may no
 **MongoDB GUI**
 
 - MongoDB compass
+
+**Promised-based HTTP client**
+- axios
+
+**VS Code extensions**
+- Prettier
+- Beautify
+- eslint
+- Text Marker
+- Auto Close Tag
+- Auto Complete tag
+- Auto Rename Tag
+- Auto import
+- Bracket Pair Colorizer
+- Gitlens
+- Debugger for Chrome
+- Auto Correct
+- Code spell checker
 
 **Session middleware**
 

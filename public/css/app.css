@@ -28,13 +28,13 @@ section.hero {
   background: #F8F8F8;
 }
 
-.vehicle-select {
+.add-to-parcel {
   border: 2px solid #FE5F1E;
   color: #FE5F1E;
   transition: all 0.3s ease-in-out;
 }
 
-.vehicle-select:hover {
+.add-to-parcel:hover {
   background: #FE5F1E;
   border-color: #fff;
   color: #fff;

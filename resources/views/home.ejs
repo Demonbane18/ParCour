@@ -21,7 +21,8 @@
                 <span class="py-1 px-4 rounded-full text-xs"><%= parcel.weight %></span>
                 <div class="flex items-center justify-around">
                     <span class="font-bold text-lg">₱<%= parcel.price %></span>
-                    <button class="vehicle-select py-1 px-6 rounded-full flex items-center font-bold">
+                    <button data-parcel="<%= JSON.stringify(parcel) %>" type="button" id="add-to-parcel"
+                        class="add-to-parcel py-1 px-6 rounded-full flex items-center font-bold">
                         <span>+</span>
                         <span class="ml-4">Book</span>
                     </button>

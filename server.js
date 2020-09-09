@@ -57,6 +57,7 @@ app.use(flash())
 
 //Assets
 app.use(express.static("public"));
+app.use(express.json())
 
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
