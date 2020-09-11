@@ -26,6 +26,7 @@ You can play it online here https://demonbane-tic-tac-toe.herokuapp.com/ (may no
 - Express
 
 **Monitor Script**
+
 - nodemon
 
 **Front end:**
@@ -60,9 +61,11 @@ You can play it online here https://demonbane-tic-tac-toe.herokuapp.com/ (may no
 - MongoDB compass
 
 **Promised-based HTTP client**
+
 - axios
 
 **VS Code extensions**
+
 - Prettier
 - Beautify
 - eslint
@@ -76,6 +79,10 @@ You can play it online here https://demonbane-tic-tac-toe.herokuapp.com/ (may no
 - Debugger for Chrome
 - Auto Correct
 - Code spell checker
+
+**Code Assistant**
+
+- kite
 
 **Session middleware**
 
