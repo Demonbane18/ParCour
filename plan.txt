@@ -12,6 +12,13 @@ Parcel process
 * after confirming it it will increment the "cart" or orders
 * pressing the cart will redirect it to my orders page
 
+Payment (paypal/stripe)
++   add payment option for supplier
+
+Mapping System(mapbox)
++   rider directions
++   supplier, client and service provider parcel tracking
+
 
 Notification
 +   add updates when service provider confirms for the supplier
