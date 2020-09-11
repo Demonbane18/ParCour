@@ -3,6 +3,7 @@ const path = require("path");
 const favicon = require("serve-favicon");
 const createError = require("http-errors");
 const app = express();
+const server = require('http').Server(app)
 const ejs = require("ejs");
 const expressLayout = require("express-ejs-layouts");
 const PORT = process.env.PORT || 3000;
@@ -76,6 +77,6 @@ app.set("view engine", "ejs");
 require("./routes/web")(app);
 require("./routes/error")(app);
 
-app.listen(PORT, () => {
+server.listen(process.env.PORT || 3000, () => {
   console.log(`listening on port ${PORT}`);
 });
