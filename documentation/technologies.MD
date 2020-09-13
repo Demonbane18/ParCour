@@ -84,6 +84,10 @@ You can play it online here https://demonbane-tic-tac-toe.herokuapp.com/ (may no
 
 - kite
 
+**Authentication middleware**
+
+- passport-local
+
 **Session middleware**
 
 - express-session
