@@ -2,7 +2,7 @@ function parcelController() {
     return {
         index(req, res) {
 
-            res.render('customer/parcel')
+            res.render('supplier/parcel')
         },
         update(req, res) {
             // let order = {

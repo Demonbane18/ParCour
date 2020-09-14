@@ -1,4 +1,15 @@
 
+ASAP
++   admin Dashboard can add delete supplier
++   service provider dashboard
++   add trucks on service provider
++   rider dashboard give order
++   tracking of delivery
++   customer track order
++   users can edit their info
+
+
+
 Parcel 
 +   redirect to parcel page after clicking add on landing page
 +   reset parcel if clicked a new add but save it to the cart even without confirming
@@ -24,12 +35,14 @@ Notification
 +   add updates when service provider confirms for the supplier
 +   add update when a parcel was made by the supplier
 
+
 Login System
 +   supplier login and register
 +   service provider login and register
 +   rider login 
 +   generate session keys
 +   session database
++   verify email verification
 
 Landing page
 +   add tracking number search box

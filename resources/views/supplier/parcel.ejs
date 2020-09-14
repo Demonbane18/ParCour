@@ -27,19 +27,29 @@
                 <span class="text-lg font-bold">Total amount:</span>
                 <span class="amount text-2xl font-bold ml-2">₱<%= session.order.total_price%></span>
             </div>
+            <% if(user) { %>
             <div>
-                <form action="" class="mt-12">
-                    <input class="border border-gray-400 p-2 w-1/2 mb-4" type="text" placeholder="Phone Number">
-                    <input class="border border-gray-400 p-2 w-1/2 mb-4" type="text" placeholder="Pickup Address">
-                    <input class="border border-gray-400 p-2 w-1/2" type="text" placeholder="Dropoff Address">
+                <form action="/orders" method="POST" class="mt-12">
+                    <% if (messages.error) { %>
+                    <span class="text-red-500 text-sm p-2 w-1/2 mb-4"><%= messages.error %> </span>
+                    <% } %>
+                    <input id="phone" name="phone" class="border border-gray-400 p-2 w-1/2 mb-4" type="text"
+                        placeholder="Phone Number">
+                    <input id="pickup_address" name="pickup_address" class="border border-gray-400 p-2 w-1/2 mb-4"
+                        type="text" placeholder="Pickup Address">
+                    <input id="dropoff_address" name="dropoff_address" class="border border-gray-400 p-2 w-1/2"
+                        type="text" placeholder="Dropoff Address">
                     <div>
-                        <!-- <button class="btn-primary px-6 py-2 rounded-full text-white font-bold mt-6" type="submit">Book Now</button> -->
+                        <button class="btn-primary px-6 py-2 rounded-full text-white font-bold mt-6" type="submit">Book
+                            Now</button>
                     </div>
                 </form>
             </div>
-            <a href=""
+            <%} else { %>
+            <a href="/login"
                 class="inline-block cursor-pointer px-6 btn-primary px-6 py-2 rounded-full text-white font-bold mt-6">Login
                 to Continue</a>
+            <% } %>
         </div>
     </div>
     <% } else { %>
