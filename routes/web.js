@@ -2,7 +2,9 @@ const homeController = require('../app/http/controllers/homeController')
 const authController = require('../app/http/controllers/authController')
 const parcelController = require('../app/http/controllers/suppliers/parcelController')
 const orderController = require('../app/http/controllers/suppliers/orderController')
+const SPorderController = require('../app/http/controllers/service_providers/orderController')
 const guest = require('../app/http/middlewares/guest')
+const auth = require('../app/http/middlewares/auth')
 
 function initRoutes(app) {
 
@@ -19,8 +21,11 @@ function initRoutes(app) {
     app.post('/update-parcel', parcelController().update)
 
     //supplier routes
-    app.post('/orders', orderController().store)
-    app.get('/supplier/orders', orderController().index)
+    app.post('/orders', auth, orderController().store)
+    app.get('/supplier/orders', auth, orderController().index)
+
+    //service provider routes
+    app.get('/service_provider/orders', auth, SPorderController().index)
 }
 
 module.exports = initRoutes

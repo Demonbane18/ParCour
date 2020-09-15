@@ -92,6 +92,10 @@ You can play it online here https://demonbane-tic-tac-toe.herokuapp.com/ (may no
 
 - express-session
 
+**date parser**
+
+- moment
+
 **Geolocation API**
 
 - Google Maps API

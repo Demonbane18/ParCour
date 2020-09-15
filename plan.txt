@@ -12,6 +12,7 @@ ASAP
 
 Parcel 
 +   redirect to parcel page after clicking add on landing page
++   Parcel info include parcel dimensions and can add?
 +   reset parcel if clicked a new add but save it to the cart even without confirming
 -   added update cart
 +   update basic parcel total price logic calculation 

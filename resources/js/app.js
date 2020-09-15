@@ -1,5 +1,10 @@
 import axios from 'axios';
 import Noty from 'noty';
+//prettier-ignore
+import {
+    initSP
+} from './service_provider';
+
 
 console.log('hello from app.js');
 document.addEventListener('DOMContentLoaded', () => {
@@ -35,4 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
             updateParcel(parcel);
         });
     });
+
+    // Remove alert message after X seconds 
+    const alertMsg = document.querySelector('#success-alert')
+    if (alertMsg) {
+        setTimeout(() => {
+            alertMsg.remove()
+        }, 2000)
+    }
+    initSP()
 });
