@@ -15,5 +15,24 @@
         "precomposed",
         "resave",
         "tile"
+    ],
+    "textmarker.savedHighlights": [{
+            "pattern": {
+                "type": "string",
+                "expression": "[+]",
+                "ignoreCase": false,
+                "wholeMatch": false
+            },
+            "color": "lime"
+        },
+        {
+            "pattern": {
+                "type": "string",
+                "expression": "[-]",
+                "ignoreCase": false,
+                "wholeMatch": false
+            },
+            "color": "magenta"
+        }
     ]
 }
