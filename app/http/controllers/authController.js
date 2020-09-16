@@ -3,6 +3,11 @@ const bcrypt = require('bcrypt');
 const passport = require('passport')
 
 function authController() {
+    const _getRedirectURL = (req) => {
+        //add other roles
+        return req.user.role === 'service_provider' ? '/service_provider/orders' : '/supplier/orders'
+    }
+
     return {
         login(req, res) {
             res.render('auth/login');
@@ -32,8 +37,8 @@ function authController() {
                         req.flash('error', info.message)
                         return next(err)
                     }
-
-                    return res.redirect('/')
+                    //return if wrong role
+                    return res.redirect(_getRedirectURL(req))
                 })
             })(req, res, next)
         },

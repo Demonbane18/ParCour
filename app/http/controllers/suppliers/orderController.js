@@ -5,13 +5,19 @@ function orderController() {
   return {
     store(req, res) {
       //Validate request
-      const { phone, pickup_address, dropoff_address } = req.body;
+      const {
+        phone,
+        pickup_address,
+        dropoff_address
+      } = req.body;
       if (!phone || !pickup_address || !dropoff_address) {
         req.flash('error', 'All fields required!');
         return res.redirect('/parcel');
       }
       const order = new Order({
         supplier_id: req.user._id,
+        name: req.user.name,
+        company_name: req.user.company_name,
         items: req.session.order.info,
         phone,
         pickup_address,
@@ -30,13 +36,16 @@ function orderController() {
         });
     },
     async index(req, res) {
-      const orders = await Order.find(
-        {
+      const orders = await Order.find({
           supplier_id: req.user._id,
         },
-        null,
-        { sort: { createdAt: -1 } }
+        null, {
+          sort: {
+            createdAt: -1
+          }
+        }
       );
+      res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0')
       res.render('supplier/orders.ejs', {
         orders: orders,
         moment: moment,

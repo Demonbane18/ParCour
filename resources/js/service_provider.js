@@ -39,8 +39,8 @@ export function initSP() {
         <p>${ order._id }</p>
         <div>${ renderItems(order.items) }</div>
     </td>
-    <td class="border px-4 py-2">${ order.supplier_id.name }</td>
-    <td class="border px-4 py-2">${ order.supplier_id.company_name }</td>
+    <td class="border px-4 py-2">${ order.name }</td>
+    <td class="border px-4 py-2">${ order.company_name }</td>
     <td class="border px-4 py-2">${ order.phone }</td>
     <td class="border px-4 py-2">${ order.pickup_address }</td>
     <td class="border px-4 py-2">${ order.dropoff_address }</td>

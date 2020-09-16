@@ -7,6 +7,14 @@ const orderSchema = new Schema({
         ref: 'User',
         required: true
     },
+    name: {
+        type: String,
+        required: true
+    },
+    company_name: {
+        type: String,
+        required: true
+    },
     items: {
         type: Object,
         required: true
