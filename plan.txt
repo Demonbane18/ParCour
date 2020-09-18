@@ -50,7 +50,7 @@ Login System
 +     verify email verification
 
 Landing page
-+   add tracking number search box
+[+]   add a navbar on the layouts to redirect to track delivery page order number search box
 
 
 
@@ -58,14 +58,16 @@ Supplier Dashboard
 [-] Show orders
 [+] Vehicles dashboard add delete and modify
 [+] vehicle collection
+[+] mark completed deliveries and put them in different table
 
 Service Provider Dashboard
-
+[+] mark completed deliveries and put them in different table
+[+] mark cancelled deliveries and put them in different table and put a reason textbox for it
 
 Rider Dashboard
 +   phone app??
 
-Supplier Dashboard
+Admin Dashboard
 
 
 

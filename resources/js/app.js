@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Noty from 'noty';
+import moment from 'moment';
 //prettier-ignore
 import {
     initSP
@@ -32,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }).show();
         });
     }
-
+    //parcel vehicle
     addToParcel.forEach((btn) => {
         btn.addEventListener('click', (e) => {
             let parcel = JSON.parse(btn.dataset.parcel);
@@ -48,5 +49,76 @@ document.addEventListener('DOMContentLoaded', () => {
             alertMsg.remove()
         }, 2000)
     }
-    initSP()
+    
+    //Change parcel order status
+    let statuses = document.querySelectorAll('.status_line')
+    let hiddenInput = document.querySelector('#hiddenInput')
+    let order = hiddenInput ? hiddenInput.value : null
+    order = JSON.parse(order)
+    let time = document.createElement('small')
+
+    function updateStatus(order) {
+        statuses.forEach((status) => {
+            status.classList.remove('step-completed')
+            status.classList.remove('current')
+        })
+        let stepCompleted = true;
+        statuses.forEach((status) => {
+            let dataProp = status.dataset.status
+            if (stepCompleted) {
+                status.classList.add('step-completed')
+            }
+            if (dataProp === order.status) {
+                stepCompleted = false
+                time.innerText = moment(order.updatedAt).format('hh:mm A')
+                status.appendChild(time)
+                if (status.nextElementSibling) {
+                    status.nextElementSibling.classList.add('current')
+                }
+            }
+        })
+
+    }
+    updateStatus(order);
+
+    // Socket
+    let socket = io();
+    initSP(socket)
+    //Join
+    if(order) {
+        socket.emit('join', `order_${order._id}`)
+    //  order_id_key create room
+    }
+    let spAreaPath = window.location.pathname
+    console.log(spAreaPath)
+    if(spAreaPath.includes('service_provider')) {
+        socket.emit('join', 'spRoom')
+    }
+
+    socket.on('parcelUpdated', (data) => {
+        const updatedParcel = {...order }
+        updatedParcel.updatedAt = moment().format()
+        updatedParcel.status = data.status
+        updateStatus(updatedParcel)
+        new Noty({
+            type: 'success',
+            timeout: 1000,
+            progressBar: false,
+            text: 'Parcel updated',
+            progressBar: false
+
+        }).show();
+    })
+
+    function renderItems(items) {
+        let parsedItems = Object.values(items)
+        return parsedItems.map((menuItem) => {
+            return `
+                <p>${ menuItem.info.vehicle_type } - ${ menuItem.qty } vehicles </p>
+            `
+        }).join('')
+    }
+    order.items = renderItems(order.items)
+
 });
+

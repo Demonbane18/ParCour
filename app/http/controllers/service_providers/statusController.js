@@ -13,6 +13,9 @@ function statusController() {
 
                     return res.redirect('/service_provider/orders')
                 }
+                //emit event
+                const eventEmitter = req.app.get('eventEmitter')
+                eventEmitter.emit('parcelUpdated', {id: req.body.order_id, status: req.body.status})
                 return res.redirect('/service_provider/orders')
             })
         }

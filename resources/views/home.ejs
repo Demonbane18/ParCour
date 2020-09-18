@@ -3,10 +3,11 @@
         <div class="w-1/2">
             <h6 class="text-lg"><em>Need deliveries?</em></h6>
             <h1 class="text-6xl font-bold">Use ParCour!</h1>
-            <button class="px-6 py-2 rounded-full text-white text-white font-bold mt-4 btn-primary">Book Now</button>
+            <button class="px-6 py-2 rounded-full text-white text-white font-bold mt-4 mr-4 btn-primary"><a href="/parcel">Book Now</a></button>
+            <button class="px-6 py-2 rounded-full text-white text-white font-bold mt-4 p-2 btn-primary"><a href="https://bit.ly/3c7fmxq" target="_blank">Apply as Service Provider</a></button>
         </div>
-        <div>
-            <img src="/img/hero-pizza.png" alt="pizza">
+        <div class="cover object-center m-10">
+            <img class="h-1/2 object-center" src="/img/cover.png" alt="cover">
         </div>
     </div>
 </section>
@@ -23,11 +24,22 @@
                 <span class="py-1 px-4 rounded-full text-xs"><%= parcel.weight %></span>
                 <div class="flex items-center justify-around">
                     <span class="font-bold text-lg">₱<%= parcel.price %></span>
+                    <% if(user) {%> 
+                        <% if(user.role == 'service_provider') {%>
+                        <% } else if(user.role =='supplier') { %> 
                     <button data-parcel="<%= JSON.stringify(parcel) %>" type="button" id="add-to-parcel"
                         class="add-to-parcel py-1 px-6 rounded-full flex items-center font-bold">
                         <span>+</span>
                         <span class="ml-4">Book</span>
                     </button>
+                    <% } %> 
+                <%} else {%> 
+                    <button data-parcel="<%= JSON.stringify(parcel) %>" type="button" id="add-to-parcel"
+                        class="add-to-parcel py-1 px-6 rounded-full flex items-center font-bold">
+                        <span>+</span>
+                        <span class="ml-4">Book</span>
+                    </button>
+                <% } %> 
                 </div>
             </div>
         </div>

@@ -3,7 +3,8 @@ const path = require('path');
 const favicon = require('serve-favicon');
 const createError = require('http-errors');
 const app = express();
-const server = require('http').Server(app);
+const http = require('http');
+const server = http.createServer(app);
 const ejs = require('ejs');
 const expressLayout = require('express-ejs-layouts');
 const PORT = process.env.PORT || 3000;
@@ -13,12 +14,14 @@ const session = require('express-session');
 const flash = require('express-flash');
 const MongoDbstore = require('connect-mongo')(session);
 const passport = require('passport');
+const Emitter = require('events');
+const io = require('socket.io').listen(server);
 
 //Database connection
 
 // const url =
 //   "mongodb+srv://Admin:paul9824@testcluster.sllvd.mongodb.net/parcour?retryWrites=true&w=majority";
-
+const url = 'mongodb://localhost/parcour';
 mongoose.connect(process.env.DB_CONNECTION, {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -39,6 +42,10 @@ let mongoStore = new MongoDbstore({
   mongooseConnection: connection,
   collection: 'sessions',
 });
+
+//Event emitter
+const eventEmitter = new Emitter()
+app.set('eventEmitter', eventEmitter)
 
 //Session config
 app.use(
@@ -91,3 +98,22 @@ require('./routes/error')(app);
 server.listen(process.env.PORT || 3000, () => {
   console.log(`listening on port ${PORT}`);
 });
+
+//Socket
+
+
+io.on('connection', (socket) => {
+    //join
+    console.log(socket.id)
+    socket.on('join', (roomName) => {
+      socket.join(roomName)
+    })
+})
+
+eventEmitter.on('parcelUpdated', (data) => {
+  io.to(`order_${data.id}`).emit('parcelUpdated', data)
+}) 
+
+eventEmitter.on('parcelBooked', (data) => {
+  io.to('spRoom').emit('parcelBooked', data)
+})

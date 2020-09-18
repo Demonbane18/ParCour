@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="/css/app.css" />
+<section class="status">
+    <div class="container mx-auto">
+        <div class="status-box w-2/3 mx-auto">
+            <!-- <h1 class="text-xl font-bold">Parcel Information</h1><br>
+            <p class="text-lg "><%=order.items%> </p>
+            <p class="text-lg ">Payment type: <%=order.payment_type %> </p>
+            <p class="text-lg ">Pickup Address: <%=order.pickup_address %> </p>
+            <p class="text-lg ">Drop off Address: <%=order.dropoff_address%> </p><br> -->
+            <div class="flex items-center justify-between mb-12">
+                <p class="text-xl font-bold">Track Delivery Status</p>
+                <p class="bg-white py-1 rounded-full px-4 text-green-600 text-xs"><%=order._id  %> </p>
+                <input id="hiddenInput" type="hidden" value="<%= JSON.stringify(order) %> ">
+            </div>
+            <ul>
+                <li class="status_line text-xl pb-16" data-status="parcel_placed"><span>Parcel Placed</span></li>
+                <li class="status_line text-xl pb-16" data-status="confirmed"><span>Parcel Confirmation</span></li>
+                <li class="status_line text-xl pb-16" data-status="vehicle_ready"><span>Vehicle is ready</span></li>
+                <li class="status_line text-xl pb-16" data-status="arriving"><span>Out for delivery</span></li>
+                <li class="status_line text-xl pb-16" data-status="pickup_point"><span>Pickup point</span></li>
+                <li class="status_line text-xl pb-16" data-status="shipping"><span>Shipping</span></li>
+                <li class="status_line text-xl pb-16" data-status="delivered"><span>Parcel Delivered</span></li>
+                <li class="status_line text-xl" data-status="completed"><span>Completed</span></li>
+            <ul>
+        </div>
+    </div>
+</section>

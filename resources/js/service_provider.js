@@ -1,8 +1,9 @@
 import axios from 'axios'
 import moment from 'moment'
+import Noty from 'noty';
 
 // prettier-ignore
-export function initSP() {
+export function initSP(socket) {
     const orderTableBody = document.querySelector('#orderTableBody')
     let orders = []
     let markup
@@ -39,8 +40,8 @@ export function initSP() {
         <p>${ order._id }</p>
         <div>${ renderItems(order.items) }</div>
     </td>
-    <td class="border px-4 py-2">${ order.name }</td>
-    <td class="border px-4 py-2">${ order.company_name }</td>
+    <td class="border px-4 py-2">${ order.supplier_id.name }</td>
+    <td class="border px-4 py-2">${ order.supplier_id.company_name }</td>
     <td class="border px-4 py-2">${ order.phone }</td>
     <td class="border px-4 py-2">${ order.pickup_address }</td>
     <td class="border px-4 py-2">${ order.dropoff_address }</td>
@@ -50,12 +51,16 @@ export function initSP() {
                 <input type="hidden" name="order_id" value="${ order._id }">
                 <select name="status" onchange="this.form.submit()"
                     class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="order_placed" ${ order.status==='order_placed' ? 'selected' : '' }>
-                        Placed</option>
+                    <option value="parcel_placed" ${ order.status==='parcel_placed' ? 'selected' : '' }>
+                        Parcel Placed</option>
                     <option value="confirmed" ${ order.status==='confirmed' ? 'selected' : '' }>
                         Confirmed</option>
-                    <option value="prepared" ${ order.status==='prepared' ? 'selected' : '' }>
-                        Prepared</option>
+                    <option value="vehicle_ready" ${ order.status==='vehicle_ready' ? 'selected' : '' }>
+                        Out for delivery</option>
+                    <option value="arriving" ${ order.status==='arriving' ? 'selected' : '' }>
+                        Arriving at pickup point</option>
+                    <option value="pickup_point" ${ order.status==='pickup_point' ? 'selected' : '' }>
+                        Loading</option>
                     <option value="shipping" ${ order.status==='shipping' ? 'selected' : '' }>
                         Shipping</option>
                     <option value="delivered" ${ order.status==='delivered' ? 'selected' : '' }>
@@ -83,5 +88,20 @@ export function initSP() {
         `
         }).join('')
     }
+
+    //Socket
+    socket.on('parcelBooked', (order) => {
+        new Noty({
+            type: 'success',
+            timeout: 1000,
+            progressBar: false,
+            text: 'New Parcel added!',
+            progressBar: false
+
+        }).show();
+        orders.unshift(order)
+        orderTableBody.innerHTML = ''
+        orderTableBody.innerHTML = generateMarkup(orders)
+    })
 
 }

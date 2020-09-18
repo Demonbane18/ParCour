@@ -27,6 +27,7 @@ function initRoutes(app) {
     //supplier routes
     app.post('/orders', auth, orderController().store)
     app.get('/supplier/orders', auth, orderController().index)
+    app.get('/supplier/orders/:_id', auth, orderController().show)
 
     //service provider routes
     app.get('/service_provider/orders', service_provider, SPorderController().index)
