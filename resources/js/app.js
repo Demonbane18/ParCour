@@ -1,17 +1,19 @@
 import axios from 'axios';
 import Noty from 'noty';
 import moment from 'moment';
+import * as Swal from 'sweetalert2';
+
 //prettier-ignore
 import {
     initSP
-} from './service_provider';
+} from './service_provider';S
 
 
 console.log('hello from app.js');
 document.addEventListener('DOMContentLoaded', () => {
     let addToParcel = document.querySelectorAll('#add-to-parcel');
     let parcelCounter = document.querySelector('#parcelCounter');
-
+    
     function updateParcel(parcel) {
         axios.post('/update-parcel', parcel).then((res) => {
             console.log(res);
@@ -49,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alertMsg.remove()
         }, 2000)
     }
+    
     
     //Change parcel order status
     let statuses = document.querySelectorAll('.status_line')
@@ -110,15 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }).show();
     })
 
-    function renderItems(items) {
-        let parsedItems = Object.values(items)
-        return parsedItems.map((menuItem) => {
-            return `
-                <p>${ menuItem.info.vehicle_type } - ${ menuItem.qty } vehicles </p>
-            `
-        }).join('')
-    }
-    order.items = renderItems(order.items)
-
+    
 });
 

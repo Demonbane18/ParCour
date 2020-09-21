@@ -419,6 +419,12 @@ section.orders {
   min-height: calc(100vh - 86px);
 }
 
+section.orders section.category {
+  background: #F8F8F8;
+  white-space: nowrap;
+  min-height: calc(100vh - 86px);
+}
+
 .status-box {
   padding: 60px 0 0;
 }

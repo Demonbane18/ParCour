@@ -15,6 +15,7 @@
                 </div>
                 <span class="flex-1">MrSpeedy</span>
                 <span class="flex-1"><%= parcel.qty %></span>
+                <span class="flex-1"><button data-parcel="<%= JSON.stringify(parcel) %>" id="del-parcel" class="btn-primary px-6 py-2 rounded-full text-white font-bold mt-6" type="button">-</button></span>
                 <span class="font-bold text-lg">₱<%= parcel.info.price * parcel.qty %></span>
             </div>
             <% } %>

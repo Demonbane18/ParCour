@@ -26604,15 +26604,6 @@ document.addEventListener('DOMContentLoaded', function () {
       text: 'Parcel updated'
     }, "progressBar", false)).show();
   });
-
-  function renderItems(items) {
-    var parsedItems = Object.values(items);
-    return parsedItems.map(function (menuItem) {
-      return "\n                <p>".concat(menuItem.info.vehicle_type, " - ").concat(menuItem.qty, " vehicles </p>\n            ");
-    }).join('');
-  }
-
-  order.items = renderItems(order.items);
 });
 
 /***/ }),

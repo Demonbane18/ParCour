@@ -115,6 +115,12 @@ section.orders {
     white-space: nowrap;
     min-height: calc(100vh - 86px);
 
+section.category {
+    background: $secondary;
+    white-space: nowrap;
+    min-height: calc(100vh - 86px);
+
+}
 }
 
 .status-box {
