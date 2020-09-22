@@ -339,6 +339,10 @@ section.hero {
   background: #F8F8F8;
 }
 
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
 .add-to-parcel {
   border: 2px solid #F32B2B;
   color: #F32B2B;

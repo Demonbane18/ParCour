@@ -1,3 +1,4 @@
+<%- include('../_layouts/sp_header') %>
 <section class="category light-section">
     <h2 class="font-bold text-lg mb-4 px-4">Categories</h2>
     <div class="px-4">
@@ -26,13 +27,13 @@
                     <td class="border px-4 py-2 text-left"><a
                             href="/service_provider/edit_category/<%= parcel._id %>">Edit</a>
                     </td>
-                    <td class="border px-4 py-2 text-left"><a class="confirmDeletion"
+                    <td class="border px-4 py-2 text-left"><a id="confirmDeletion" class="confirmDeletion"
                             href="/service_provider/delete_category/<%= parcel._id %>">Delete</a></td>
                 </tr>
                 <% }); %>
             </tbody>
         </table>
     </div>
-
-
 </section>
+</body>
+</html>

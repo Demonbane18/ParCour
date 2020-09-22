@@ -1,3 +1,4 @@
+<%- include('../_layouts/sp_header') %>
 <h2 class="font-bold text-lg mb-4 px-4">Edit a Category</h2>
 <div class="px-4">
     <button type="button" class="add-category btn-primary text-white font-bold py-2 px-5 rounded"><a
@@ -29,13 +30,13 @@
             </div>
             <div class="form-group mb-4 p-4">
                 <label for="">Weight (kg)</label>
-                <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==5) return false;"
+                <input type="number" min="0" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==5) return false;"
                     class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="weight" name="weight" value="<%= weight %>" placeholder="Input a weight (in kg) ">
             </div>
             <div class="form-group mb-4 p-4">
                 <label for="">Price</label>
-                <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==9) return false;"
+                <input type="number" min="0" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==9) return false;"
                     class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="price" name="price" value="<%= price %>" placeholder="Input a base price ">
             </div>
@@ -49,3 +50,5 @@
         </form>
     </div>
 </div>
+</body>
+</html>

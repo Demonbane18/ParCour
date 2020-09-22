@@ -36,6 +36,10 @@ section.hero {
     background: $secondary;
 }
 
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
 .add-to-parcel {
     border: 2px solid $primary;
     color: $primary;

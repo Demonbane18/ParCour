@@ -147,6 +147,7 @@ function categoryController() {
              
 
          },
+         //delete category
          delete(req,res) {
              Parcel.findByIdAndRemove(req.params.id, (err) => {
                  if (err)
@@ -160,7 +161,6 @@ function categoryController() {
                      }
                  });
 
-                 req.flash('success', 'Category deleted!');
                  res.redirect('/service_provider/category/');
              });
 

@@ -6,7 +6,6 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const ejs = require('ejs');
-const expressLayout = require('express-ejs-layouts');
 const PORT = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
@@ -87,9 +86,9 @@ app.use((req, res, next) => {
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 // set template engine
-app.use(expressLayout);
 app.set('views', path.join(__dirname, '/resources/views'));
 app.set('view engine', 'ejs');
+
 
 //page routes
 require('./routes/web')(app);

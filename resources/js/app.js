@@ -1,12 +1,11 @@
 import axios from 'axios';
 import Noty from 'noty';
 import moment from 'moment';
-import * as Swal from 'sweetalert2';
 
 //prettier-ignore
 import {
     initSP
-} from './service_provider';S
+} from './service_provider';
 
 
 console.log('hello from app.js');

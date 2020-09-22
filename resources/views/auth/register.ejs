@@ -24,7 +24,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
                     Phone Number
                 </label>
-                <input name="phone" value="<%= messages.phone %>"
+                <input pattern="^(09|\+639)\d{9}$" maxlength="11" onKeyPress="if(this.value.length==11) return false;" name="phone" value="<%= messages.phone %>"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="phone" type="text" placeholder="Enter your phone number">
             </div>
@@ -32,7 +32,7 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
                     Address
                 </label>
-                <input name="address" value="<%= messages.address %>"
+                <input name="address" value="<%= messages.address %>" maxlength="20"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="address" type="text" placeholder="Enter your address">
             </div>
