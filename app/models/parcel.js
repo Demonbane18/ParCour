@@ -6,6 +6,11 @@ const parcelSchema = new Schema({
     type: String,
     required: true,
   },
+  service_provider: {
+    type: String,
+    required: true,
+    default: 'MrSpeedy'
+  },
   image: {
     type: String,
     required: true,

@@ -1,8 +1,12 @@
-
+const Rider = require("../../../models/rider")
 function riderController() {
     return {
-        index(req, res) {
-            return res.render('service_provider/riders')
+        async index(req, res) {
+            const riders = await Rider.find()
+            //render parcel data
+            return res.render('service_provider/riders', {
+                riders: riders
+            })
         }
     }
 }

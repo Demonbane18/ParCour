@@ -1,3 +1,4 @@
+<%- include('../_layouts/layout') %>
 <section class="register flex justify-center pt-24">
     <div class="w-full max-w-xs">
         <form action="/register" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -24,7 +25,8 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
                     Phone Number
                 </label>
-                <input pattern="^(09|\+639)\d{9}$" maxlength="11" onKeyPress="if(this.value.length==11) return false;" name="phone" value="<%= messages.phone %>"
+                <input pattern="(\+?\d{2}?\s?\d{3}\s?\d{3}\s?\d{4})|([0]\d{3}\s?\d{3}\s?\d{4})" maxlength="20"
+                    onKeyPress="if(this.value.length==11) return false;" name="phone" value="<%= messages.phone %>"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="phone" type="text" placeholder="Enter your phone number">
             </div>
@@ -76,3 +78,5 @@
         </p>
     </div>
 </section>
+</body>
+</html>

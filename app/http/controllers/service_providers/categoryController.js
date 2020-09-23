@@ -43,6 +43,7 @@ function categoryController() {
              //create a vehicle category
              const parcel = new Parcel({
                  vehicle_type,
+                 service_provider : req.user.company_name,
                  image,
                  weight,
                  price

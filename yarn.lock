@@ -5214,6 +5214,11 @@ node-forge@0.9.0:
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.9.0.tgz#d624050edbb44874adca12bb9a52ec63cb782579"
   integrity sha512-7ASaDa3pD+lJ3WvXFsxekJQelBKRpne+GOVbLbtHYdd7pFspyeuJHnWfLplGf3SwKGbfs/aYl5V/JCIaHVUKKQ==
 
+node-fpe@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/node-fpe/-/node-fpe-2.0.0.tgz#aa68d507227fe98b44fa1696ff3cb09ab9eaaedb"
+  integrity sha512-XVGcE4q5yCCR8P+f4XdJSHDrC1TBP1KWMvW6EdDKiRuOpcwzkPxP2hJ0ZBBYXr6HpDxuGJY00s9Ghy1q1iX9JQ==
+
 node-libs-browser@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/node-libs-browser/-/node-libs-browser-2.2.1.tgz#b64f513d18338625f90346d27b0d235e631f6425"
@@ -5532,6 +5537,13 @@ optimize-css-assets-webpack-plugin@^5.0.1:
   dependencies:
     cssnano "^4.1.10"
     last-call-webpack-plugin "^3.0.0"
+
+order-id@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/order-id/-/order-id-2.0.0.tgz#7c9f9c1d68ac014cfcbcf0d604b79c0950acf489"
+  integrity sha512-uvGs/jHShkxJVpj1muOJcUmiuUNahvvFnHSGiVZpTSFejinUvC8eN0cd1sdzDtj5t74HXUQFVJnpKVYCTmAM/Q==
+  dependencies:
+    node-fpe "^2.0.0"
 
 original@^1.0.0:
   version "1.0.2"

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/css/app.css" />
+<%- include('../_layouts/sup_header') %>
 <section class="status">
     <div class="container mx-auto">
         <div class="status-box w-2/3 mx-auto">
@@ -9,7 +9,7 @@
             <p class="text-lg ">Drop off Address: <%=order.dropoff_address%> </p><br> -->
             <div class="flex items-center justify-between mb-12">
                 <p class="text-xl font-bold">Track Delivery Status</p>
-                <p class="bg-white py-1 rounded-full px-4 text-green-600 text-xs"><%=order._id  %> </p>
+                <p class="bg-white py-1 rounded-full px-4 text-green-600 text-xs"><%=order.tracking_id%> </p>
                 <input id="hiddenInput" type="hidden" value="<%= JSON.stringify(order) %> ">
             </div>
             <ul>
@@ -25,3 +25,4 @@
         </div>
     </div>
 </section>
+<%- include('../_layouts/footer') %>

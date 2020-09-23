@@ -1,5 +1,40 @@
 <%- include('../_layouts/sp_header') %>
-This is the list of your rider users
-
+<section class="category light-section">
+    <h2 class="font-bold text-lg mb-4 px-4">Our <%= user.company_name %> Riders</h2>
+    <div class="px-4">
+        <button type="button" class="add-category btn-primary text-white font-bold py-2 px-5 rounded"><a
+                href="/service_provider/add_category"><i class="las la-user-plus"></i> Add rider</a></button>
+    </div>
+    <% if (messages.success) { %>
+    <span class="text-green-500 text-sm"><%= messages.success %> </span>
+    <% } %>
+    <% if (messages.error) { %>
+    <span class="text-red-500 text-sm"><%= messages.error %> </span>
+    <% } %>
+    <div class="container mx-auto pt-12">
+        <table class="w-full table-auto bg-white">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-4 py-2 text-left"><%= user.company_name %> Riders</th>
+                    <th class="border px-4 py-2 text-left">Edit Category</th>
+                    <th class="border px-4 py-2 text-left">Delete Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% riders.forEach(function(rider){ %>
+                <tr>
+                    <td class="border px-4 py-2 text-left"><%= rider.name %></td>
+                    <td class="border px-4 py-2 text-left"><a
+                            href="/service_provider/edit_category/<%= rider._id %>">Edit</a>
+                    </td>
+                    <td class="border px-4 py-2 text-left"><a id="confirmDeletion" class="confirmDeletion"
+                            href="/service_provider/delete_category/<%= rider._id %>">Delete</a></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</section>
 </body>
+
 </html>

@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (dataProp === order.status) {
                 stepCompleted = false
-                time.innerText = moment(order.updatedAt).format('hh:mm A')
+                time.innerText = moment(order.updatedAt).format('ddd MMM Do, hh:mm A')
                 status.appendChild(time)
                 if (status.nextElementSibling) {
                     status.nextElementSibling.classList.add('current')
@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).show();
     })
 
-    
+
+
 });
 

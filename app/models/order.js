@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
+    tracking_id: {
+        type: String,
+        required: true,
+        default: '0000 - 00000 - 0000'
+    },
     supplier_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

@@ -1,3 +1,4 @@
+<%- include('../_layouts/sup_header') %>
 <section class="orders light-section">
     <div class="container mx-auto pt-12">
         <h1 class="font-bold text-lg mb-4">Your Orders</h1>
@@ -15,6 +16,7 @@
             <thead>
                 <tr>
                     <th class="px-4 py-2 text-left">Orders</th>
+                    <th class="px-4 py-2 text-left">Tracking Number</th>
                     <th class="px-4 py-2 text-left">Phone</th>
                     <th class="px-4 py-2 text-left">Pickup Address</th>
                     <th class="px-4 py-2 text-left">Dropoff Address</th>
@@ -27,11 +29,12 @@
                     <td class="border px-4 py-2">
                         <a class="link" href="/supplier/orders/<%=order._id%>"><%=order._id%></a>
                     </td>
+                    <td class=" border px-4 py-2"><%=order.tracking_id%></td>
                     <td class=" border px-4 py-2"><%=order.phone%></td>
                     <td class="border px-4 py-2"><%=order.pickup_address%></td>
                     <td class="border px-4 py-2"><%=order.dropoff_address%></td>
                     <td class="border px-4 py-2">
-                        <%=moment(order.createdAt).format('hh:mm A')%>
+                        <%=moment(order.createdAt).format('MMM Do, hh:mm A')%>
                     </td>
                 </tr>
                 <% }) %> <% } else { %>
@@ -43,3 +46,4 @@
         </table>
     </div>
 </section>
+<%- include('../_layouts/footer') %>

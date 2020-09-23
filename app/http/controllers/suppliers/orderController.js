@@ -1,5 +1,7 @@
 const Order = require('../../../models/order');
 const moment = require('moment');
+const orderid = require('order-id')('mysecret');
+const id = orderid.generate();
 
 function orderController() {
   return {
@@ -15,6 +17,7 @@ function orderController() {
         return res.redirect('/parcel');
       }
       const order = new Order({
+        tracking_id: id,
         supplier_id: req.user._id,
         name: req.user.name,
         company_name: req.user.company_name,

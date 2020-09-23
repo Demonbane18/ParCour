@@ -1,3 +1,4 @@
+<%- include('../_layouts/sup_header') %>
 <section class="parcel py-16">
     <% if (session.order) {%>
     <div class="order-container mx-auto w-1/2">
@@ -35,9 +36,9 @@
                     <span class="text-red-500 text-sm p-2 w-1/2 mb-4"><%= messages.error %> </span>
                     <% } %>
                     <input id="phone" name="phone" maxlength="12" class="border border-gray-400 p-2 w-1/2 mb-4"
-                        type="phone" placeholder="Phone Number(+63)">
+                        type="phone" placeholder="Phone Number(+63)" value="<%= user.phone %>">
                     <input id="pickup_address" name="pickup_address" class="border border-gray-400 p-2 w-1/2 mb-4"
-                        type="text" placeholder="Pickup Address">
+                        type="text" placeholder="Pickup Address" value="<%= user.address %> ">
                     <input id="dropoff_address" name="dropoff_address" class="border border-gray-400 p-2 w-1/2"
                         type="text" placeholder="Dropoff Address">
                     <div>
@@ -57,7 +58,7 @@
     <div class="empty-parcel py-16">
         <div class="container mx-auto text-center">
             <h1 class="text-3xl font-bold mb-2">You got no parcel on cart 😕</h1>
-            <p class="text-gray-500; text-lg mb-12">You probably haven't booked a parcel or you've already booked one. <br>
+            <p class="text-gray-500; text-lg mb-12">You probably haven't booked a parcel yet or you've already booked one. <br>
                 To book a delivery, go to the main page.</p>
             <img class="w-2/5 mx-auto" src="/img/empty-cart.png" alt="empty-cart">
             <a href="/" class="inline-block px-6 py-2 rounded-full btn-primary text-white font-bold mt-12">Go back</a>
@@ -65,3 +66,4 @@
     </div>
     <% } %>
 </section>
+<%- include('../_layouts/footer') %>

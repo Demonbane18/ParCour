@@ -25,7 +25,7 @@ export function initSP(socket) {
         let parsedItems = Object.values(items)
         return parsedItems.map((menuItem) => {
             return `
-                <p>${ menuItem.info.vehicle_type } - ${ menuItem.qty } vehicles </p>
+                <p>${ menuItem.info.vehicle_type } - ${ menuItem.qty } vehicle/s </p>
             `
         }).join('')
     }
@@ -82,7 +82,7 @@ export function initSP(socket) {
         </div>
     </td>
     <td class="border px-4 py-2">
-        ${ moment(order.createdAt).format('hh:mm A') }
+        ${ moment(order.createdAt).format('ddd MMM Do, hh:mm A') }
     </td>
 </tr>
         `
