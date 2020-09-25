@@ -6,7 +6,7 @@
 </div>
 <br><br>
 
-<form method="POST" action="/service_provider/add_category">
+<form method="POST" action="/service_provider/add_category" id="addCategoryForm">
      <% if (messages.error) { %>
      <span class="text-red-500 text-sm"><%= messages.error %> </span>
      <% } %>
@@ -38,8 +38,8 @@
             id="price" name="price" value="<%= messages.price %>" placeholder="Input a base price ">
     </div>
     <div class="px-4 py-2">
-        <button
-            class="btn-primary rounded-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        <button id="addCategory"
+            class="btn-primary rounded-full text-white font-bold block py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit">
             Add Category
         </button>

@@ -1,6 +1,5 @@
 const Parcel = require("../../models/parcel");
 const ServiceProvider = require("../../models/service_provider");
-const selectCategory = require("../../models/select_category");
 
 function homeController() {
   return {

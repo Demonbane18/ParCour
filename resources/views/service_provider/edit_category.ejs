@@ -1,7 +1,7 @@
 <%- include('../_layouts/sp_header') %>
 <h2 class="font-bold text-lg mb-4 px-4">Edit a Category</h2>
 <div class="px-4">
-    <button type="button" class="add-category btn-primary text-white font-bold py-2 px-5 rounded"><a
+    <button type="button" class="add-category btn-primary text-white block font-bold py-2 px-5 rounded"><a
             href="/service_provider/category">Back to all Categories</a></button>
 </div>
 <br><br>
@@ -41,13 +41,26 @@
                     id="price" name="price" value="<%= price %>" placeholder="Input a base price ">
             </div>
             <div class="px-4 py-2">
-                <button
+                <button id="editCategory"
                     class="btn-primary rounded-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="submit">
                     Edit
                 </button>
             </div>
         </form>
+        <% if (categoryEdited) { %>
+        <script>
+            Swal.fire({
+                timer: 1500,
+                showConfirmButton: false,
+                title: 'Category Edited',
+                text: 'Category has been edited successfully!',
+                type: 'success',
+                icon: 'success'
+            })
+        </script>
+
+        <% } %>
     </div>
 </div>
 </body>

@@ -1,16 +1,26 @@
 const Parcel = require("../../../models/parcel");
+const Swal = require('sweetalert2')
 function categoryController() {
     return {
         async index(req, res) {
-            const parcels = await Parcel.find()
+            const categoryAdded = req.session.categoryadded;
+            req.session.categoryadded = null;
+            const service_provider = req.user.company_name;
+
+            const parcels = await Parcel.find({
+                service_provider: service_provider
+            })
             //render parcel data
             return res.render('service_provider/category', {
-                parcels: parcels
+                parcels: parcels,
+                    categoryAdded
             })
         }, 
+        //index of add category
         addCategory(req,res) {
              return res.render('service_provider/add_category')
              },
+        //POST button submit store new category
         async store(req, res) {
             const {
                 vehicle_type,
@@ -53,7 +63,7 @@ function categoryController() {
                  .save()
                  .then((parcel) => {
                      //redirect back to parcel list*
-
+                     req.session.categoryadded = true;
                      return res.redirect('/service_provider/category');
                  })
                  .catch((err) => {
@@ -63,7 +73,10 @@ function categoryController() {
 
 
         },
+        //index edit category
          editCategory(req, res) {
+            const categoryEdited = req.session.categoryedited;
+            req.session.categoryedited = null;
             Parcel.findById(req.params.id, (err, parcel) => {
                 if (err)
                     return console.log(err);
@@ -73,7 +86,8 @@ function categoryController() {
                     vehicle_type: parcel.vehicle_type,
                     image: parcel.image,
                     weight: parcel.weight,
-                    price: parcel.price
+                    price: parcel.price,
+                        categoryEdited
                 });
             });
    
@@ -135,6 +149,7 @@ function categoryController() {
                          .then((parcel) => {
                              //redirect back to parcel list*
                              req.flash('success', 'Category edited!');
+                             req.session.categoryedited = true;
                              return res.redirect('/service_provider/edit_category/' + id);
                          })
                          .catch((err) => {

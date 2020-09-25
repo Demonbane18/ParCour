@@ -112,7 +112,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }).show();
     })
 
+    //delete category dialog box
+    let deleteCategory = document.querySelectorAll('#deleteCategory');
+    deleteCategory.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            let parcel = JSON.parse(btn.dataset.delete);
+            console.log(parcel)
+            sweetalert(parcel);
+        });
+    });
+
+    function sweetalert(parcel) {
+        Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it'
+            }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            timer: 1000,
+                            showConfirmButton: false,
+                            title: 'Category Deleted',
+                            text: 'This category has been successfully deleted!',
+                            type: 'success',
+                            icon: 'success'
+                        })
+                        setTimeout(() => {
+                            document.location.href = "/service_provider/delete_category/" + parcel._id;
+                        }, 1500)
 
 
+            }
+            })
+
+            }
 });
 

@@ -25,10 +25,10 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
                     Phone Number
                 </label>
-                <input pattern="(\+?\d{2}?\s?\d{3}\s?\d{3}\s?\d{4})|([0]\d{3}\s?\d{3}\s?\d{4})" maxlength="20"
+                <input pattern="[0-9]+" maxlength="11"
                     onKeyPress="if(this.value.length==11) return false;" name="phone" value="<%= messages.phone %>"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="phone" type="text" placeholder="Enter your phone number">
+                    id="phone" type="text" placeholder="ex. 09XXXXXXXXX">
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
@@ -44,13 +44,13 @@
                 </label>
                 <input name="email" value="<%= messages.email %>" maxlength="64"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="email" type="email" placeholder="Enter your email">
+                    id="email" type="email" placeholder="ex. test@gmail.com">
             </div>
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
                     Password
                 </label>
-                <input name="password" minlength="8" maxlength="20"
+                <input name="password" pattern="[a-zA-Z0-9]+" minlength="8" maxlength="20"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="password" type="password" placeholder="******************">
             </div>
