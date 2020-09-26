@@ -9,6 +9,7 @@ function orderController() {
       //Validate request
       const {
         phone,
+        service_provider,
         pickup_address,
         dropoff_address
       } = req.body;
@@ -18,6 +19,7 @@ function orderController() {
       }
       const order = new Order({
         tracking_id: id,
+        service_provider,
         supplier_id: req.user._id,
         name: req.user.name,
         company_name: req.user.company_name,

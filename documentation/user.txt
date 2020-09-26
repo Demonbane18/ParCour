@@ -1,6 +1,8 @@
 Suppliers
-butterncreamz@gmail.com
+
+jionavarro@gmail.com
 paul1234
+
 
 Service Providers
 Name: John Doe
@@ -8,6 +10,13 @@ Company: MrSpeedy
 Phone:09285553519
 Address: China Bank Building8745, Paseo De Roxas Corner Villar Street,Salcedo Village 1226
 butterncreamz1@gmail.com
+test1234
+
+Name: Testing Service
+Company: LEX PH
+Phone: 09295525399
+Address: Test Address
+parcour@gmail.com
 test1234
 
 

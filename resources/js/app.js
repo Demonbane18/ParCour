@@ -148,7 +148,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             }
             })
-
             }
+
+             //add dashes automatically on the track number
+             const track = document.getElementById('track');
+
+             track.addEventListener("keydown", (e) => {
+                         if (e.key === "Backspace" || e.key === "Delete") return;
+                         if (e.target.value.length === 4) {
+                             track.value = track.value + "-";
+                         }
+                         if (e.target.value.length === 11) {
+                             track.value = track.value + "-";
+                 }
+             })
 });
 

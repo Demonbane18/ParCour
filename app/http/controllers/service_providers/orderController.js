@@ -8,7 +8,8 @@ function orderController() {
             order.find({
                 status: {
                     $ne: 'completed'
-                }
+                },
+                service_provider: req.user.company_name
             }, null, {
                 sort: {
                     'createdAt': -1

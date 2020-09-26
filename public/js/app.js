@@ -26638,7 +26638,21 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 1500);
       }
     });
-  }
+  } //add dashes automatically on the track number
+
+
+  var track = document.getElementById('track');
+  track.addEventListener("keydown", function (e) {
+    if (e.key === "Backspace" || e.key === "Delete") return;
+
+    if (e.target.value.length === 4) {
+      track.value = track.value + "-";
+    }
+
+    if (e.target.value.length === 11) {
+      track.value = track.value + "-";
+    }
+  });
 });
 
 /***/ }),
