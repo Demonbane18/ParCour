@@ -45,8 +45,10 @@ function initRoutes(app) {
     app.post('/service_provider/edit_category/:id', service_provider, SPcategoryController().edit)
     app.get('/service_provider/delete_category/:id', service_provider, SPcategoryController().delete)
 
-    //riders
+    //riders -> SP
     app.get('/service_provider/riders', service_provider, SPriderController().index)
+    app.get('/service_provider/add_rider', service_provider, SPriderController().addRider)
+    app.post('/service_provider/add_rider', service_provider, SPriderController().store)
 
 
     //status

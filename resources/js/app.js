@@ -5,9 +5,8 @@ import moment from 'moment';
 //prettier-ignore
 import {
     initSP
-} from './service_provider';
-
-
+}
+from './service_provider';
 console.log('hello from app.js');
 document.addEventListener('DOMContentLoaded', () => {
     let addToParcel = document.querySelectorAll('#add-to-parcel');
@@ -162,5 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
                              track.value = track.value + "-";
                  }
              })
+
+
 });
 

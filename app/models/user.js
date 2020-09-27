@@ -13,7 +13,6 @@ const userSchema = new Schema({
     phone: {
         type: Number,
         required: true,
-        unique: true,
     },
     address: {
         type: String,
@@ -21,8 +20,8 @@ const userSchema = new Schema({
     },
     email: {
         type: String,
-        required: true,
-        unique: true,
+        required: true
+
     },
     password: {
         type: String,

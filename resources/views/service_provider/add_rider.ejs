@@ -1,4 +1,144 @@
 <%- include('../_layouts/sp_header') %>
+<h2 class="font-bold text-lg mb-4 px-4">Add a Rider</h2>
+<div class="px-4">
+    <button type="button" class="add-category btn-primary text-white focus:outline-none font-bold py-2 px-5 rounded"><a
+            class="block"
+            href="/service_provider/category">Back to Riders</a></button>
+</div>
+<br><br>
 
+<form name="addRider" method="POST" action="/service_provider/add_rider" id="addRiderForm"
+    onsubmit="return genderValidate()">
+    <% if (messages.error) { %>
+    <span class="text-red-500 text-sm"><%= messages.error %> </span>
+    <% } %>
+    <div class="form-group p-4">
+        <label for="">Name</label>
+        <input type="text" maxlength="20"
+            class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="name" name="name" value="<%= messages.name %>" placeholder="Input Rider's name">
+    </div>
+
+    <div class="form-group p-4">
+        <label for="">License Number</label>
+        <input name="license" pattern="[- +()0-9+()A-Z]+" maxlength="13" class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight
+            focus:outline-none focus:shadow-outline" id="license" type="text" placeholder="ex. D0100011110">
+    </div>
+
+    <div class="form-group p-4">
+        <label for="">Age</label>
+        <input type="number" maxlength="2" onKeyPress="if(this.value.length==2) return false;"
+            class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="age" name="age" value="<%= messages.age %>" placeholder="Input Rider's age">
+    </div>
+
+    <div class="form-group p-4">
+        <% if (messages.gender) { %>
+        <span class="text-red-500 text-sm"><%= messages.gender %> </span>
+        <% } %>
+        <label for="">Gender</label>
+        <div id="gender" class="form-control block">
+            <input class="px-2 ml-2" type="radio" name="gender" value="Male"> Male</input>
+            <input class="px-2 ml-2" type="radio" name="gender" value="Female"> Female</input>
+            <input class="px-2 ml-2" type="radio" name="gender" value="Other"> Other</input>
+        </div>
+    </div>
+
+    <div class="form-group p-4">
+        <label for="">Image</label>
+        <input type="text" maxlength="10"
+            class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="image" name="image" value="<%= messages.image %>" placeholder="Input image file">
+    </div>
+
+    <div class="form-group p-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
+            Phone Number
+        </label>
+        <input pattern="[0-9]+" maxlength="11" onKeyPress="if(this.value.length==11) return false;" name="phone"
+            value="<%= messages.phone %>" class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3
+                                text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone"
+            type="text" placeholder="ex. 09XXXXXXXXX">
+    </div>
+
+    <div class="form-group p-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
+            Address
+        </label>
+        <input name="address" value="<%= messages.address %>" maxlength="20" class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight
+            focus:outline-none focus:shadow-outline" id="address" type="text" placeholder="Enter your address">
+    </div>
+    <div class="form-group p-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+            Email
+        </label>
+        <input name="email" value="<%= messages.email %>" maxlength="64" class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight
+            focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="ex. test@gmail.com">
+    </div>
+    <div class="form-group p-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+            Password
+        </label>
+        <input name="password" pattern="[a-zA-Z0-9]+" minlength="8" maxlength="20" class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight
+            focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************">
+    </div>
+    <div class="form-group p-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+            Confirm your Password
+        </label>
+        <input name="confirm_password" minlength="8" maxlength="20" class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight
+            focus:outline-none focus:shadow-outline" id="confirm_password" type="password"
+            placeholder="******************">
+    </div>
+    <div class="px-4 py-2">
+        <button id="addRider"
+            class="btn-primary rounded-full text-white font-bold block py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit">
+            Add Rider
+        </button>
+    </div>
+    </form>
+    <script>
+        const license = document.getElementById('license');
+        license.addEventListener("keydown", (e) => {
+            if (e.key === "Backspace" || e.key === "Delete") return;
+            if (e.target.value.length === 3) {
+                license.value = license.value + "-";
+            }
+            if (e.target.value.length === 7) {
+                license.value = license.value + "-";
+            }
+        })
+
+    </script>
+
+    <script>
+        function genderValidate() {
+            var valid = false;
+            var x = document.addRider.gender;
+
+            for (var i = 0; i < x.length; i++) {
+                if (x[i].checked) {
+                    valid = true;
+                    break;
+                }
+            }
+            if (valid) {
+
+            } else {
+                Swal.fire({
+                        timer: 1500,
+                        showConfirmButton: false,
+                        title: 'Gender not Selected',
+                        text: 'Please select a gender',
+                        type: 'error',
+                        icon: 'error'
+                    })
+                }
+            }
+    </script>
+<script>
+    let gender = document.querySelector('input[name="gender"]:checked').value;
+</script>
 </body>
 </html>

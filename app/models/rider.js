@@ -10,6 +10,11 @@ const riderSchema = new Schema({
         type: String,
         required: true,
     },
+    license: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     age: {
         type: Number,
         required: true,
