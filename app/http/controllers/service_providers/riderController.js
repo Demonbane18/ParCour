@@ -141,7 +141,7 @@ function riderController() {
                         });
                     },
                     //index edit rider
-                    editCategory(req, res) {
+                    editRider(req, res) {
                             const riderEdited = req.session.rideredited;
                             req.session.rideredited = null;
                             Rider.findById(req.params.id, (err, rider) => {
@@ -199,7 +199,7 @@ function riderController() {
                                          req.flash('image', image);
                                          req.flash('phone', phone);
                                          req.flash('address', address);
-                                        return res.redirect('/service_provider/edit_category/' + id);
+                                        return res.redirect('/service_provider/edit_rider/' + id);
 
                                     } else {
                                         Rider.findById(id, (err, rider) => {
@@ -239,7 +239,36 @@ function riderController() {
 
                                     }
                                 })
-                    }
+                    },
+
+                    //delete rider
+                    async delete(req,res) {
+                        const rider = await Rider.findById(req.params.id)
+                        
+                        User.findOneAndDelete({
+                                name: rider.name
+                            },(err) => {
+                                if (err){
+                                return console.log(err);
+                            }
+                            });
+                        Rider.findByIdAndRemove(req.params.id, (err) => {
+                            if (err){
+                                return console.log(err);
+                            }
+                            Rider.find((err, riders) => {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    req.app.locals.riders = riders;
+                                }
+                            });
+
+                            return res.redirect('/service_provider/riders');
+                        });
+
+
+         }
                     
 
 }

@@ -49,6 +49,9 @@ function initRoutes(app) {
     app.get('/service_provider/riders', service_provider, SPriderController().index)
     app.get('/service_provider/add_rider', service_provider, SPriderController().addRider)
     app.post('/service_provider/add_rider', service_provider, SPriderController().store)
+    app.get('/service_provider/edit_rider/:id', service_provider, SPriderController().editRider)
+    app.post('/service_provider/edit_rider/:id', service_provider, SPriderController().edit)
+    app.get('/service_provider/delete_rider/:id', service_provider, SPriderController().delete)
 
 
     //status
