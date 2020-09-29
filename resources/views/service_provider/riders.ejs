@@ -1,6 +1,6 @@
 <%- include('../_layouts/sp_header') %>
-<section class="rider light-section">
-    <h2 class="font-bold text-lg mb-4 px-4">Our <%= user.company_name %> Riders</h2>
+<section id="move-content" class="riders light-section">
+    <h2 class="font-bold text-lg pt-8 mb-4 px-4">Our <%= user.company_name %> Riders</h2>
     <div class="px-4">
         <button type="button"
             class="add-rider btn-primary text-white focus:outline-none font-bold py-2 px-5 rounded"><a
@@ -12,7 +12,7 @@
     <% if (messages.error) { %>
     <span class="text-red-500 text-sm"><%= messages.error %> </span>
     <% } %>
-    <div class="container mx-auto pt-12 flex justify-center">
+    <div class="container mx-auto pt-12 flex justify-center fixed">
         <table class="w-1/2 table-auto bg-white">
             <thead>
                 <tr class="bg-gray-100">

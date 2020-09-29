@@ -335,7 +335,7 @@ html {
   width: 100%;
   height: 100%;
   /* CSS Smooth Scroll */
-  overflow-y: scroll;
+  overflow-y: auto;
   scroll-behavior: smooth;
   -ms-scroll-snap-type: y mandatory;
       scroll-snap-type: y mandatory;
@@ -428,12 +428,45 @@ section.status {
 
 section.orders {
   background: #F8F8F8;
-  overflow-x: scroll;
-  white-space: nowrap;
   min-height: calc(100vh - 86px);
 }
 
-section.orders section.category {
+section.vehicles {
+  background: #F8F8F8;
+  min-height: calc(100vh - 86px);
+}
+
+section.riders {
+  background: #F8F8F8;
+  min-height: calc(100vh - 86px);
+}
+
+section.addcategory {
+  background: #F8F8F8;
+  min-height: calc(100vh - 86px);
+}
+
+section.editcategory {
+  background: #F8F8F8;
+  min-height: calc(100vh - 86px);
+}
+
+section.addrider {
+  background: #F8F8F8;
+  min-height: calc(100vh - 86px);
+}
+
+section.editrider {
+  background: #F8F8F8;
+  min-height: calc(100vh - 86px);
+}
+
+.tableorder {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+section.category {
   background: #F8F8F8;
   white-space: nowrap;
   min-height: calc(100vh - 86px);
@@ -551,5 +584,67 @@ section.orders section.category {
   float: right;
   font-size: 14px;
   margin-top: 8px;
+}
+
+.sidebar {
+  transition: 0.5s;
+}
+
+#options-menu:hover {
+  color: #F32B2B;
+}
+
+#move-content {
+  transition: margin-left 0.5s;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #232323;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+
+.sidebar a:hover {
+  color: #F32B2B;
+}
+
+/* Position and style the close button (top right corner) */
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* The button used to open the sidebar */
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #fff;
+  color: #232323;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  color: #F32B2B;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar {
+    padding-top: 15px;
+  }
+
+  .sidebar a {
+    font-size: 18px;
+  }
 }
 

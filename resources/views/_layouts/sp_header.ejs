@@ -46,10 +46,10 @@
 
 <body>
     <nav class="container mx-auto flex items-center justify-between py-4">
-        <div>
-            <a href="\"><img class="h-10 mb-2 mx-auto" src="/img/logo.png" alt="logo" /></a>
-
-        </div>
+        <div id="main">
+            <a href="\"><img class="h-10 inline-block pr-2" src="/img/logo.png" alt="logo" /></a>
+            <button id="openbtn" class="openbtn align-left" onclick="openNav()">&#9776;</button>
+            </div>
         <div>
             <ul class="flex items-center">
                 <li class="ml-6"><a href="/">Menu</a></li>
@@ -62,7 +62,10 @@
                         <div>
                             <span class="rounded-md shadow-sm">
                                 <button type="button"
-                                    class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150"
+                                    class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2
+                                    bg-white text-sm leading-5 font-medium text-gray-700 focus:outline-none
+                                    focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50
+                                    active:text-gray-800 transition ease-in-out duration-150"
                                     id="options-menu" aria-haspopup="true" aria-expanded="true">
                                     Options
                                     <!-- Heroicon name: chevron-down -->
@@ -82,15 +85,6 @@
                                             <a href="#"
                                                 class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                                                 role="menuitem">Account settings</a>
-                                            <a href="/service_provider/riders"
-                                                class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                                                role="menuitem">Riders</a>
-                                            <a href="#"
-                                                class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                                                role="menuitem">Vehicles</a>
-                                             <a href="/service_provider/category"
-                                                 class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
-                                                 role="menuitem">Categories</a>
                                             <form id="logout" method="POST" action="/logout">
                                                 <button type="submit"
                                                     class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
@@ -110,5 +104,27 @@
 
                 </li>
             </ul>
+            <script>
+                /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
+                function openNav() {
+                    document.getElementById("mySidebar").style.width = "250px";
+                    document.getElementById("move-content").style.marginLeft = "250px";
+                    document.getElementById("openbtn").setAttribute("onclick", "closeNav()")
+
+                }
+
+                /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+                function closeNav() {
+                    document.getElementById("mySidebar").style.width = "0";
+                    document.getElementById("move-content").style.marginLeft = "0";
+                    document.getElementById("openbtn").setAttribute("onclick", "openNav()")
+                }
+            </script>
         </div>
     </nav>
+     <div id="mySidebar" class="sidebar bg-white h-full w-0 fixed z-1 top-0 left-0 overflow-hidden pt-12 mt-24">
+         <a class="inline-block" href="/service_provider/orders"> Orders</a>
+         <a href="/service_provider/riders"> Riders</a>
+         <a href="/service_provider/category"> Categories</a>
+         <a href="/service_provider/vehicles"> Vehicles</a>
+     </div>

@@ -6,6 +6,8 @@ const SPorderController = require('../app/http/controllers/service_providers/ord
 const StatusController = require('../app/http/controllers/service_providers/statusController')
 const SPriderController = require('../app/http/controllers/service_providers/riderController')
 const SPcategoryController = require('../app/http/controllers/service_providers/categoryController')
+const vehicleController = require('../app/http/controllers/service_providers/vehicleController')
+
 
 //Middleware
 const guest = require('../app/http/middlewares/guest')
@@ -53,9 +55,14 @@ function initRoutes(app) {
     app.post('/service_provider/edit_rider/:id', service_provider, SPriderController().edit)
     app.get('/service_provider/delete_rider/:id', service_provider, SPriderController().delete)
 
+    //Vehicles
+    app.get('/service_provider/vehicles', service_provider, vehicleController().index)
+
 
     //status
     app.post('/service_provider/order/status', service_provider, StatusController().update)
+
+    
 
 }
 

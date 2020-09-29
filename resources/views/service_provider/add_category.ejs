@@ -1,50 +1,54 @@
 <%- include('../_layouts/sp_header') %>
-<h2 class="font-bold text-lg mb-4 px-4">Add a Category</h2>
-<div class="px-4">
-    <button type="button" class="add-category btn-primary focus:outline-none text-white font-bold py-2 px-5 rounded"><a
-            class="block"
-            href="/service_provider/category">Back to all Categories</a></button>
-</div>
-<br><br>
+<section id="move-content" class="addcategory">
+    <h2 class="font-bold text-lg mb-4 px-4">Add a Category</h2>
+    <div class="px-4">
+        <button type="button"
+            class="add-category btn-primary focus:outline-none text-white font-bold py-2 px-5 rounded"><a class="block"
+                href="/service_provider/category">Back to all Categories</a></button>
+    </div>
+    <br><br>
 
-<form method="POST" action="/service_provider/add_category" id="addCategoryForm">
-     <% if (messages.error) { %>
-     <span class="text-red-500 text-sm"><%= messages.error %> </span>
-     <% } %>
-    <div class="form-group p-4">
-        <label for="">Vehicle Type</label>
-        <input type="text" maxlength="20"
-            class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-             id="vehicle_type" name="vehicle_type" value="<%= messages.vehicle_type %>" placeholder="Input a vehicle type ">
-    </div>
-    <div class="form-group p-4">
-        <label for="">Image</label>
-        <input type="text" maxlength="10"
-            class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="image" name="image" value="<%= messages.image %>" placeholder="Input image file">
-    </div>
-    <div class="form-group mb-4 p-4">
-        <label for="">Weight (kg)</label>
-        <input type="number" min="0" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==5) return false;" oninput="this.value = 
+    <form method="POST" action="/service_provider/add_category" id="addCategoryForm">
+        <% if (messages.error) { %>
+        <span class="text-red-500 text-sm"><%= messages.error %> </span>
+        <% } %>
+        <div class="form-group p-4">
+            <label for="">Vehicle Type</label>
+            <input type="text" maxlength="20"
+                class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="vehicle_type" name="vehicle_type" value="<%= messages.vehicle_type %>"
+                placeholder="Input a vehicle type ">
+        </div>
+        <div class="form-group p-4">
+            <label for="">Image</label>
+            <input type="text" maxlength="10"
+                class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="image" name="image" value="<%= messages.image %>" placeholder="Input image file">
+        </div>
+        <div class="form-group mb-4 p-4">
+            <label for="">Weight (kg)</label>
+            <input type="number" min="0" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==5) return false;"
+                oninput="this.value = 
  !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
-            class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="weight" name="weight" value="<%= messages.weight %>" placeholder="Input a weight (in kg) ">
-    </div>
-    <div class="form-group mb-4 p-4">
-        <label for="">Price</label>
-        <input type="number" min="0" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==9) return false;"
-            oninput="this.value = 
+                class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="weight" name="weight" value="<%= messages.weight %>" placeholder="Input a weight (in kg) ">
+        </div>
+        <div class="form-group mb-4 p-4">
+            <label for="">Price</label>
+            <input type="number" min="0" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==9) return false;"
+                oninput="this.value = 
  !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
-            class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="price" name="price" value="<%= messages.price %>" placeholder="Input a base price ">
-    </div>
-    <div class="px-4 py-2">
-        <button id="addCategory"
-            class="btn-primary rounded-full text-white font-bold block py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit">
-            Add Category
-        </button>
-    </div>
-</form>
+                class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="price" name="price" value="<%= messages.price %>" placeholder="Input a base price ">
+        </div>
+        <div class="px-4 py-2">
+            <button id="addCategory"
+                class="btn-primary rounded-full text-white font-bold block py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">
+                Add Category
+            </button>
+        </div>
+    </form>
+</section>
 </body>
 </html>
