@@ -26745,8 +26745,8 @@ function initSP(socket) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Mega files\Software Engineering\ParCour\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Mega files\Software Engineering\ParCour\resources\scss\app.scss */"./resources/scss/app.scss");
+__webpack_require__(/*! C:\Users\Hp\Documents\GitHub\ParCour\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Hp\Documents\GitHub\ParCour\resources\scss\app.scss */"./resources/scss/app.scss");
 
 
 /***/ })
