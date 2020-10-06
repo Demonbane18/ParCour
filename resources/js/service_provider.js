@@ -6,13 +6,7 @@ import Noty from 'noty';
 export function initSP(socket) {
   const orderTableBody = document.querySelector('#orderTableBody');
   const orderTableBodyCompleted = document.querySelector('#orderTableBodycomp');
-  const orderTableBodyCancelled = document.querySelector(
-    
-    
-    '#orderTableBodyCancelled'
-  
-  
-  );
+  const orderTableBodyCancelled = document.querySelector('#orderTableBodyCancelled');
   let orders = [];
   let completed_orders = [];
   let cancelled_orders = [];
