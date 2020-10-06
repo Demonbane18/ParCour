@@ -1,7 +1,7 @@
 <%- include('../_layouts/sp_header') %>
 <section id="move-content" class="orders light-section">
     <div class="container mx-auto pt-12 px-4">
-        <h1 class="font-bold text-lg mb-4"> All orders</h1>
+        <h1 class="font-bold text-lg mb-4"> Pending orders</h1>
         <div class="tableorder">
             <table class=" w-full table-auto bg-white">
                 <thead>
@@ -19,8 +19,17 @@
                 <tbody id="orderTableBody">
                 </tbody>
             </table>
+              </div>
+        <div class="px-4 py-2 flex">
+        <button type="button" class="completed-orders btn-primary text-white font-bold py-2 px-5 rounded"><a class="block"
+                href="/service_provider/completed_orders"><i class="las la-list-alt"></i> Completed Orders</a></button>
+        <button type="button" class="cancelled-orders btn-primary text-white font-bold py-2 ml-4 px-5 rounded"><a class="block"
+                href="/service_provider/cancelled_orders"><i class="las la-times-circle"></i> Cancelled Orders</a></button>
         </div>
-    </div>
+
+
+        </div>
+  
 </section>
 </body>
 </html>

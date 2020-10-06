@@ -26681,18 +26681,50 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function initSP(socket) {
   var orderTableBody = document.querySelector('#orderTableBody');
+  var orderTableBodyCompleted = document.querySelector('#orderTableBodycomp');
+  var orderTableBodyCancelled = document.querySelector('#orderTableBodyCancelled');
   var orders = [];
-  var markup; //http request
+  var completed_orders = [];
+  var cancelled_orders = [];
+  var markup;
+  var completed_markup;
+  var cancelled_markup; //http request
 
   axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/service_provider/orders', {
     headers: {
-      "X-Requested-With": 'XMLHttpRequest'
+      'X-Requested-With': 'XMLHttpRequest'
     }
   }).then(function (res) {
     orders = res.data; //return html in form of array
 
     markup = generateMarkup(orders);
     orderTableBody.innerHTML = markup;
+  })["catch"](function (err) {
+    console.log(err);
+  }); //prettier-ignore
+
+  axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/service_provider/completed_orders', {
+    headers: {
+      "X-Requested-With": 'XMLHttpRequest'
+    }
+  }).then(function (res) {
+    completed_orders = res.data; //return html in form of array
+
+    completed_markup = generateMarkup(completed_orders);
+    orderTableBodyCompleted.innerHTML = completed_markup;
+  })["catch"](function (err) {
+    console.log(err);
+  }); //prettier-ignore
+
+  axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/service_provider/cancelled_orders', {
+    headers: {
+      "X-Requested-With": 'XMLHttpRequest'
+    }
+  }).then(function (res) {
+    cancelled_orders = res.data; //return html in form of array
+
+    cancelled_markup = generateMarkup(cancelled_orders);
+    orderTableBodyCancelled.innerHTML = cancelled_markup;
   })["catch"](function (err) {
     console.log(err);
   }); // prettier-ignore

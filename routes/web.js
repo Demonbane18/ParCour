@@ -35,8 +35,12 @@ function initRoutes(app) {
     app.get('/supplier/orders/:_id', auth, orderController().show)
 
     //service provider routes
+    //Orders
     app.get('/service_provider/orders', service_provider, SPorderController().index)
+    app.get('/service_provider/completed_orders', service_provider, SPorderController().complete)
+    app.get('/service_provider/cancelled_orders', service_provider, SPorderController().cancel)
 
+    //Riders
     app.get('/service_provider/riders', service_provider, SPriderController().index)
 
     //category

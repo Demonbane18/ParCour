@@ -4,24 +4,68 @@ import Noty from 'noty';
 
 // prettier-ignore
 export function initSP(socket) {
-    const orderTableBody = document.querySelector('#orderTableBody')
-    let orders = []
-    let markup
-    //http request
-    axios.get('/service_provider/orders', {
-        headers: {
-            "X-Requested-With": 'XMLHttpRequest'
-        }
-    }).then(res => {
-        orders = res.data
-        //return html in form of array
-        markup = generateMarkup(orders)
-        orderTableBody.innerHTML = markup
-    }).catch(err => {
-        console.log(err)
+  const orderTableBody = document.querySelector('#orderTableBody');
+  const orderTableBodyCompleted = document.querySelector('#orderTableBodycomp');
+  const orderTableBodyCancelled = document.querySelector(
+    
+    
+    '#orderTableBodyCancelled'
+  
+  
+  );
+  let orders = [];
+  let completed_orders = [];
+  let cancelled_orders = [];
+  let markup;
+  let completed_markup;
+  let cancelled_markup;
+  //http request
+  axios
+    .get('/service_provider/orders', {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
     })
-    // prettier-ignore
-    function renderItems(items) {
+    .then((res) => {
+      orders = res.data;
+      //return html in form of array
+      markup = generateMarkup(orders);
+      orderTableBody.innerHTML = markup;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  //prettier-ignore
+  axios.get('/service_provider/completed_orders', {
+         headers: {
+             "X-Requested-With": 'XMLHttpRequest'
+         }
+     }).then(res => {
+         completed_orders = res.data;
+         //return html in form of array
+       completed_markup = generateMarkup(completed_orders);
+       orderTableBodyCompleted.innerHTML = completed_markup;
+     }).catch(err => {
+         console.log(err)
+     })
+
+  //prettier-ignore
+  axios.get('/service_provider/cancelled_orders', {
+         headers: {
+             "X-Requested-With": 'XMLHttpRequest'
+         }
+     }).then(res => {
+         cancelled_orders = res.data;
+         //return html in form of array
+       cancelled_markup = generateMarkup(cancelled_orders);
+       orderTableBodyCancelled.innerHTML = cancelled_markup;
+     }).catch(err => {
+         console.log(err)
+     })
+
+  // prettier-ignore
+  function renderItems(items) {
         let parsedItems = Object.values(items)
         return parsedItems.map((menuItem) => {
             return `
@@ -30,9 +74,8 @@ export function initSP(socket) {
         }).join('')
     }
 
-
-    // prettier-ignore
-    function generateMarkup(orders) {
+  // prettier-ignore
+  function generateMarkup(orders) {
         return orders.map(order => {
             return `
                 <tr>
@@ -89,19 +132,17 @@ export function initSP(socket) {
         }).join('')
     }
 
-    //Socket
-    socket.on('parcelBooked', (order) => {
-        new Noty({
-            type: 'success',
-            timeout: 1000,
-            progressBar: false,
-            text: 'New Parcel added!',
-            progressBar: false
-
-        }).show();
-        orders.unshift(order)
-        orderTableBody.innerHTML = ''
-        orderTableBody.innerHTML = generateMarkup(orders)
-    })
-
+  //Socket
+  socket.on('parcelBooked', (order) => {
+    new Noty({
+      type: 'success',
+      timeout: 1000,
+      progressBar: false,
+      text: 'New Parcel added!',
+      progressBar: false,
+    }).show();
+    orders.unshift(order);
+    orderTableBody.innerHTML = '';
+    orderTableBody.innerHTML = generateMarkup(orders);
+  });
 }
