@@ -331,16 +331,6 @@ section.hero {
   background: #F8F8F8;
 }
 
-html {
-  width: 100%;
-  height: 100%;
-  /* CSS Smooth Scroll */
-  overflow-y: auto;
-  scroll-behavior: smooth;
-  -ms-scroll-snap-type: y mandatory;
-      scroll-snap-type: y mandatory;
-}
-
 .cover {
   left: 50px;
 }
@@ -645,6 +635,12 @@ section.category {
 
   .sidebar a {
     font-size: 18px;
+  }
+}
+
+@media (max-width: 1060px) {
+  .container {
+    max-width: 90%;
   }
 }
 

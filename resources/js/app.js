@@ -7,6 +7,7 @@ import {
     initSP
 }
 from './service_provider';
+
 console.log('hello from app.js');
 document.addEventListener('DOMContentLoaded', () => {
     let addToParcel = document.querySelectorAll('#add-to-parcel');
