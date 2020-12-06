@@ -14,7 +14,7 @@ const vehicleSchema = new Schema({
         type: String,
         required: true,
     },
-    model: {
+    car_model: {
         type: String,
         required: true,
     },
@@ -34,11 +34,7 @@ const vehicleSchema = new Schema({
     weight: {
         type: String,
         required: true,
-    },
-    price: {
-        type: Number,
-        required: true,
-    },
+    }
 }, {
     collection: 'vehicles'
 });

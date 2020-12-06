@@ -1,7 +1,80 @@
 .<%- include('../_layouts/sp_header') %>
-<section id="move-content" class="vehicles px-4">
-    this is you edit vehicles
+<section id="move-content" class="editvehicle px-4">
+    <h2 class="font-bold text-lg mb-4 px-4">Edit a Vehicle</h2>
+    <div class="px-4">
+        <button type="button" class="add-vehicle btn-primary text-white block font-bold py-2 px-5 rounded"><a
+                href="/service_provider/vehicles">Back to Vehicles</a></button>
+    </div>
+    <br><br>
+    <form method="POST" name="editVehicle" action="/service_provider/edit_vehicle/<%= id %>" id=" editVehicleForm">
+        <% if (messages.error) { %>
+        <span class="text-red-500 text-sm"><%= messages.error %> </span>
+        <% } %>
+        <div class="grid grid-rows-2 grid-cols-2 gap-2 w-1/2">
+            <div class="form-group row-span-2 focus:ring-2 focus:ring-blue-600 p-4">
+                <label for="">Vehicle Type</label>
+                <select
+                    class="form-control block shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    name="vehicle_type" id="vehicle_type">
+                    <option value="<%= vehicle_type %>" selected hidden><%= vehicle_type %></option>
+                    <% parcels.forEach(function(parcel){ %>
+                    <option value="<%= parcel.vehicle_type %>"><%= parcel.vehicle_type %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="form-group row-span-2 p-4">
+                <label for="">Color</label>
+                <input type="text" maxlength="20"
+                    class="form-control block shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="color" name="color" value="<%= color %>" placeholder="Input color">
+            </div>
+            <div class="form-group  p-4">
+                <label for="">Brand</label>
+                <input type="text" maxlength="20"
+                    class="form-control block shadow appearance-none border rounded w-0.75 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="brand" name="brand" value="<%= brand %>" placeholder="Input brand name">
+            </div>
+            <div class="form-group p-4">
+                <label for="">Image</label>
+                <input type="text" maxlength="10"
+                    class="form-control block shadow appearance-none border rounded w-0.75 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="image" name="image" value="<%= image %>" placeholder="Input image file">
+            </div>
+            <div class="form-group p-4">
+                <label for="">Model</label>
+                <input type="text" maxlength="20"
+                    class="form-control block shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="car_model" name="car_model" value="<%= car_model %>" placeholder="Input model name">
+            </div>
+            <div class="form-group p-4">
+                <label for="">Plate Number</label>
+                <input type="text" maxlength="7"
+                    class="form-control block shadow appearance-none border rounded w-0.75 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="plate_number" name="plate_number" pattern="[- +()0-9+()A-Z]+" value="<%= plate_number %>"
+                    placeholder="Input plate number">
+            </div>
+            <div class="form-group mb-4 p-4">
+                <label for="">Weight (kg)</label>
+                <input type="number" min="0" pattern="/^-?\d+\.?\d*$/"
+                    onKeyPress="if(this.value.length==5) return false;" oninput="this.value = 
+ !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                    class="form-control block shadow appearance-none border rounded w-0.75 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="weight" name="weight" value="<%= weight %>" placeholder="Input a weight (in kg) ">
+            </div>
+        </div>
+
+        <div class="px-4 py-2">
+            <button id="addVehicle"
+                class="btn-primary rounded-full text-white font-bold block py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">
+                Edit Vehicle
+            </button>
+        </div>
+    </form>
 </section>
 
+<script>
+    let vehicle_type = document.querySelector('input[name="vehicle_type"]:checked').value;
+</script>
 </body>
 </html>

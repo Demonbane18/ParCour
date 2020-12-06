@@ -120,6 +120,7 @@ section.orders {
 
 section.vehicles {
     background: $secondary;
+    overflow-y: auto;
     min-height: calc(100vh - 86px);
 }
 
@@ -150,6 +151,10 @@ section.addrider {
 
     .tableorder {
         overflow: auto;
+        white-space: nowrap;
+    }
+    .tablevehicle {
+        overflow-y: auto;
         white-space: nowrap;
     }
 section.category {
@@ -347,4 +352,10 @@ section.category {
     .container {
         max-width: 90%;
     }
+}
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    display: none;
+    overflow: hidden;
 }

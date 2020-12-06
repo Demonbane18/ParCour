@@ -423,6 +423,7 @@ section.orders {
 
 section.vehicles {
   background: #F8F8F8;
+  overflow-y: auto;
   min-height: calc(100vh - 86px);
 }
 
@@ -453,6 +454,11 @@ section.editrider {
 
 .tableorder {
   overflow: auto;
+  white-space: nowrap;
+}
+
+.tablevehicle {
+  overflow-y: auto;
   white-space: nowrap;
 }
 
@@ -642,5 +648,12 @@ section.category {
   .container {
     max-width: 90%;
   }
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
 }
 

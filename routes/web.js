@@ -61,7 +61,11 @@ function initRoutes(app) {
 
     //Vehicles
     app.get('/service_provider/vehicles', service_provider, vehicleController().index)
-
+    app.get('/service_provider/add_vehicle', service_provider, vehicleController().addVehicle)
+    app.post('/service_provider/add_vehicle', service_provider, vehicleController().store)
+    app.get('/service_provider/edit_vehicle/:id', service_provider, vehicleController().editVehicle)
+    app.post('/service_provider/edit_vehicle/:id', service_provider, vehicleController().edit)
+    app.get('/service_provider/delete_vehicle/:id', service_provider, vehicleController().delete)
 
     //status
     app.post('/service_provider/order/status', service_provider, StatusController().update)
