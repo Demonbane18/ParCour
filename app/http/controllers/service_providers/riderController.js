@@ -6,7 +6,9 @@ function riderController() {
         async index(req, res) {
             const riderAdded = req.session.rideradded;
             req.session.rideradded = null;
-            const riders = await Rider.find()
+            const riders = await Rider.find({
+                company_name: req.user.company_name
+            })
             //render parcel data
             return res.render('service_provider/riders', {
                 riders: riders,

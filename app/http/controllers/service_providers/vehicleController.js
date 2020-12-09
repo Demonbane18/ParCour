@@ -5,15 +5,59 @@ function vehicleController() {
     return {
       async index(req, res) {
         const vehicleAdded = req.session.vehicleadded;
+        const searchedVehicle = req.session.vehiclesearched;
+        req.session.vehiclesearched = null;
         req.session.vehicleadded = null;
-        const vehicles = await Vehicle.find();
+        const vehicles = await Vehicle.find({
+          service_provider: req.user.company_name,
+        });
 
         //render parcel data
         return res.render('service_provider/vehicles', {
           vehicles: vehicles,
           vehicleAdded,
-        });
-        },
+          searchedVehicle
+          });
+          },
+          async search(req, res) {
+              const {
+                term
+              } = req.body;
+              if (!term) {
+                return res.redirect('/service_provider/vehicles');
+              }
+              //find vehicle by text index search and sort it based on text score
+              const vehicles = await Vehicle.find({
+                  $text: {
+                    $search: term,
+                  },
+                  service_provider: req.user.company_name
+                }, {
+                  score: {
+                    $meta: "textScore"
+                  }
+                }, (err, result) => {
+                  if (err) {
+                    req.flash('error', 'Error! Something went wrong');
+                    return res.redirect('/service_provider/vehicles');
+                  }
+                  if (!result.length) {
+                    req.flash('blank', term);
+                  }
+                }).sort({
+                  score: {
+                    $meta: "textScore"
+                  }
+                })
+                .then((vehicles) => {
+                  req.session.vehiclesearched = vehicles
+                  return res.redirect('/service_provider/vehicles');
+                })
+                .catch((err) => {
+                    req.flash('error', 'Error! Something went wrong');
+                    return res.redirect('/service_provider/vehicles');
+    });
+},
         async addVehicle(req, res) {
             const service_provider = req.user.company_name;
             const parcels = await Parcel.find({
