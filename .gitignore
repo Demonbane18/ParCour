@@ -125,5 +125,10 @@ node_modules
 psd
 thumb
 sketch
+#laravel mix
+/public/js
+/public/css
+/public/build
+/public/mix-manifest.json
 
 # End of https://www.toptal.com/developers/gitignore/api/node,react
