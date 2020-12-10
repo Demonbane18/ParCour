@@ -61,4 +61,26 @@ const orderSchema = new Schema(
   }
 );
 
+orderSchema.index({
+  tracking_id: "text",
+  company_name: "text",
+  items: "text",
+  name: "text",
+  phone: "text",
+  payment_type: "text",
+  pickup_address: "text",
+  dropoff_address: "text"
+}, {
+  weights: {
+    tracking_id: 5,
+    company_name: 4,
+    items: 3,
+    name: 2,
+    phone: 1,
+    payment_type: 1,
+    pickup_address: 1,
+    dropoff_address: 1
+  },
+});
+
 module.exports = mongoose.model('Order', orderSchema);

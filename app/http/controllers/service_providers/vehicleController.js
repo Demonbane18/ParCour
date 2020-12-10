@@ -6,17 +6,20 @@ function vehicleController() {
       async index(req, res) {
         const vehicleAdded = req.session.vehicleadded;
         const searchedVehicle = req.session.vehiclesearched;
+        const termVehicle = req.session.term_vehicle
+        req.session.term_vehicle = null;
         req.session.vehiclesearched = null;
         req.session.vehicleadded = null;
         const vehicles = await Vehicle.find({
           service_provider: req.user.company_name,
         });
 
-        //render parcel data
+        //render vehicle data
         return res.render('service_provider/vehicles', {
           vehicles: vehicles,
           vehicleAdded,
-          searchedVehicle
+          searchedVehicle,
+          term: termVehicle
           });
           },
           async search(req, res) {
@@ -51,6 +54,7 @@ function vehicleController() {
                 })
                 .then((vehicles) => {
                   req.session.vehiclesearched = vehicles
+                  req.session.term_vehicle = term
                   return res.redirect('/service_provider/vehicles');
                 })
                 .catch((err) => {
