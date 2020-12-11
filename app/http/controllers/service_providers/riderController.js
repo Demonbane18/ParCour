@@ -5,6 +5,10 @@ function riderController() {
     return {
         async index(req, res) {
             const riderAdded = req.session.rideradded;
+            const searchedRider = req.session.ridersearched;
+            const termRider = req.session.term_rider
+            req.session.term_rider = null;
+            req.session.ridersearched = null;
             req.session.rideradded = null;
             const riders = await Rider.find({
                 company_name: req.user.company_name
@@ -12,9 +16,51 @@ function riderController() {
             //render parcel data
             return res.render('service_provider/riders', {
                 riders: riders,
-                riderAdded
-            })
-        },
+                riderAdded,
+                searchedRider,
+                term_rider: termRider
+                })
+                },
+                async search(req, res) {
+                        const {
+                            term_rider
+                        } = req.body;
+                        if (!term_rider) {
+                            return res.redirect('/service_provider/riders');
+                        }
+                        //find rider by text index search and sort it based on text score
+                        const riders = await Rider.find({
+                                $text: {
+                                    $search: term_rider,
+                                },
+                                service_provider: req.user.company_name
+                            }, {
+                                score: {
+                                    $meta: "textScore"
+                                }
+                            }, (err, result) => {
+                                if (err) {
+                                    req.flash('error', 'Error! Something went wrong');
+                                    return res.redirect('/service_provider/riders');
+                                }
+                                if (!result.length) {
+                                    req.flash('blank', term_rider);
+                                }
+                            }).sort({
+                                score: {
+                                    $meta: "textScore"
+                                }
+                            })
+                            .then((riders) => {
+                                    req.session.ridersearched = riders
+                                    req.session.term_rider = term_rider
+                                    return res.redirect('/service_provider/riders');
+                 })
+                 .catch((err) => {
+                     req.flash('error', 'Error! Something went wrong');
+                     return res.redirect('/service_provider/riders');
+                 });
+         },
         addRider(req, res) {
                 return res.render('service_provider/add_rider')
             },

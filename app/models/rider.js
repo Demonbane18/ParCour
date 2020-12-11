@@ -58,4 +58,12 @@ const riderSchema = new Schema({
     collection: 'riders'
 })
 
+riderSchema.index({
+    name: "text",
+}, {
+    weights: {
+        name: 5
+    },
+});
+
 module.exports = mongoose.model('Rider', riderSchema)

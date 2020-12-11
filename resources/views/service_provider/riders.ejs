@@ -6,12 +6,32 @@
             class="add-rider btn-primary text-white focus:outline-none font-bold py-2 px-5 rounded"><a
                 href="/service_provider/add_rider"><i class="las la-user-plus"></i> Add rider</a></button>
     </div>
-    <% if (messages.success) { %>
-    <span class="text-green-500 text-sm"><%= messages.success %> </span>
-    <% } %>
-    <% if (messages.error) { %>
-    <span class="text-red-500 text-sm"><%= messages.error %> </span>
-    <% } %>
+    <form class="flex justify-center content-center" action="/service_provider/riders" method="post">
+        <div class="pt-2 px-2 row-span-3">
+            <h2 class="font-bold text-md text-left text-black">Filter</h2>
+            <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+                id="term" type="term" name="term" value="<%= term_rider %>">
+        </div>
+        <div class="px-2 pt-4 mt-4">
+            <button type="submit"
+                class="search-vehicle bg-blue-500 text-white focus:outline-none font-bold pt-2 py-2 px-5 rounded">Search</button>
+        </div>
+    </form>
+   <% if (messages.success) { %>
+   <span class="block flex justify-center text-green-500 text-sm"><%= messages.success %> </span>
+   <% } %>
+   <% if (messages.error) { %>
+   <span class="block flex justify-center text-red-500 text-sm"><%= messages.error %> </span>
+   <% } %>
+   <% if (messages.blank) { %>
+   <div class="block flex grid grid-rows-4 justify-center text-gray-900 text-md pt-5">
+       <span>Your search <b class="text-green-500">-<%= messages.blank %></b>- did not match any records</span>
+       <span class="block pt-3">Suggestions:</span>
+       <span class="block">• Make sure all words are spelled correctly.</span>
+       <span class="block">• Try different keywords.</span>
+       <span class="block">• Try more general keywords.</span>
+   </div>
+   <% } %>
     <div class="container mx-auto pt-12 flex justify-center fixed">
         <table class="w-1/2 table-auto bg-white">
             <thead>
@@ -22,6 +42,22 @@
                 </tr>
             </thead>
             <tbody>
+                <% if (searchedRider) { %>
+                <% searchedRider.forEach(function(rider){ %>
+                <tr>
+                    <td class="border px-4 py-2 text-left text-green-500"><%= rider.name %></td>
+                    <td class="border px-4 py-2 text-center">
+                        <button type="button" class="editRider bg-blue-500 hover:bg-blue-700 text-white block font-bold py-2 px-5
+                                rounded"><i class="las la-edit"></i><a
+                                href="/service_provider/edit_rider/<%= rider._id %>"> Edit</a></button>
+                    </td>
+                    <td class="border px-4 py-2 text-left"><button type="button" id="deleteRider" class="deleteRider bg-red-500 hover:bg-red-700 text-white block font-bold py-2 px-5
+                                rounded" data-delete2="<%= JSON.stringify(rider) %>"><i class="las la-trash"></i>
+                            Delete
+                        </button></td>
+                </tr>
+                <% }); %>
+                <% } else { %>
                 <% riders.forEach(function(rider){ %>
                 <tr>
                     <td class="border px-4 py-2 text-left text-green-500"><%= rider.name %></td>
@@ -36,6 +72,7 @@
                         </button></td>
                 </tr>
                 <% }); %>
+                <% } %>
             </tbody>
         </table>
          <% if (riderAdded) { %>

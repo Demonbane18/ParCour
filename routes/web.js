@@ -43,6 +43,7 @@ function initRoutes(app) {
 
     //Riders
     app.get('/service_provider/riders', service_provider, SPriderController().index)
+    app.post('/service_provider/riders', service_provider, SPriderController().search)
 
     //category
     app.get('/service_provider/category', service_provider, SPcategoryController().index)
