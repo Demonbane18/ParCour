@@ -7,6 +7,8 @@ const StatusController = require('../app/http/controllers/service_providers/stat
 const SPriderController = require('../app/http/controllers/service_providers/riderController')
 const SPcategoryController = require('../app/http/controllers/service_providers/categoryController')
 const vehicleController = require('../app/http/controllers/service_providers/vehicleController')
+const subController = require('../app/http/controllers/service_providers/subController')
+const mobileOrderController = require('../app/http/controllers/service_providers/mobileOrderController')
 
 
 //Middleware
@@ -69,6 +71,12 @@ function initRoutes(app) {
     app.get('/service_provider/edit_vehicle/:id', service_provider, vehicleController().editVehicle)
     app.post('/service_provider/edit_vehicle/:id', service_provider, vehicleController().edit)
     app.get('/service_provider/delete_vehicle/:id', service_provider, vehicleController().delete)
+
+    //subscription
+    app.get('/service_provider/subscription', service_provider, subController().index)
+    
+    //mobile orders
+    app.get('/service_provider/mobile_orders', service_provider, mobileOrderController().index)
 
     //status
     app.post('/service_provider/order/status', service_provider, StatusController().update)

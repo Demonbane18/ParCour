@@ -65,129 +65,81 @@ function riderController() {
                 return res.render('service_provider/add_rider')
             },
             async store(req, res) {
-                    const {
-                        name,
-                        license,
-                        age,
-                        gender,
-                        image,
-                        phone,
-                        address,
-                        email,
-                        password,
-                        confirm_password
-                    } = req.body;
-                    //validate request
-                    if (!name || !image || !license || !age || !phone || !address || !email || !password) {
-                        req.flash('error', 'All fields are required!');
-                        req.flash('name', name);
-                        req.flash('license', license);
-                        req.flash('age', age);
-                        req.flash('image', image);
-                        req.flash('phone', phone);
-                        req.flash('address', address);
-                        req.flash('email', email);
-                        return res.redirect('/service_provider/add_rider');
-                    }
-                    //check if vehicle type exists
-                    Rider.exists({
-                        license: license
-                    }, (err, result) => {
-                        if (result) {
-                            req.flash('error', 'You already created this rider user!');
-                            req.flash('name', name);
-                            req.flash('age', age);
-                            req.flash('gender', gender);
-                            req.flash('image', image);
-                            req.flash('phone', phone);
-                            req.flash('address', address);
-                            req.flash('email', email);
-                            return res.redirect('/service_provider/add_rider');
-                        }
-                    })
+              const {
+                name,
+                license,
+                age,
+                gender,
+                image,
+                phone,
+                address,
+                email       
+              } = req.body
+              //validate request
+              if (
+                !name ||
+                !image ||
+                !license ||
+                !age ||
+                !phone ||
+                !address ||
+                !email 
+              ) {
+                req.flash('error', 'All fields are required!')
+                req.flash('name', name)
+                req.flash('license', license)
+                req.flash('age', age)
+                req.flash('image', image)
+                req.flash('phone', phone)
+                req.flash('address', address)
+                req.flash('email', email)
+                return res.redirect('/service_provider/add_rider')
+              }
+              //check if vehicle type exists
+              Rider.exists(
+                {
+                  license: license,
+                },
+                (err, result) => {
+                  if (result) {
+                    req.flash('error', 'You already created this rider user!')
+                    req.flash('name', name)
+                    req.flash('age', age)
+                    req.flash('gender', gender)
+                    req.flash('image', image)
+                    req.flash('phone', phone)
+                    req.flash('address', address)
+                    req.flash('email', email)
+                    return res.redirect('/service_provider/add_rider')
+                  }
+                }
+              )      
+           
+              //create a new rider
+              const rider = new Rider({
+                name,
+                company_name: req.user.company_name,
+                license,
+                age,
+                gender,
+                image,
+                phone,
+                address,
+                email,
+              })
 
-                    //check if email exists
-                    User.exists({
-                            email: email,
-                        },
-                        (err, result) => {
-                            if (result) {
-                                req.flash('error', 'Email already taken!');
-                                req.flash('name', name);
-                                req.flash('license', license);
-                                req.flash('age', age);
-                                req.flash('image', image);
-                                req.flash('phone', phone);
-                                req.flash('address', address);
-                                return res.redirect('/service_provider/add_rider');
-                            }
-                        }
-                    );
-
-                    //check if password match
-                    if (password != confirm_password) {
-                        req.flash('error', "Password don't match!");
-                        req.flash('name', name);
-                        req.flash('license', license);
-                        req.flash('age', age);
-                        req.flash('image', image);
-                        req.flash('phone', phone);
-                        req.flash('address', address);
-                        req.flash('email', email);
-                        return res.redirect('/service_provider/add_rider');
-                    }
-
-
-                    //hash password
-                    const hashedPassword = await bcrypt.hash(password, 10);
-
-                    //create a user
-                    const user = new User({
-                        name,
-                        company_name: req.user.company_name,
-                        phone,
-                        address,
-                        email,
-                        password: hashedPassword,
-                        role: 'rider'
-                    });
-
-                    user
-                        .save()
-                        .then((user) => {
-
-                            //create a new rider
-                            const rider = new Rider({
-                                name,
-                                company_name: req.user.company_name,
-                                license,
-                                age,
-                                gender,
-                                image,
-                                phone,
-                                address,
-                                email,
-                                password: hashedPassword
-                            });
-
-                            rider
-                                .save()
-                                .then((rider) => {
-                                    //redirect back to rider list*
-                                    req.session.rideradded = true;
-                                    return res.redirect('/service_provider/riders');
-                                })
-                                .catch((err) => {
-                                    req.flash('error', 'Something went wrong!Rider!');
-                                    return res.redirect('/service_provider/add_rider');
-                                });
-
-                        })
-                        .catch((err) => {
-                            req.flash('error', 'Something went wrong! User!');
-                            return res.redirect('/service_provider/add_rider');
-                        });
-                    },
+              rider
+                .save()
+                .then((rider) => {
+                  //redirect back to rider list*
+                  req.session.rideradded = true
+                  return res.redirect('/service_provider/riders')
+                })
+                .catch((err) => {
+                  req.flash('error', 'Something went wrong!Rider!')
+                  return res.redirect('/service_provider/add_rider')
+                })
+            },
                     //index edit rider
                     editRider(req, res) {
                             const riderEdited = req.session.rideredited;
