@@ -9,12 +9,14 @@ const SPcategoryController = require('../app/http/controllers/service_providers/
 const vehicleController = require('../app/http/controllers/service_providers/vehicleController')
 const subController = require('../app/http/controllers/service_providers/subController')
 const mobileOrderController = require('../app/http/controllers/service_providers/mobileOrderController')
+const userController = require('../app/http/controllers/admin/userController')
 
 
 //Middleware
 const guest = require('../app/http/middlewares/guest')
 const auth = require('../app/http/middlewares/auth')
 const service_provider = require('../app/http/middlewares/service_provider')
+const admin = require('../app/http/middlewares/admin')
 
 function initRoutes(app) {
 
@@ -80,6 +82,11 @@ function initRoutes(app) {
 
     //status
     app.post('/service_provider/order/status', service_provider, StatusController().update)
+
+    //admin routes
+
+    //User
+    app.get('/admin/users', admin, userController().index)
 
     
 
