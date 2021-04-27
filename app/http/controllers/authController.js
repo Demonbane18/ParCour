@@ -9,7 +9,7 @@ function authController() {
             return '/service_provider/orders'
         }else if(req.user.role === 'supplier') {
             return '/supplier/orders'
-        } else {
+        } else if(req.user.role === 'admin') {
             return '/admin/users'
         }
     }
