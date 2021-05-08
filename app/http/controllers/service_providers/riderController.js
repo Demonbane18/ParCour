@@ -13,7 +13,7 @@ function riderController() {
             const riders = await Rider.find({
                 company_name: req.user.company_name
             })
-            //render parcel data
+            //render rider data
             return res.render('service_provider/riders', {
                 riders: riders,
                 riderAdded,
@@ -33,7 +33,7 @@ function riderController() {
                                 $text: {
                                     $search: term_rider,
                                 },
-                                service_provider: req.user.company_name
+                                company_name: req.user.company_name
                             }, {
                                 score: {
                                     $meta: "textScore"

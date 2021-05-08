@@ -6,11 +6,10 @@ const serviceProviderSchema = new Schema({
         type: String,
         required: true
     },
-    logo: {
+    address: {
         type: String,
-        required: true,
-        default: 'logo.png'
-    }
+        required: true
+    },
 }, {
     collection: 'service_providers'
 })

@@ -10,6 +10,7 @@ const vehicleController = require('../app/http/controllers/service_providers/veh
 const subController = require('../app/http/controllers/service_providers/subController')
 const mobileOrderController = require('../app/http/controllers/service_providers/mobileOrderController')
 const userController = require('../app/http/controllers/admin/userController')
+const spController = require('../app/http/controllers/admin/spController')
 
 
 //Middleware
@@ -87,9 +88,18 @@ function initRoutes(app) {
 
     //User
     app.get('/admin/users', admin, userController().index)
+    app.post('/admin/users', admin, userController().search)
+    app.get('/admin/add_user', admin, userController().addUser)
+    app.post('/admin/add_user', admin, userController().store)
+    app.get('/admin/delete_user/:id', admin, userController().deleteUser)
 
-    
-
+    //Service Provider
+    app.get('/admin/service_providers', admin, spController().index)
+    app.get('/admin/add_service_provider', admin, spController().addServiceProvider)
+    app.post('/admin/add_service_provider', admin, spController().store)
+    app.get('/admin/edit_service_provider/:id', admin, spController().editServiceProvider)
+    app.post('/admin/edit_service_provider/:id', admin, spController().edit)
+    app.get('/admin/delete_service_provider/:id', admin, spController().delete)
 }
 
 module.exports = initRoutes

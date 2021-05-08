@@ -55,10 +55,15 @@ const riderSchema = new Schema({
 
 riderSchema.index({
     name: "text",
-}, {
+    license: "text"
+
+},
+{
     weights: {
-        name: 5
+      name: 5,
+      license: 3,
     },
-});
+},{ default_language: "none" }
+);
 
 module.exports = mongoose.model('Rider', riderSchema)

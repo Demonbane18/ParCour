@@ -10,7 +10,7 @@
         <div class="pt-2 px-2 row-span-3">
             <h2 class="font-bold text-md text-left text-black">Filter</h2>
             <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-                id="term" type="term" name="term" value="<%= term_rider %>">
+                id="term_rider" type="term_rider" name="term_rider" value="<%= term_rider %>">
         </div>
         <div class="px-2 pt-4 mt-4">
             <button type="submit"
@@ -45,7 +45,18 @@
                 <% if (searchedRider) { %>
                 <% searchedRider.forEach(function(rider){ %>
                 <tr>
-                    <td class="border px-4 py-2 text-left text-green-500"><%= rider.name %></td>
+                    <td class="border px-4 py-2 text-left text-green-500"><%= rider.name %>
+                        <button class="accordion block focus:outline-none text-blue-500">Info <i
+                            class="las la-chevron-circle-up"></i></button>
+                    <div class="panel overflow-hidden text-black">
+                        <div>Company Name: <%= rider.phone %></div>
+                        <div>License: <%= rider.license %></div>
+                        <div>Age: <%= rider.age %></div>
+                        <div>Gender: <%= rider.gender %></div>
+                        <div>Phone: <%= rider.phone %></div>
+                        <div>Address: <%= rider.address %></div>
+                        <div>Email: <%= rider.email %></div>
+                    </div></td>
                     <td class="border px-4 py-2 text-center">
                         <button type="button" class="editRider bg-blue-500 hover:bg-blue-700 text-white block font-bold py-2 px-5
                                 rounded"><i class="las la-edit"></i><a
@@ -60,7 +71,19 @@
                 <% } else { %>
                 <% riders.forEach(function(rider){ %>
                 <tr>
-                    <td class="border px-4 py-2 text-left text-green-500"><%= rider.name %></td>
+                    <td class="border px-4 py-2 text-left text-green-500"><%= rider.name %>
+                            <button class="accordion block focus:outline-none text-blue-500">Info <i
+                                    class="las la-chevron-circle-up"></i></button>
+                            <div class="panel overflow-hidden text-black">
+                                <div>Company Name: <%= rider.phone %></div>
+                                <div>License: <%= rider.license %></div>
+                                <div>Age: <%= rider.age %></div>
+                                <div>Gender: <%= rider.gender %></div>
+                                <div>Phone: <%= rider.phone %></div>
+                                <div>Address: <%= rider.address %></div>
+                                <div>Email: <%= rider.email %></div>
+                            </div>
+                        </td>
                     <td class="border px-4 py-2 text-center">
                             <button type="button" class="editRider bg-blue-500 hover:bg-blue-700 text-white block font-bold py-2 px-5
                                 rounded"><i class="las la-edit"></i><a
@@ -88,6 +111,27 @@
         </script>
 
         <% } %>
+        <script>
+            /* Optional Javascript to close the radio button version by clicking it again */
+            var acc = document.getElementsByClassName("accordion");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function () {
+                    /* Toggle between adding and removing the "active" class,
+                    to highlight the button that controls the panel */
+                    this.classList.toggle("active");
+
+                    /* Toggle between hiding and showing the active panel */
+                    var panel = this.nextElementSibling;
+                    if (panel.style.display === "block") {
+                        panel.style.display = "none";
+                    } else {
+                        panel.style.display = "block";
+                    }
+                });
+            }
+        </script>
         <script>
          //delete rider dialog box
         let deleteRider = document.querySelectorAll('#deleteRider');

@@ -6,6 +6,11 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    role: {
+        type: String,
+        required: true,
+        default: 'supplier'
+    },
     company_name: {
         type: String,
         required: true,
@@ -29,14 +34,22 @@ const userSchema = new Schema({
         minimum: 8,
         maximum: 20
     },
-    role: {
-        type: String,
-        default: 'supplier'
-    }
 }, {
     timestamps: true
 }, {
     collection: 'users'
 })
+userSchema.index({
+    company_name: "text",
+    name: "text",
+
+},
+{
+    weights: {
+      company_name: 10,
+      name: 5
+    },
+},{ default_language: "none" }
+);
 
 module.exports = mongoose.model('User', userSchema)
