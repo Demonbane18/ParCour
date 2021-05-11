@@ -1,4 +1,8 @@
+<% if (user) {%>
 <%- include('../_layouts/sup_header') %>
+<%} else {%>
+    <%- include('../_layouts/layout') %>
+<%}%>
 <section class="parcel py-16">
     <% if (session.order) {%>
     <div class="order-container mx-auto w-1/2">
@@ -12,11 +16,11 @@
                 <img class="w-24" src="/img/<%= parcel.info.image %>" alt="">
                 <div class="flex-1 ml-4">
                     <h1><%= parcel.info.vehicle_type %></h1>
-                    <span><%= parcel.info.weight %></span>
+                    <span><%= parcel.info.weight %> kg</span>
                 </div>
-                <span class="flex-1">MrSpeedy</span>
+                <span class="flex-1"><%= parcel.info.service_provider %></span>
                 <span class="flex-1"><%= parcel.qty %></span>
-                <span class="flex-1"><button data-parcel="<%= JSON.stringify(parcel) %>" id="del-parcel" class="btn-primary px-6 py-2 rounded-full text-white font-bold mt-6" type="button">-</button></span>
+                <span class="flex-1"><button id="deleteParcel" data-delete="<%= JSON.stringify(parcel) %>" class="deleteParcel btn-primary px-6 py-2 rounded-full text-white font-bold mt-6" type="button">-</button></span>
                 <span class="font-bold text-lg">₱<%= parcel.info.price * parcel.qty %></span>
             </div>
             <% } %>
@@ -46,6 +50,7 @@
                             Now</button>
                     </div>
                 </form>
+                <span>Note: The maximum distance is only 3km. For those higher than 3km please use the mobile app</span>
             </div>
             <%} else { %>
             <a href="/login"
@@ -53,6 +58,7 @@
                 to Continue</a>
             <% } %>
         </div>
+
     </div>
     <% } else { %>
     <div class="empty-parcel py-16">
@@ -66,4 +72,42 @@
     </div>
     <% } %>
 </section>
+<script>
+     let deleteParcel = document.querySelectorAll('#deleteParcel');
+        deleteParcel.forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                let parcel = JSON.parse(btn.dataset.delete);
+                console.log(parcel)
+                sweetalertParcel(parcel);
+            });
+        });
+
+        function sweetalertParcel(parcel) {
+            Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You will clear the cart! You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, clear the cart'
+                }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                timer: 1000,
+                                showConfirmButton: false,
+                                title: 'Item deleted',
+                                text: 'Item is successfully deleted!',
+                                type: 'success',
+                                icon: 'success'
+                            })
+                            setTimeout(() => {
+                                document.location.href = "/delete-parcel/";
+                            }, 1500)
+
+
+                }
+                })
+                }
+</script>
 <%- include('../_layouts/footer') %>

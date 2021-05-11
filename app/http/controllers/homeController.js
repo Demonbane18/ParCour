@@ -44,7 +44,8 @@ function homeController() {
       req.session.valid = true;
       req.session.select = req.body.name;
       return res.redirect('/#vehicleList')
-    }
+    },
+   
   };
 }
 

@@ -72,7 +72,8 @@ function orderController() {
       } else {
         res.redirect('/')
       }
-    }
+    },
+
   };
 }
 

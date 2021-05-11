@@ -1,0 +1,52 @@
+<% if (user) {%>
+    <%- include('./_layouts/sup_header') %>
+    <%} else {%>
+        <%- include('./_layouts/layout') %>
+    <%}%>
+
+
+<section class="status">
+   <% if (order) {%> 
+    <div class="container mx-auto">
+        <h1 class="text-xl font-bold">Parcel Information</h1><br>
+        <% for(let items of Object.values(order.items)) { %>
+        <p class="text-lg ">Service Provider: <%=JSON.stringify(items.info.service_provider).replace(/^"(.*)"$/, '$1')%></p>
+        <p class="text-lg ">Vehicle Type: <%=JSON.stringify(items.info.vehicle_type).replace(/^"(.*)"$/, '$1')%></p>
+        <p class="text-lg ">Price: &#8369;<%=JSON.stringify(items.info.price).replace(/^"(.*)"$/, '$1')%></p>
+        <%}%>
+        <br>
+        <p class="text-lg ">Payment type: <%=order.payment_type %> </p>
+        <p class="text-lg ">Pickup Address: <%=order.pickup_address %> </p>
+        <p class="text-lg ">Drop off Address: <%=order.dropoff_address%> </p><br>
+    <div class="status-box w-2/3 mx-auto">
+
+        <div class="flex items-center justify-between mb-12">
+            <p class="text-xl font-bold">Track Delivery Status</p>
+            <p class="bg-white py-1 rounded-full px-4 text-green-600 text-xs"><%=order.tracking_id%> </p>
+            <input id="hiddenInput" type="hidden" value="<%= JSON.stringify(order) %> ">
+        </div>
+        <ul>
+            <li class="status_line text-xl pb-16" data-status="parcel_placed"><span>Parcel Placed</span></li>
+            <li class="status_line text-xl pb-16" data-status="confirmed"><span>Parcel Confirmation</span></li>
+            <li class="status_line text-xl pb-16" data-status="vehicle_ready"><span>Vehicle is ready</span></li>
+            <li class="status_line text-xl pb-16" data-status="arriving"><span>Out for delivery</span></li>
+            <li class="status_line text-xl pb-16" data-status="pickup_point"><span>Pickup point</span></li>
+            <li class="status_line text-xl pb-16" data-status="shipping"><span>Shipping</span></li>
+            <li class="status_line text-xl pb-16" data-status="delivered"><span>Parcel Delivered</span></li>
+            <li class="status_line text-xl" data-status="completed"><span>Completed</span></li>
+        <ul>
+    </div>
+</div>
+<% } else { %> 
+    <div class="wrong-track py-16">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl font-bold mb-2">No Order found </h1>
+            <p class="text-gray-500; text-lg mb-12">You probably input a wrong tracking number. <br>
+                Please refer to your supplier for the correct tracking number.</p>
+            <img class="w-2/5 mx-auto" src="/img/empty-cart.png" alt="empty-cart">
+            <a href="/" class="inline-block px-6 py-2 rounded-full btn-primary text-white font-bold mt-12">Go back</a>
+        </div>
+    </div>
+<% } %> 
+</section>
+<%- include('./_layouts/footer') %>

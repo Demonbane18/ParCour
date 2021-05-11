@@ -11,6 +11,7 @@ const subController = require('../app/http/controllers/service_providers/subCont
 const mobileOrderController = require('../app/http/controllers/service_providers/mobileOrderController')
 const userController = require('../app/http/controllers/admin/userController')
 const spController = require('../app/http/controllers/admin/spController')
+const trackController = require('../app/http/controllers/trackController')
 
 
 //Middleware
@@ -31,13 +32,18 @@ function initRoutes(app) {
     app.post('/register', authController().postRegister)
     app.post('/logout', authController().logout)
 
+    app.get('/trackParcel', trackController().index)
+
+
     app.get('/parcel', parcelController().index)
     app.post('/update-parcel', parcelController().update)
+    app.get('/delete-parcel', parcelController().delete)
 
     //supplier routes
     app.post('/orders', auth, orderController().store)
     app.get('/supplier/orders', auth, orderController().index)
     app.get('/supplier/orders/:_id', auth, orderController().show)
+
 
     //service provider routes
     //Orders

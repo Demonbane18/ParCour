@@ -1,12 +1,18 @@
 <%- include('../_layouts/sup_header') %>
 <section class="status">
     <div class="container mx-auto">
-        <div class="status-box w-2/3 mx-auto">
-            <!-- <h1 class="text-xl font-bold">Parcel Information</h1><br>
-            <p class="text-lg "><%=order.items%> </p>
+            <h1 class="text-xl font-bold">Parcel Information</h1><br>
+            <% for(let items of Object.values(order.items)) { %>
+            <p class="text-lg ">Service Provider: <%=JSON.stringify(items.info.service_provider).replace(/^"(.*)"$/, '$1')%></p>
+            <p class="text-lg ">Vehicle Type: <%=JSON.stringify(items.info.vehicle_type).replace(/^"(.*)"$/, '$1')%></p>
+            <p class="text-lg ">Price: &#8369;<%=JSON.stringify(items.info.price).replace(/^"(.*)"$/, '$1')%></p>
+            <%}%>
+            <br>
             <p class="text-lg ">Payment type: <%=order.payment_type %> </p>
             <p class="text-lg ">Pickup Address: <%=order.pickup_address %> </p>
-            <p class="text-lg ">Drop off Address: <%=order.dropoff_address%> </p><br> -->
+            <p class="text-lg ">Drop off Address: <%=order.dropoff_address%> </p><br>
+        <div class="status-box w-2/3 mx-auto">
+
             <div class="flex items-center justify-between mb-12">
                 <p class="text-xl font-bold">Track Delivery Status</p>
                 <p class="bg-white py-1 rounded-full px-4 text-green-600 text-xs"><%=order.tracking_id%> </p>

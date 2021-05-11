@@ -4,6 +4,10 @@ function parcelController() {
 
             res.render('supplier/parcel')
         },
+        delete(req, res) {
+            delete req.session.order
+            return res.redirect("/parcel")
+        },
         update(req, res) {
             // let order = {
             //     info: {
@@ -41,7 +45,8 @@ function parcelController() {
             return res.json({
                 total_qty: req.session.order.total_qty
             })
-        }
+        },
+
     }
 }
 
