@@ -26512,14 +26512,15 @@ document.addEventListener('DOMContentLoaded', function () {
       parcelCounter.innerText = res.data.total_qty;
       new noty__WEBPACK_IMPORTED_MODULE_1___default.a({
         type: 'success',
-        timeout: 1000,
+        timeout: 3000,
         progressBar: false,
-        text: 'New parcel added to orders'
+        text: 'New parcel added to orders',
+        afterClose: setTimeout(window.location.href = '/parcel', 5000)
       }).show();
     })["catch"](function (err) {
       new noty__WEBPACK_IMPORTED_MODULE_1___default.a({
         type: 'error',
-        timeout: 1000,
+        timeout: 3000,
         progressBar: false,
         text: 'Something went wrong'
       }).show();

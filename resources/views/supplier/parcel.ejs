@@ -20,15 +20,16 @@
                 </div>
                 <span class="flex-1"><%= parcel.info.service_provider %></span>
                 <span class="flex-1"><%= parcel.qty %></span>
-                <span class="flex-1"><button id="deleteParcel" data-delete="<%= JSON.stringify(parcel) %>" class="deleteParcel btn-primary px-6 py-2 rounded-full text-white font-bold mt-6" type="button">-</button></span>
-                <span class="font-bold text-lg">₱<%= parcel.info.price * parcel.qty %></span>
+                <span class="font-bold text-lg flex-1">₱<%= parcel.info.price * parcel.qty %></span>
+                <span class="pb-3">
+                    <button id="deleteParcel" data-delete="<%= JSON.stringify(parcel) %>" class="deleteParcel btn-primary px-6 py-2 rounded-full text-white font-bold mt-6" type="button">Cancel</button>
+                </span>
             </div>
             <% } %>
 
-
         </div>
         <hr>
-        <div class="text-right py-4">
+        <div class=" py-4">
             <div>
                 <span class="text-lg font-bold">Total amount:</span>
                 <span class="amount text-2xl font-bold ml-2">₱<%= session.order.total_price%></span>
@@ -39,12 +40,53 @@
                     <% if (messages.error) { %>
                     <span class="text-red-500 text-sm p-2 w-1/2 mb-4"><%= messages.error %> </span>
                     <% } %>
-                    <input id="phone" name="phone" maxlength="12" class="border border-gray-400 p-2 w-1/2 mb-4"
-                        type="phone" placeholder="Phone Number(+63)" value="<%= user.phone %>">
+                    <div class="flex items-center border-b border-gray-300 pb-2 pt-8 mb-4">
+                        <i class="las la-user la-customer la-lg"></i>
+                        <h1 class="font-bold ml-4 text-xl">Customer Details</h1>
+                    </div>    
+                    <span class="text-lg font-bold pr-5 pt-2">Phone Number:</span>
+                    <input id="phone" name="phone" maxlength="12" class="border border-gray-400 p-2 w-1/4 mb-4"
+                        type="phone" placeholder="Phone Number(+63)" value="<%= user.phone %>"><br>
+
+                    <span class="text-lg font-bold pr-4">Pickup Address:</span>
                     <input id="pickup_address" name="pickup_address" class="border border-gray-400 p-2 w-1/2 mb-4"
-                        type="text" placeholder="Pickup Address" value="<%= user.address %> ">
+                        type="text" placeholder="Pickup Address" value="<%= user.address %> "><br>
+                       
+                    <span class="text-lg font-bold pr-2">Dropoff Address:</span>
                     <input id="dropoff_address" name="dropoff_address" class="border border-gray-400 p-2 w-1/2"
                         type="text" placeholder="Dropoff Address">
+                    
+                    <!-- Item details -->   
+                    <div class="flex items-center border-b border-gray-300 pb-2 pt-8 mb-4">
+                        <i class="las la-box-open la-lg"></i>
+                        <h1 class="font-bold ml-4 text-xl">Item Details</h1>
+                    </div> 
+                    <% items.forEach(function(itemAdd){ %>
+                    <span class="text-lg font-bold pr-2">Item Name:</span>
+                    <input id="item_name" name="item_name" class="border border-gray-400 p-2 w-1/2" type="text">   
+                    <br>
+
+                    <div class="py-2">
+                        <span class="text-lg font-bold pr-6">Quantity:</span>
+                        <button onclick="decrement()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="button">-</button>
+                        <input id="item_qty" name="item_qty" class="border border-gray-400 p-2 text-center" size="1" type="text">  
+                        <button onclick="increment()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="button">+</button>
+                    </div>
+                    <div class="py-2">
+                        <span class="text-lg font-bold pr-3">Perishable:</span>   
+                        <input class="h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-red-600 checked:border-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer" type="checkbox" id="flexCheckDefault">
+                    </div>
+
+                    <div class="py-2">
+                        <span class="text-lg font-bold pr-8 mr-1">Weight:</span>   
+                        <input id="item_weight" name="item_weight" class="border border-gray-400 p-2 text-center w-1/12" pattern="\d*" size="1" maxlength="3" type="text">  
+                        <span class="text-lg font-bold"> kg</span>   
+
+                    </div>
+                    
+                    <button class="btn-primary px-6 py-2 rounded text-white font-bold mt-6" onclick="addItem()">Add item</button>
+
+
                     <div>
                         <button class="btn-primary px-6 py-2 rounded-full text-white font-bold mt-6" type="submit">Book
                             Now</button>
@@ -71,8 +113,32 @@
         </div>
     </div>
     <% } %>
+    <br>
+    <br>    
+    <br>
+    <br>
+    <br>
+    <br>
 </section>
+
 <script>
+    var qty=0;
+    document.getElementById("item_qty").value=qty;
+    function increment() {
+        qty++;
+        document.getElementById("item_qty").value=qty;
+    }
+    function decrement() {
+        if(qty!=0)
+        qty--;
+        document.getElementById("item_qty").value=qty;
+    }
+
+
+
+
+
+
      let deleteParcel = document.querySelectorAll('#deleteParcel');
         deleteParcel.forEach((btn) => {
             btn.addEventListener('click', (e) => {
@@ -85,12 +151,12 @@
         function sweetalertParcel(parcel) {
             Swal.fire({
                     title: 'Are you sure?',
-                    text: "You will clear the cart! You won't be able to revert this!",
+                    text: "You are about to cancel your order, you won't be able to revert this!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, clear the cart'
+                    confirmButtonText: 'Yes'
                 }).then((result) => {
                         if (result.isConfirmed) {
                             Swal.fire({

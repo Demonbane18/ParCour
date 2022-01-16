@@ -77,7 +77,7 @@
                         <% if(user.role != 'supplier') { %> 
                             <% } else { %>
                                 <% if(!session.order) { %>
-                                <button data-parcel="<%= JSON.stringify(parcel) %>" onClick="window.location.reload();" type="button" id="add-to-parcel"
+                                <button data-parcel="<%= JSON.stringify(parcel) %>" type="button" id="add-to-parcel"
                                     class="add-to-parcel py-1 px-6 rounded-full flex items-center font-bold">
                                     <span>+</span>
                                     <span class="ml-4">Book</span>
@@ -86,7 +86,7 @@
                                 <% } %>
                     <% } else { %> 
                         <% if(!session.order) { %>
-                        <button data-parcel="<%= JSON.stringify(parcel) %>" onClick="window.location.reload();" type="button" id="add-to-parcel"
+                        <button data-parcel="<%= JSON.stringify(parcel) %>" type="button" id="add-to-parcel"
                             class="add-to-parcel py-1 px-6 rounded-full flex items-center font-bold">
                             <span>+</span>
                             <span class="ml-4">Book</span>
@@ -114,6 +114,7 @@
       function gotoParcel() {
         document.location.href = "/parcel/";
       }
+
   </script>
 </div>
 <%- include('./_layouts/footer') %>

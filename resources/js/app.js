@@ -19,15 +19,16 @@ document.addEventListener('DOMContentLoaded', () => {
             parcelCounter.innerText = res.data.total_qty;
             new Noty({
                 type: 'success',
-                timeout: 1000,
+                timeout: 3000,
                 progressBar: false,
-                text: 'New parcel added to orders'
+                text: 'New parcel added to orders',
+                afterClose: setTimeout(window.location.href='/parcel',5000)
 
             }).show();
         }).catch(err => {
             new Noty({
                 type: 'error',
-                timeout: 1000,
+                timeout: 3000,
                 progressBar: false,
                 text: 'Something went wrong'
 
@@ -47,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const alertMsg = document.querySelector('#success-alert')
     if (alertMsg) {
         setTimeout(() => {
-            alertMsg.remove()
+            alertMsg.remove();
         }, 2000)
     }
     

@@ -19,6 +19,10 @@ const parcelSchema = new Schema({
     type: String,
     required: true,
   },
+  parcelDetails: {
+    type: Object,
+    required: true
+  },
   price: {
     type: Number,
     required: true,
