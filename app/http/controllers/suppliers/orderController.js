@@ -11,7 +11,8 @@ function orderController() {
         phone,
         service_provider,
         pickup_address,
-        dropoff_address
+        dropoff_address,
+        itemList
       } = req.body;
       if (!phone || !pickup_address || !dropoff_address) {
         req.flash('error', 'All fields required!');
@@ -24,9 +25,11 @@ function orderController() {
         name: req.user.name,
         company_name: req.user.company_name,
         items: req.session.order.info,
+        parcelDetails: itemList,
         phone,
         pickup_address,
         dropoff_address,
+
       });
       order
         .save()

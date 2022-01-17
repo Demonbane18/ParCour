@@ -25,6 +25,10 @@ const orderSchema = new Schema(
       type: Object,
       required: true,
     },
+    parcelDetails: {
+      type: Object,
+      required: true,
+    },
     phone: {
       type: String,
       required: true,

@@ -45,15 +45,15 @@
                         <h1 class="font-bold ml-4 text-xl">Customer Details</h1>
                     </div>    
                     <span class="text-lg font-bold pr-5 pt-2">Phone Number:</span>
-                    <input id="phone" name="phone" maxlength="12" class="border border-gray-400 p-2 w-1/4 mb-4"
+                    <input id="phone" name="phone" maxlength="12" class="border border-gray-400 p-2 w-1/4 mb-4 focus:outline-none "
                         type="phone" placeholder="Phone Number(+63)" value="<%= user.phone %>"><br>
 
                     <span class="text-lg font-bold pr-4">Pickup Address:</span>
-                    <input id="pickup_address" name="pickup_address" class="border border-gray-400 p-2 w-1/2 mb-4"
+                    <input id="pickup_address" name="pickup_address" class="border border-gray-400 p-2 w-1/2 mb-4 focus:outline-none "
                         type="text" placeholder="Pickup Address" value="<%= user.address %> "><br>
                        
                     <span class="text-lg font-bold pr-2">Dropoff Address:</span>
-                    <input id="dropoff_address" name="dropoff_address" class="border border-gray-400 p-2 w-1/2"
+                    <input id="dropoff_address" name="dropoff_address" class="border border-gray-400 p-2 w-1/2 focus:outline-none "
                         type="text" placeholder="Dropoff Address">
                     
                     <!-- Item details -->   
@@ -61,30 +61,58 @@
                         <i class="las la-box-open la-lg"></i>
                         <h1 class="font-bold ml-4 text-xl">Item Details</h1>
                     </div> 
-                    <% items.forEach(function(itemAdd){ %>
-                    <span class="text-lg font-bold pr-2">Item Name:</span>
-                    <input id="item_name" name="item_name" class="border border-gray-400 p-2 w-1/2" type="text">   
-                    <br>
-
-                    <div class="py-2">
-                        <span class="text-lg font-bold pr-6">Quantity:</span>
-                        <button onclick="decrement()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="button">-</button>
-                        <input id="item_qty" name="item_qty" class="border border-gray-400 p-2 text-center" size="1" type="text">  
-                        <button onclick="increment()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="button">+</button>
-                    </div>
-                    <div class="py-2">
-                        <span class="text-lg font-bold pr-3">Perishable:</span>   
-                        <input class="h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-red-600 checked:border-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer" type="checkbox" id="flexCheckDefault">
-                    </div>
-
-                    <div class="py-2">
-                        <span class="text-lg font-bold pr-8 mr-1">Weight:</span>   
-                        <input id="item_weight" name="item_weight" class="border border-gray-400 p-2 text-center w-1/12" pattern="\d*" size="1" maxlength="3" type="text">  
-                        <span class="text-lg font-bold"> kg</span>   
-
-                    </div>
                     
-                    <button class="btn-primary px-6 py-2 rounded text-white font-bold mt-6" onclick="addItem()">Add item</button>
+                        <div id="item_options" class="max-w-md mx-auto bg-white rounded overflow-hidden shadow-lg mb-3 item">
+                            <span class="text-lg font-bold pr-2 ml-2 mt-2 inline">Item Name:</span>
+                            <input id="item_name" name="item_name" class="item_name border border-gray-400 mt-2 p-2 w-1/2 focus:outline-none inline " type="text"> 
+                                <button onclick="removeItem()" type="button" class=" remove btn-primary px-4 py-2 rounded text-white font-bold mt-6 ml-10 focus:outline-none inline" >x</button> 
+                            <br>
+        
+                            <div class="py-2">
+                                <span class="text-lg font-bold ml-2 pr-6">Quantity:</span>
+                                <button onclick="decrement()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">-</button>
+                                <input id="item_qty" name="item_qty" class="item_qty border border-gray-400 p-2 text-center" size="1" type="text" value="0">  
+                                <button onclick="increment()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">+</button>
+                            </div>
+                            <div class="py-2">
+                                <span class="text-lg font-bold pr-3 ml-2">Perishable:</span>   
+                                <input class="h-4 w-4 perishable_check border border-gray-300 rounded-sm bg-white checked:bg-red-600 checked:border-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer" type="checkbox" id="perishable_check">
+                            </div>
+        
+                            <div class="py-2">
+                                <span class="text-lg font-bold pr-8 mr-1 ml-2">Weight:</span>   
+                                <input id="item_weight" name="item_weight" class="item_weight border border-gray-400 p-2 text-center w-1/8 focus:outline-none " pattern="\d*" size="1" maxlength="3" type="text">  
+                                <span class="text-lg font-bold"> kg</span>   
+                            </div>
+                        </div>
+
+                        <div id="item_options2" class="max-w-md mx-auto bg-white rounded overflow-hidden shadow-lg mb-3 hidden">
+                            <span class="text-lg font-bold pr-2 ml-2 mt-2 inline">Item Name:</span>
+                            <input id="item_name" name="item_name" class="item_name border border-gray-400 mt-2 p-2 w-1/2 focus:outline-none inline " type="text" value="0"> 
+                                <button onclick="removeItem()" type="button" class=" remove btn-primary px-4 py-2 rounded text-white font-bold mt-6 ml-10 focus:outline-none inline" >x</button> 
+                            <br>
+        
+                            <div class="py-2">
+                                <span class="text-lg font-bold ml-2 pr-6">Quantity:</span>
+                                <button onclick="decrement()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">-</button>
+                                <input id="item_qty" name="item_qty" class="item_qty border border-gray-400 p-2 text-center" size="1" type="text">  
+                                <button onclick="increment()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">+</button>
+                            </div>
+                            <div class="py-2">
+                                <span class="text-lg font-bold pr-3 ml-2">Perishable:</span>   
+                                <input class="h-4 w-4 perishable_check border border-gray-300 rounded-sm bg-white checked:bg-red-600 checked:border-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer" type="checkbox" id="perishable_check">
+                            </div>
+        
+                            <div class="py-2">
+                                <span class="text-lg font-bold pr-8 mr-1 ml-2">Weight:</span>   
+                                <input id="item_weight" name="item_weight" class="item_weight border border-gray-400 p-2 text-center w-1/8 focus:outline-none " pattern="\d*" size="1" maxlength="3" type="text">  
+                                <span class="text-lg font-bold"> kg</span>   
+                            </div>
+                        </div>
+                    <div id="add_item"></div>
+                    
+                    <button onclick="addItem()" type="button" class="btn-primary px-4 py-2 rounded text-white font-bold mt-6 focus:outline-none" >Add item</button>
+                    <button onclick="listItems()" type="button" class="btn-primary px-4 py-2 rounded text-white font-bold mt-6 focus:outline-none" >List Items</button>
 
 
                     <div>
@@ -122,11 +150,57 @@
 </section>
 
 <script>
-    var qty=0;
-    document.getElementById("item_qty").value=qty;
+    //add more items
+    var itemNumber=1;
+    function addItem() {
+        var itm = document.getElementById("item_options2")
+        var cln = itm.cloneNode(true);
+        itemNumber++;
+        cln.classList.remove("hidden");
+        cln.classList.add("item");
+        document.getElementById("add_item").appendChild(cln);
+    }
+
+    function removeItem(){
+        var els = document.getElementsByClassName("remove");
+        itemNumber--
+        for (var i = 0; i < els.length; i++) {
+        els[i].addEventListener('click', function (e) {
+            e.preventDefault();
+            e.target.closest('div.item').remove();
+        });
+    }
+    }
+    function listItems() {
+        let itemList;
+        let items = itemNumber;
+        let itemname = document.getElementsByClassName("item_name");
+        let itemqty = document.getElementsByClassName("item_qty");
+        let cperishable = document.getElementsByClassName("perishable_check");
+        let itemweight = document.getElementsByClassName("item_weight");
+        console.log(`Item ${itemname[1].value}`)
+        
+        for (var i = 0; i < items.length; i++) {
+            console.log(`Item ${i+1}`)
+            
+            const item = {name: itemname[i].value, quantity: itemqty[i].value, perishable: cperishable[i].value, weight: itemweight[i].value }
+            itemList.push(item);
+        }        
+        console.log(itemList)
+    }
+
+
+
     function increment() {
-        qty++;
-        document.getElementById("item_qty").value=qty;
+        btns = document.getElementsByClassName("item-qty");
+        for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+			e.preventDefault();
+            let qty = btns[i].value
+            qty++;
+            document.getElementById("item_qty").value = qty;
+        });
+    }
     }
     function decrement() {
         if(qty!=0)
