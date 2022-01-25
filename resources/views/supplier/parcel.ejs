@@ -65,14 +65,13 @@
                         <div id="item_options" class="max-w-md mx-auto bg-white rounded overflow-hidden shadow-lg mb-3 item">
                             <span class="text-lg font-bold pr-2 ml-2 mt-2 inline">Item Name:</span>
                             <input id="item_name" name="item_name" class="item_name border border-gray-400 mt-2 p-2 w-1/2 focus:outline-none inline " type="text"> 
-                                <button onclick="removeItem()" type="button" class=" remove btn-primary px-4 py-2 rounded text-white font-bold mt-6 ml-10 focus:outline-none inline" >x</button> 
                             <br>
         
                             <div class="py-2">
                                 <span class="text-lg font-bold ml-2 pr-6">Quantity:</span>
-                                <button onclick="decrement()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">-</button>
-                                <input id="item_qty" name="item_qty" class="item_qty border border-gray-400 p-2 text-center" size="1" type="text" value="0">  
-                                <button onclick="increment()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">+</button>
+                                <button class="dec bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">-</button>
+                                <input id="item_qty0" name="item_qty" class="item_qty border border-gray-400 p-2 text-center" size="1" type="text" value="0">  
+                                <button class="inc bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">+</button>
                             </div>
                             <div class="py-2">
                                 <span class="text-lg font-bold pr-3 ml-2">Perishable:</span>   
@@ -81,22 +80,22 @@
         
                             <div class="py-2">
                                 <span class="text-lg font-bold pr-8 mr-1 ml-2">Weight:</span>   
-                                <input id="item_weight" name="item_weight" class="item_weight border border-gray-400 p-2 text-center w-1/8 focus:outline-none " pattern="\d*" size="1" maxlength="3" type="text">  
+                                <input id="item_weight" name="item_weight" class="item_weight border border-gray-400 p-2 text-center w-1/6 focus:outline-none " pattern="\d*" size="1" maxlength="3" type="text">  
                                 <span class="text-lg font-bold"> kg</span>   
                             </div>
                         </div>
 
                         <div id="item_options2" class="max-w-md mx-auto bg-white rounded overflow-hidden shadow-lg mb-3 hidden">
                             <span class="text-lg font-bold pr-2 ml-2 mt-2 inline">Item Name:</span>
-                            <input id="item_name" name="item_name" class="item_name border border-gray-400 mt-2 p-2 w-1/2 focus:outline-none inline " type="text" value="0"> 
+                            <input id="item_name" name="item_name" class="item_name border border-gray-400 mt-2 p-2 w-1/2 focus:outline-none inline " type="text" > 
                                 <button onclick="removeItem()" type="button" class=" remove btn-primary px-4 py-2 rounded text-white font-bold mt-6 ml-10 focus:outline-none inline" >x</button> 
                             <br>
         
                             <div class="py-2">
                                 <span class="text-lg font-bold ml-2 pr-6">Quantity:</span>
-                                <button onclick="decrement()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">-</button>
-                                <input id="item_qty" name="item_qty" class="item_qty border border-gray-400 p-2 text-center" size="1" type="text">  
-                                <button onclick="increment()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">+</button>
+                                <button class="dec1 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">-</button>
+                                <input id="item_qty1" name="item_qty" class="item_qty border border-gray-400 p-2 text-center" size="1" type="text" value="0">  
+                                <button class="inc1 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">+</button>
                             </div>
                             <div class="py-2">
                                 <span class="text-lg font-bold pr-3 ml-2">Perishable:</span>   
@@ -153,15 +152,35 @@
     //add more items
     var itemNumber=1;
     function addItem() {
+        var new_id;
+        var new_btn_id;
         var itm = document.getElementById("item_options2")
         var cln = itm.cloneNode(true);
-        itemNumber++;
+        // cln.id = "added_item"+itemNumber
+        // new_btn_id = document.getElementById(itemNumber);
+        // new_id = document.getElementById("item_qty"+itemNumber);
+
+        
+        // var e1 = GetElementInsideContainer(cln.id, new_btn_id);
+        // var e2 = GetElementInsideContainer(cln.id, new_id);
+        //change id
         cln.classList.remove("hidden");
         cln.classList.add("item");
         document.getElementById("add_item").appendChild(cln);
-    }
+        itemNumber++;
+        // e1.id = itemNumber;
+        // e2.id = "item_qty"+itemNumber;
+        counter();
 
-    function removeItem(){
+    }
+    //element inside container
+    function GetElementInsideContainer(containerID, childID) {
+        var elm = document.getElementById(childID);
+        var parent = elm ? elm.parentNode : {};
+        return (parent.id && parent.id === containerID) ? elm : {};
+}
+
+    function removeItem(){     
         var els = document.getElementsByClassName("remove");
         itemNumber--
         for (var i = 0; i < els.length; i++) {
@@ -170,8 +189,10 @@
             e.target.closest('div.item').remove();
         });
     }
+    recounter()
     }
     function listItems() {
+        
         let itemList;
         let items = itemNumber;
         let itemname = document.getElementsByClassName("item_name");
@@ -191,26 +212,152 @@
 
 
 
-    function increment() {
-        btns = document.getElementsByClassName("item-qty");
-        for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener("click", function () {
-			e.preventDefault();
-            let qty = btns[i].value
-            qty++;
-            document.getElementById("item_qty").value = qty;
-        });
+    // function increment(elem) {
+    //     console.log("button pressed")
+    //     var qty;
+    //     console.log(elem.id)
+    //     qty = document.getElementById("item_qty"+elem.id).value;
+    //     qty++
+    //     document.getElementById("item_qty"+elem.id).value = qty
+    // }
+    // function decrement(elem) {
+    //     var qty;
+    //     qty = document.getElementById("item_qty"+elem.id).value;
+    //     if(qty!=0)
+    //         qty--
+    //         document.getElementById("item_qty"+elem.id).value = qty
+    // }
+        // while(1) {
+        //     incButton = document.getElementsByClassName('inc');
+        //     decButton = document.getElementsByClassName('dec'); 
+        // }
+        var incButton = document.getElementsByClassName('inc');
+        var decButton = document.getElementsByClassName('dec');
+        console.log(incButton)
+
+        for(var i = 0; i<incButton.length; i++){
+            var button =incButton[i];
+            if (button.getAttribute('listener') !== 'true') {
+            button.addEventListener('click',function(event){
+
+                var buttonClicked = event.target;
+                var input = buttonClicked.parentElement.children[2];
+
+                var inputValue = input.value;
+
+                var newValue = parseInt(inputValue)+1;
+                // console.log(newValue);
+                input.value = newValue
+            })
+        }
+        }
+
+        for(var i = 0; i<decButton.length; i++){
+            var button = decButton[i];
+            if (button.getAttribute('listener') !== 'true') {
+            button.addEventListener('click',function(event){
+
+                var buttonClicked = event.target;
+                var input = buttonClicked.parentElement.children[2];
+
+                var inputValue = input.value;
+
+                var newValue;
+                if(inputValue !=0)
+                 newValue = parseInt(inputValue)-1;
+                 else
+                 newValue = inputValue
+                // console.log(newValue);
+                input.value = newValue
+            })
+        }
+        }
+        var incButton1 = document.getElementsByClassName('inc1');
+        var decButton1 = document.getElementsByClassName('dec1');
+    function counter() {
+        
+        console.log(incButton1)
+
+        for(var i = 0; i<incButton1.length; i++){
+            var button =incButton1[i];
+            if (button.getAttribute('listener') !== 'true') {
+            button.addEventListener('click',function(event){
+
+                var buttonClicked = event.target;
+                var input = buttonClicked.parentElement.children[2];
+
+                var inputValue = input.value;
+
+                var newValue = parseInt(inputValue)+1;
+                console.log(newValue);
+                input.value = newValue
+            })
+        }
+        }
+
+        for(var i = 0; i<decButton1.length; i++){
+            var button = decButton1[i];
+            if (button.getAttribute('listener') !== 'true') {
+            button.addEventListener('click',function(event){
+
+                var buttonClicked = event.target;
+                var input = buttonClicked.parentElement.children[2];
+
+                var inputValue = input.value;
+
+                var newValue;
+                if(inputValue !=0)
+                 newValue = parseInt(inputValue)-1;
+                 else
+                 newValue = inputValue
+                // console.log(newValue);
+                input.value = newValue
+            })
+        }
+        }
+
     }
+
+    function recounter() {
+        incButton = document.getElementsByClassName('inc');
+        decButton = document.getElementsByClassName('dec');
+        console.log(incButton)
+
+        for(var i = 0; i<incButton.length; i++){
+            var button =incButton[i];
+            button.removeEventListener('click',function(event){
+
+                var buttonClicked = event.target;
+                var input = buttonClicked.parentElement.children[2];
+
+                var inputValue = input.value;
+
+                var newValue = parseInt(inputValue)+1;
+                // console.log(newValue);
+                input.value = newValue
+            })
+        }
+
+        for(var i = 0; i<decButton.length; i++){
+            var button = decButton[i];
+            button.removeEventListener('click',function(event){
+
+                var buttonClicked = event.target;
+                var input = buttonClicked.parentElement.children[2];
+
+                var inputValue = input.value;
+
+                var newValue;
+                if(inputValue !=0)
+                 newValue = parseInt(inputValue)-1;
+                 else
+                 newValue = inputValue
+                // console.log(newValue);
+                input.value = newValue
+            })
+        }
+
     }
-    function decrement() {
-        if(qty!=0)
-        qty--;
-        document.getElementById("item_qty").value=qty;
-    }
-
-
-
-
 
 
      let deleteParcel = document.querySelectorAll('#deleteParcel');
