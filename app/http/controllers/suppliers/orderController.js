@@ -12,12 +12,83 @@ function orderController() {
         service_provider,
         pickup_address,
         dropoff_address,
-        itemList
+        item_name,
+        item_qty,
+        perishable,
+        item_weight,
+
+        item_name2,
+        item_qty2,
+        perishable2,
+        item_weight2,
+      
+        item_name3,
+        item_qty3,
+        perishable3,
+        item_weight3,
+
+        item_name4,
+        item_qty4,
+        perishable4,
+        item_weight4,
+
+        item_name5,
+        item_qty5,
+        perishable5,
+        item_weight5,
+
+
       } = req.body;
-      if (!phone || !pickup_address || !dropoff_address) {
+      if (!phone || !pickup_address || !dropoff_address || !item_name || !item_weight) {
         req.flash('error', 'All fields required!');
         return res.redirect('/parcel');
       }
+
+      const item1 = {
+        item_name: item_name,
+        item_qty: item_qty,
+        perishable_check: perishable ? 'perishable':'no',
+        item_weight: item_weight
+      }
+
+      const item2 = {
+        item_name: item_name2,
+        item_qty: item_qty2,
+        perishable_check: perishable2 ? 'perishable':'no',
+        item_weight: item_weight2
+      }
+
+      const item3 = {
+        item_name: item_name3,
+        item_qty: item_qty3,
+        perishable_check: perishable3 ? 'perishable':'no',
+        item_weight: item_weight3
+      }
+
+
+      const item4 = {
+        item_name: item_name4,
+        item_qty: item_qty4,
+        perishable_check: perishable4 ? 'perishable':'no',
+        item_weight: item_weight4
+      }
+
+      const item5 = {
+        item_name: item_name5,
+        item_qty: item_qty5,
+        perishable_check: perishable5 ? 'perishable':'no',
+        item_weight: item_weight5
+      }
+
+      const itemList = {
+        item1: item1,
+        item2: item2,
+        item3: item3,
+        item4: item4,
+        item5: item5
+      };
+
+
       const order = new Order({
         tracking_id: id,
         service_provider,

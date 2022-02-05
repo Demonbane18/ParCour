@@ -7,11 +7,55 @@
             <p class="text-lg ">Service Provider: <%=JSON.stringify(items.info.service_provider).replace(/^"(.*)"$/, '$1')%></p>
             <p class="text-lg ">Vehicle Type: <%=JSON.stringify(items.info.vehicle_type).replace(/^"(.*)"$/, '$1')%></p>
             <p class="text-lg ">Price: &#8369;<%=JSON.stringify(items.info.price).replace(/^"(.*)"$/, '$1')%></p>
-            <%}%>
+            
             <br>
             <p class="text-lg ">Payment type: <%=order.payment_type %> </p>
             <p class="text-lg ">Pickup Address: <%=order.pickup_address %> </p>
             <p class="text-lg ">Drop off Address: <%=order.dropoff_address%> </p><br>
+            <%}%>
+
+            <h2 class="text-xl font-bold">Parcel Items</h2><br>
+
+            <% if (order.parcelDetails.item1.item_name) { %>
+            <p class="text-lg ">Item Name: <%=JSON.stringify(order.parcelDetails.item1.item_name).replace(/^"(.*)"$/, '$1') %> </p>
+            <p class="text-lg ">Quantity: <%=JSON.stringify(order.parcelDetails.item1.item_qty).replace(/^"(.*)"$/, '$1') %> </p>
+            <p class="text-lg ">Perishable: <%=JSON.stringify(order.parcelDetails.item1.perishable_check).replace(/^"(.*)"$/, '$1') %> </p>
+            <p class="text-lg ">Weight: <%=JSON.stringify(order.parcelDetails.item1.item_weight).replace(/^"(.*)"$/, '$1') %> </p>
+            <%}%>
+            <br>
+            <% if (order.parcelDetails.item2.item_name) { %>
+                <p class="text-lg ">Item Name: <%=JSON.stringify(order.parcelDetails.item2.item_name).replace(/^"(.*)"$/, '$1') %> </p>
+                <p class="text-lg ">Quantity: <%=JSON.stringify(order.parcelDetails.item2.item_qty).replace(/^"(.*)"$/, '$1') %> </p>
+                <p class="text-lg ">Perishable: <%=JSON.stringify(order.parcelDetails.item2.perishable_check).replace(/^"(.*)"$/, '$1') %> </p>
+                <p class="text-lg ">Weight: <%=JSON.stringify(order.parcelDetails.item2.item_weight).replace(/^"(.*)"$/, '$1') %> </p>
+            <%}%>
+
+            <% if (order.parcelDetails.item3.item_name) { %>
+                <p class="text-lg ">Item Name: <%=JSON.stringify(order.parcelDetails.item3.item_name).replace(/^"(.*)"$/, '$1') %> </p>
+                <p class="text-lg ">Quantity: <%=JSON.stringify(order.parcelDetails.item3.item_qty).replace(/^"(.*)"$/, '$1') %> </p>
+                <p class="text-lg ">Perishable: <%=JSON.stringify(order.parcelDetails.item3.perishable_check).replace(/^"(.*)"$/, '$1') %> </p>
+                <p class="text-lg ">Weight: <%=JSON.stringify(order.parcelDetails.item3.item_weight).replace(/^"(.*)"$/, '$1') %> </p>
+            <%}%>
+            
+            <% if (order.parcelDetails.item4.item_name) { %>
+                <p class="text-lg ">Item Name: <%=JSON.stringify(order.parcelDetails.item4.item_name).replace(/^"(.*)"$/, '$1') %> </p>
+                <p class="text-lg ">Quantity: <%=JSON.stringify(order.parcelDetails.item4.item_qty).replace(/^"(.*)"$/, '$1') %> </p>
+                <p class="text-lg ">Perishable: <%=JSON.stringify(order.parcelDetails.item4.perishable_check).replace(/^"(.*)"$/, '$1') %> </p>
+                <p class="text-lg ">Weight: <%=JSON.stringify(order.parcelDetails.item4.item_weight).replace(/^"(.*)"$/, '$1') %> </p>
+            <%}%>
+
+            <% if (order.parcelDetails.item5.item_name) { %>
+                <p class="text-lg ">Item Name: <%=JSON.stringify(order.parcelDetails.item5.item_name).replace(/^"(.*)"$/, '$1') %> </p>
+                <p class="text-lg ">Quantity: <%=JSON.stringify(order.parcelDetails.item5.item_qty).replace(/^"(.*)"$/, '$1') %> </p>
+                <p class="text-lg ">Perishable: <%=JSON.stringify(order.parcelDetails.item5.perishable_check).replace(/^"(.*)"$/, '$1') %> </p>
+                <p class="text-lg ">Weight: <%=JSON.stringify(order.parcelDetails.item5.item_weight).replace(/^"(.*)"$/, '$1') %> </p>
+            <%}%>
+            
+       
+
+            <br>
+
+            
         <div class="status-box w-2/3 mx-auto">
 
             <div class="flex items-center justify-between mb-12">
@@ -32,4 +76,8 @@
         </div>
     </div>
 </section>
+<script>
+    </script>
+    
+</script>
 <%- include('../_layouts/footer') %>
