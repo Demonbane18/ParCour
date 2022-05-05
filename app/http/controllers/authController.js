@@ -11,6 +11,8 @@ function authController() {
             return '/supplier/orders'
         } else if(req.user.role === 'admin') {
             return '/admin/users'
+        } else if(req.user.role === 'rider') {
+            return '/rider/orders'
         }
     }
 

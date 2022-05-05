@@ -15,7 +15,7 @@ export function initSP(socket) {
   let cancelled_markup;
   //http request
   axios
-    .get('/service_provider/orders', {
+    .get('/rider/orders', {
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
       },
@@ -31,7 +31,7 @@ export function initSP(socket) {
     });
 
   //prettier-ignore
-  axios.get('/service_provider/completed_orders', {
+  axios.get('/rider/completed_orders', {
          headers: {
              "X-Requested-With": 'XMLHttpRequest'
          }
@@ -45,7 +45,7 @@ export function initSP(socket) {
      })
 
   //prettier-ignore
-  axios.get('/service_provider/cancelled_orders', {
+  axios.get('/rider/cancelled_orders', {
          headers: {
              "X-Requested-With": 'XMLHttpRequest'
          }
@@ -63,7 +63,7 @@ export function initSP(socket) {
         let parsedItems = Object.values(items)
         return parsedItems.map((menuItem) => {
             return `
-                <p>${ menuItem.info.vehicle_type }</p>
+                <p>${ menuItem.info.vehicle_type } - ${ menuItem.qty } vehicle/s </p>
             `
         }).join('')
     }
@@ -74,7 +74,7 @@ export function initSP(socket) {
             return `
                 <tr>
     <td class="border px-4 py-2 text-green-900">
-    <p>${ order._id }</p>
+        <p>${ order._id }</p>
         <div>${ renderItems(order.items) }</div>
     </td>
     <td class="border px-4 py-2">${ order.supplier_id.name }</td>
@@ -82,18 +82,11 @@ export function initSP(socket) {
     <td class="border px-4 py-2">${ order.phone }</td>
     <td class="border px-4 py-2">${ order.pickup_address }</td>
     <td class="border px-4 py-2">${ order.dropoff_address }</td>
-    <td class="border px-4 py-2">${ order.delivered_by === 'not assigned' ? '':order.delivered_by }
-    <button type="button" ${ order.delivered_by === 'not assigned' ? '':'hidden' } class="completed-orders btn-primary text-white font-bold py-2 px-5 rounded"><a class="block"
-    href="/service_provider/assign_rider/${ order._id }"><i class="las la-truck"></i> Assign Rider</a>
-    </td>
     <td class="border px-4 py-2">
         <div class="inline-block relative w-64">
             <form action="/service_provider/order/status" method="POST">
                 <input type="hidden" name="order_id" value="${ order._id }">
-                <select name="status" onchange="this.form.submit()" disabled
-                    class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="parcel_placed" ${ order.status==='parcel_placed' ? 'selected' : '' }>
-                        Parcel Placed</option>
+                <select name="status" onchange="this.form.submit()"
                     <option value="confirmed" ${ order.status==='confirmed' ? 'selected' : '' }>
                         Confirmed</option>
                     <option value="vehicle_ready" ${ order.status==='vehicle_ready' ? 'selected' : '' }>
@@ -106,12 +99,6 @@ export function initSP(socket) {
                         Shipping</option>
                     <option value="delivered" ${ order.status==='delivered' ? 'selected' : '' }>
                         Delivered
-                    </option>
-                    <option value="completed" ${ order.status==='completed' ? 'selected' : '' }>
-                        Completed
-                    </option>
-                    <option value="cancelled" ${ order.status==='cancelled' ? 'selected' : '' }>
-                        Cancelled
                     </option>
                 </select>
             </form>
@@ -130,13 +117,13 @@ export function initSP(socket) {
         }).join('')
     }
 
-  //Socket
+  //Socket change this later
   socket.on('parcelBooked', (order) => {
     new Noty({
       type: 'success',
       timeout: 1000,
       progressBar: false,
-      text: 'New Parcel added!',
+      text: 'New Delivery added!',
       progressBar: false,
     }).show();
     orders.unshift(order);

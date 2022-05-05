@@ -3,6 +3,7 @@ const authController = require('../app/http/controllers/authController')
 const parcelController = require('../app/http/controllers/suppliers/parcelController')
 const orderController = require('../app/http/controllers/suppliers/orderController')
 const SPorderController = require('../app/http/controllers/service_providers/orderController')
+const r_orderController = require('../app/http/controllers/rider/r_orderController')
 const StatusController = require('../app/http/controllers/service_providers/statusController')
 const SPriderController = require('../app/http/controllers/service_providers/riderController')
 const SPcategoryController = require('../app/http/controllers/service_providers/categoryController')
@@ -17,6 +18,7 @@ const trackController = require('../app/http/controllers/trackController')
 //Middleware
 const guest = require('../app/http/middlewares/guest')
 const auth = require('../app/http/middlewares/auth')
+const rider = require('../app/http/middlewares/rider')
 const service_provider = require('../app/http/middlewares/service_provider')
 const admin = require('../app/http/middlewares/admin')
 
@@ -90,6 +92,12 @@ function initRoutes(app) {
     //status
     app.post('/service_provider/order/status', service_provider, StatusController().update)
 
+    //assign rider
+    app.post('/service_provider/assign_rider/:id', service_provider, SPorderController().searchRider)
+    app.get('/service_provider/assign_rider/:id/:id1', service_provider, SPorderController().assign)
+    app.get('/service_provider/assign_rider/:id', service_provider, SPorderController().assignRider)
+
+
     //admin routes
 
     //User
@@ -106,6 +114,11 @@ function initRoutes(app) {
     app.get('/admin/edit_service_provider/:id', admin, spController().editServiceProvider)
     app.post('/admin/edit_service_provider/:id', admin, spController().edit)
     app.get('/admin/delete_service_provider/:id', admin, spController().delete)
+
+
+    //Rider
+    app.get('/rider/orders', rider, r_orderController().index)
+
 }
 
 module.exports = initRoutes

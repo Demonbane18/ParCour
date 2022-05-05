@@ -9,6 +9,7 @@
             <p class="text-lg ">Price: &#8369;<%=JSON.stringify(items.info.price).replace(/^"(.*)"$/, '$1')%></p>
             
             <br>
+            <p class="text-lg ">Rider: <%=order.delivered_by %> </p>
             <p class="text-lg ">Payment type: <%=order.payment_type %> </p>
             <p class="text-lg ">Pickup Address: <%=order.pickup_address %> </p>
             <p class="text-lg ">Drop off Address: <%=order.dropoff_address%> </p><br>

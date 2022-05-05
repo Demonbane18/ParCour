@@ -116,3 +116,4 @@ eventEmitter.on('parcelUpdated', (data) => {
 eventEmitter.on('parcelBooked', (data) => {
   io.to('spRoom').emit('parcelBooked', data)
 })
+

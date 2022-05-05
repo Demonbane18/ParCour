@@ -1,6 +1,7 @@
 const Rider = require("../../../models/rider");
 const User = require('../../../models/user');
 const bcrypt = require('bcrypt');
+const user = require("../../../models/user");
 function riderController() {
     return {
         async index(req, res) {
@@ -127,7 +128,19 @@ function riderController() {
                 address,
                 email,
               })
+            //hash password
+              const hashedPassword = await bcrypt.hash('rider', 10);
+              const user = new User({
+                  name,
+                  role: 'rider',
+                  company_name: req.user.company_name,
+                  phone,
+                  address,
+                  email,
+                  password: hashedPassword
 
+              })
+              user.save()
               rider
                 .save()
                 .then((rider) => {
@@ -136,7 +149,7 @@ function riderController() {
                   return res.redirect('/service_provider/riders')
                 })
                 .catch((err) => {
-                  req.flash('error', 'Something went wrong!Rider!')
+                  req.flash('error', 'Something went wrong! ')
                   return res.redirect('/service_provider/add_rider')
                 })
             },
@@ -163,6 +176,7 @@ function riderController() {
 
                         },
                         async edit(req, res) {
+                               
                                 var id = req.params.id;
                                 const {
                                      name,
@@ -202,6 +216,7 @@ function riderController() {
                                         return res.redirect('/service_provider/edit_rider/' + id);
 
                                     } else {
+                                        const user = User.find({name: name})
                                         Rider.findById(id, (err, rider) => {
                                                 if (err) {
                                                     return console.log(err)
@@ -213,6 +228,12 @@ function riderController() {
                                                 rider.image = image;
                                                 rider.phone = phone;
                                                 rider.address = address;
+
+                                                user.name = name;
+                                                user.phone = phone;
+                                                user.address = address;
+                                                
+                                                user.save()
                                                 rider.save((err) => {
                                                     if (err)
                                                         return console.log(err);

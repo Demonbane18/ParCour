@@ -51,6 +51,11 @@ const orderSchema = new Schema(
       required: true,
       default: 'MrSpeedy',
     },
+    delivered_by: {
+      type: String,
+      required: false,
+      default: 'not assigned',
+    },
     status: {
       type: String,
       required: true,

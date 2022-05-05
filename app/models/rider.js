@@ -42,6 +42,13 @@ const riderSchema = new Schema({
         required: true,
         unique: true,
     },
+    password: {
+        type: String,
+        required: true,
+        minimum: 8,
+        maximum: 20,
+        default: 'rider'
+    },
 
     role: {
         type: String,

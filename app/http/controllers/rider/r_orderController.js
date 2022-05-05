@@ -4,7 +4,7 @@ const Rider = require("../../../models/rider");
 const User = require('../../../models/user');
 
 //prettier-ignore
-function orderController() {
+function r_orderController() {
     return {
       index(req, res) {
         const searchedOrder = req.session.ordersearched;
@@ -17,6 +17,7 @@ function orderController() {
                           $nin: ['completed', 'cancelled'],
                         },
                         service_provider: req.user.company_name,
+                        delivered_by: req.user.name,
                       },
                       null, {
                         sort: {
@@ -30,7 +31,7 @@ function orderController() {
                         return res.json(orders);
                       } else {
                          req.session.ordersearched = null;
-                        return res.render('service_provider/orders', {
+                        return res.render('rider/orders', {
                         term_order: null
                         });
                         }
@@ -41,7 +42,7 @@ function orderController() {
                           if (req.xhr) {
                             return res.json(orders);
                           } else {
-                             return res.render('service_provider/orders', {
+                             return res.render('rider/orders', {
                                 term_order: termOrder
                              });
                           }
@@ -55,7 +56,7 @@ function orderController() {
             } = req.body;
             if (!term_order) {
               req.session.ordersearched = null;
-              return res.redirect('/service_provider/orders');
+              return res.redirect('/rider/orders');
             }
             //find order by text index search and sort it based on text score
             const orders = await order.find({
@@ -63,6 +64,7 @@ function orderController() {
                   $search: term_order,
                 },
                 service_provider: req.user.company_name,
+                delivered_by: req.user.name,
                 status: {
                   $nin: ['completed', 'cancelled'],
                 },
@@ -73,13 +75,13 @@ function orderController() {
               }, (err, result) => {
                 if (err) {
                   req.flash('error', 'Error! Something went wrong');
-                  return res.redirect('/service_provider/orders');
+                  return res.redirect('/rider/orders');
                 }
                 if (!result.length) {
                   req.flash('error', 'no text');
                   req.session.ordersearched = null
                   req.session.term_order = null
-                   return res.redirect('/service_provider/orders');
+                   return res.redirect('/rider/orders');
                 }
               }).sort({
                 score: {
@@ -90,11 +92,11 @@ function orderController() {
               .exec((err, orders) => {
                 if (err) {
                    req.flash('error', 'Error! Something went wrong');
-                   return res.redirect('/service_provider/orders');
+                   return res.redirect('/rider/orders');
                 }
                 req.session.ordersearched = orders
                 req.session.term_order = term_order
-                return res.redirect('/service_provider/orders');
+                return res.redirect('/rider/orders');
               })
   
       },
@@ -106,6 +108,7 @@ function orderController() {
                 $eq: 'completed',
               },
               service_provider: req.user.company_name,
+              delivered_by: req.user.name,
             },
             null,
             {
@@ -119,7 +122,7 @@ function orderController() {
             if (req.xhr) {
               return res.json(completed_orders);
             } else {
-              return res.render('service_provider/completed_orders');
+              return res.render('rider/completed_orders');
             }
           });
       },
@@ -131,6 +134,7 @@ function orderController() {
                 $eq: 'cancelled',
               },
               service_provider: req.user.company_name,
+              delivered_by: req.user.name,
             },
             null,
             {
@@ -144,103 +148,12 @@ function orderController() {
             if (req.xhr) {
               return res.json(cancelled_orders);
             } else {
-              return res.render('service_provider/cancelled_orders');
+              return res.render('rider/cancelled_orders');
             }
           });
       },
-      async assignRider(req, res) {
-        const searchedRider = req.session.ridersearched;
-        const termRider = req.session.term_rider
-        req.session.term_rider = null;
-        req.session.ridersearched = null;
 
-        const riders = await Rider.find({
-          company_name: req.user.company_name
-      })
-
-        const riderAssigned = req.session.riderassigned;
-        req.session.riderassigned = null;
-
-        Order.findById(req.params.id, (err, order) => {
-          if (err)
-              return console.log(err);
-          //order info
-          res.render('service_provider/assign_rider', {
-              riders: riders,
-              order: order,
-              id: order._id,
-              tracking_id: order.tracking_id,
-              riderAssigned,
-              searchedRider,
-              term_rider: termRider
-          });
-      });
-      },
-      async searchRider(req, res) {
-        const {
-            term_rider
-        } = req.body;
-        const id = req.params.id;
-        if (!term_rider) {
-            return res.redirect('/service_provider/assign_rider/'+id);
-        }
-        //find rider by text index search and sort it based on text score
-        const riders = await Rider.find({
-                $text: {
-                    $search: term_rider,
-                },
-                company_name: req.user.company_name
-            }, {
-                score: {
-                    $meta: "textScore"
-                }
-            }, (err, result) => {
-                if (err) {
-                    req.flash('error', 'Error! Something went wrong');
-                    return res.redirect('/service_provider/assign_rider/'+id);
-                }
-                if (!result.length) {
-                    req.flash('blank', term_rider);
-                }
-            }).sort({
-                score: {
-                    $meta: "textScore"
-                }
-            })
-            .then((riders) => {
-                    req.session.ridersearched = riders
-                    req.session.term_rider = term_rider
-                    return res.redirect('/service_provider/assign_rider/'+id);
- })
- .catch((err) => {
-     req.flash('error', 'Error! Something went wrong');
-     return res.redirect('/service_provider/assign_rider/'+id);
- });
-},
-
-        async assign(req, res) {
-          const {
-            id,
-            id1
-          } = req.params
-
-          const order = await Order.findById(id)
-          const rider = await Rider.findById(id1)
-          order.delivered_by = rider.name;
-          order.status = 'confirmed';
-          order
-          .save()
-          .then((result) => {
-            req.flash('success', 'Rider assigned successfully');
-            return res.redirect('/service_provider/orders');
-           
-          })
-          .catch((err) => {
-            req.flash('error', 'Something went wrong');
-            return res.redirect('/service_provider/assign_rider/'+id);
-          });
-        }   
     };
 }
 
-module.exports = orderController
+module.exports = r_orderController
