@@ -7,6 +7,10 @@ import {
     initSP
 }
 from './service_provider';
+import {
+    initR
+}
+from './rider';
 
 console.log('hello from app.js');
 document.addEventListener('DOMContentLoaded', () => {
@@ -84,18 +88,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateStatus(order);
 
-    // Socket
-    let socket = io();
-    initSP(socket)
+        let socket = io();
+        initSP(socket)
+        initR(socket)
+    
     //Join
     if(order) {
         socket.emit('join', `order_${order._id}`)
     //  order_id_key create room
     }
-    let spAreaPath = window.location.pathname
-    console.log(spAreaPath)
-    if(spAreaPath.includes('service_provider')) {
+    let areaPath = window.location.pathname
+    console.log(areaPath)
+    if(areaPath.includes('service_provider')) {
+        
         socket.emit('join', 'spRoom')
+    }
+    if(areaPath.includes('rider')) {
+        
+        socket.emit('join', 'rRoom')
     }
 
     socket.on('parcelUpdated', (data) => {

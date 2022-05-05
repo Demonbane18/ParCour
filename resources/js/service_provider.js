@@ -74,7 +74,7 @@ export function initSP(socket) {
             return `
                 <tr>
     <td class="border px-4 py-2 text-green-900">
-    <p>${ order._id }</p>
+    <p>${ order.tracking_id }</p>
         <div>${ renderItems(order.items) }</div>
     </td>
     <td class="border px-4 py-2">${ order.supplier_id.name }</td>

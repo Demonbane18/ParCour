@@ -5,6 +5,7 @@ const orderController = require('../app/http/controllers/suppliers/orderControll
 const SPorderController = require('../app/http/controllers/service_providers/orderController')
 const r_orderController = require('../app/http/controllers/rider/r_orderController')
 const StatusController = require('../app/http/controllers/service_providers/statusController')
+const r_statusController = require('../app/http/controllers/rider/r_statusController')
 const SPriderController = require('../app/http/controllers/service_providers/riderController')
 const SPcategoryController = require('../app/http/controllers/service_providers/categoryController')
 const vehicleController = require('../app/http/controllers/service_providers/vehicleController')
@@ -91,6 +92,7 @@ function initRoutes(app) {
 
     //status
     app.post('/service_provider/order/status', service_provider, StatusController().update)
+    app.post('/rider/order/status', rider, r_statusController().update)
 
     //assign rider
     app.post('/service_provider/assign_rider/:id', service_provider, SPorderController().searchRider)

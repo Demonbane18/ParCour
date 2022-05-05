@@ -2,7 +2,7 @@
 <!-- FOR PARCEL TRACKING -->
 <section class="status">
     <div class="container mx-auto">
-            <h1 class="text-xl font-bold">Parcel Information</h1><br>
+            <h1 class="text-xl font-bold text-green-600">Parcel Information</h1><br>
             <% for(let items of Object.values(order.items)) { %>
             <p class="text-lg ">Service Provider: <%=JSON.stringify(items.info.service_provider).replace(/^"(.*)"$/, '$1')%></p>
             <p class="text-lg ">Vehicle Type: <%=JSON.stringify(items.info.vehicle_type).replace(/^"(.*)"$/, '$1')%></p>
@@ -15,7 +15,7 @@
             <p class="text-lg ">Drop off Address: <%=order.dropoff_address%> </p><br>
             <%}%>
 
-            <h2 class="text-xl font-bold">Parcel Items</h2><br>
+            <h2 class="text-xl font-bold text-green-600">Parcel Items</h2><br>
 
             <% if (order.parcelDetails.item1.item_name) { %>
             <p class="text-lg ">Item Name: <%=JSON.stringify(order.parcelDetails.item1.item_name).replace(/^"(.*)"$/, '$1') %> </p>
@@ -60,7 +60,7 @@
         <div class="status-box w-2/3 mx-auto">
 
             <div class="flex items-center justify-between mb-12">
-                <p class="text-xl font-bold">Track Delivery Status</p>
+                <p class="text-2xl font-bold text-blue-600">Delivery Status</p>
                 <p class="bg-white py-1 rounded-full px-4 text-green-600 text-xs"><%=order.tracking_id%> </p>
                 <input id="hiddenInput" type="hidden" value="<%= JSON.stringify(order) %> ">
             </div>

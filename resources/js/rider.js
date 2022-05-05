@@ -3,7 +3,7 @@ import moment from 'moment'
 import Noty from 'noty';
 
 // prettier-ignore
-export function initSP(socket) {
+export function initR(socket) {
   const orderTableBody = document.querySelector('#orderTableBody');
   const orderTableBodyCompleted = document.querySelector('#orderTableBodycomp');
   const orderTableBodyCancelled = document.querySelector('#orderTableBodyCancelled');
@@ -63,10 +63,24 @@ export function initSP(socket) {
         let parsedItems = Object.values(items)
         return parsedItems.map((menuItem) => {
             return `
-                <p>${ menuItem.info.vehicle_type } - ${ menuItem.qty } vehicle/s </p>
+                <p>${ menuItem.info.vehicle_type }</p>
             `
         }).join('')
     }
+    function renderParcel(items) {
+        let parsedItems = Object.values(items)
+        return parsedItems.map((menuItem) => {
+            return `
+                <div>Item Name: ${ menuItem.item1.item_name }</div>
+                <div>Quantity:  ${ menuItem.item1.item_qty }</div>
+                <div>Perishable:  ${ menuItem.item1.perishable_check }</div>
+                <div>Weight:  ${ menuItem.item1.item_weight}</div>
+
+                
+            `
+        }).join('')
+    }
+
 
   // prettier-ignore
   function generateMarkup(orders) {
@@ -74,8 +88,10 @@ export function initSP(socket) {
             return `
                 <tr>
     <td class="border px-4 py-2 text-green-900">
-        <p>${ order._id }</p>
+        <p><a class="link focus:outline-none text-green-600" href="/trackParcel/${ order.tracking_id }">${ order.tracking_id }</a></p>
         <div>${ renderItems(order.items) }</div>
+
+</div>
     </td>
     <td class="border px-4 py-2">${ order.supplier_id.name }</td>
     <td class="border px-4 py-2">${ order.supplier_id.company_name }</td>
@@ -84,9 +100,10 @@ export function initSP(socket) {
     <td class="border px-4 py-2">${ order.dropoff_address }</td>
     <td class="border px-4 py-2">
         <div class="inline-block relative w-64">
-            <form action="/service_provider/order/status" method="POST">
+            <form action="/rider/order/status" method="POST">
                 <input type="hidden" name="order_id" value="${ order._id }">
-                <select name="status" onchange="this.form.submit()"
+                <select name="status" onchange="this.form.submit()" 
+                class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                     <option value="confirmed" ${ order.status==='confirmed' ? 'selected' : '' }>
                         Confirmed</option>
                     <option value="vehicle_ready" ${ order.status==='vehicle_ready' ? 'selected' : '' }>
@@ -113,12 +130,13 @@ export function initSP(socket) {
         ${ moment(order.createdAt).format('ddd MMM Do, hh:mm A') }
     </td>
 </tr>
+
         `
         }).join('')
     }
 
   //Socket change this later
-  socket.on('parcelBooked', (order) => {
+  socket.on('parcelDelivery', (order) => {
     new Noty({
       type: 'success',
       timeout: 1000,

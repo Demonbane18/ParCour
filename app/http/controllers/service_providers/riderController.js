@@ -116,6 +116,7 @@ function riderController() {
                 }
               )      
            
+              const hashedPassword = await bcrypt.hash('rider', 10);
               //create a new rider
               const rider = new Rider({
                 name,
@@ -127,9 +128,10 @@ function riderController() {
                 phone,
                 address,
                 email,
+                password: hashedPassword
               })
             //hash password
-              const hashedPassword = await bcrypt.hash('rider', 10);
+              
               const user = new User({
                   name,
                   role: 'rider',

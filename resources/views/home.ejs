@@ -5,6 +5,9 @@
     <%if(user.role=='supplier') {%>
         <%- include('./_layouts/sup_header') %>
     <% } %>
+    <%if(user.role=='rider') {%>
+        <%- include('./_layouts/r_header') %>
+    <% } %>
 <%} else {%>
     <%- include('./_layouts/layout') %>
 <% } %> 
