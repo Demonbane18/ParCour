@@ -120,6 +120,8 @@ function initRoutes(app) {
 
     //Rider
     app.get('/rider/orders', rider, r_orderController().index)
+    app.get('/rider/completed_orders', rider, r_orderController().complete)
+    app.get('/rider/trackDelivery/:id', rider, trackController().track)
 
 }
 

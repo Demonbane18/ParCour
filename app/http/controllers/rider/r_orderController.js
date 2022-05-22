@@ -105,7 +105,7 @@ function r_orderController() {
           .find(
             {
               status: {
-                $eq: 'completed',
+                $eq: 'delivered',
               },
               service_provider: req.user.company_name,
               delivered_by: req.user.name,

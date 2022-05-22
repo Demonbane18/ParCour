@@ -16,6 +16,13 @@ function trackController() {
               })
          
           },
+          async track(req, res) {
+            const id = req.params.id
+            const order = await Order.findById(id)
+            res.render('rider/trackDelivery', {
+              order
+            })
+          }
     }
 
 

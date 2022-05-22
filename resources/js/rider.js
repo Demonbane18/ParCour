@@ -88,7 +88,7 @@ export function initR(socket) {
             return `
                 <tr>
     <td class="border px-4 py-2 text-green-900">
-        <p><a class="link focus:outline-none text-green-600" href="/trackParcel/${ order.tracking_id }">${ order.tracking_id }</a></p>
+        <p><a class="link focus:outline-none text-green-600" href="/rider/trackDelivery/${ order._id }">${ order.tracking_id }</a></p>
         <div>${ renderItems(order.items) }</div>
 
 </div>
