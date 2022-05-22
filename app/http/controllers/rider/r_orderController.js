@@ -14,7 +14,7 @@ function r_orderController() {
                   order
                     .find({
                         status: {
-                          $nin: ['completed', 'cancelled'],
+                          $nin: ['delivered', 'cancelled'],
                         },
                         service_provider: req.user.company_name,
                         delivered_by: req.user.name,
