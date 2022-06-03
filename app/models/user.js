@@ -34,6 +34,15 @@ const userSchema = new Schema({
         minimum: 8,
         maximum: 20
     },
+    token: {
+        type: String,
+        required: false
+    },
+    is_verified: {
+        type: Boolean,
+        required: false,
+        default: false
+    }
 }, {
     timestamps: true
 }, {

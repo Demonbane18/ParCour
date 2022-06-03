@@ -14,6 +14,7 @@ const mobileOrderController = require('../app/http/controllers/service_providers
 const userController = require('../app/http/controllers/admin/userController')
 const spController = require('../app/http/controllers/admin/spController')
 const trackController = require('../app/http/controllers/trackController')
+const profileController = require('../app/http/controllers/profileController')
 
 
 //Middleware
@@ -33,7 +34,21 @@ function initRoutes(app) {
     app.post('/login', authController().postLogin)
     app.get('/register', guest, authController().register)
     app.post('/register', authController().postRegister)
+    app.get('/forgot_password', authController().forgetLoad)
+    app.post('/forgot_password', authController().forgetVerify)
+    app.get('/reset_password', authController().resetPasswordLoad)
+    app.post('/reset_password', authController().resetPassword)
+    app.get('/verify', authController().verifyMail)
+    app.get('/verification', authController().verificationLoad)
+    app.get('/change_password', authController().changePassLoad)
+    app.post('/change_password', authController().editPass)
+    app.post('/verification', authController().sentVerificationLink)
+
     app.post('/logout', authController().logout)
+
+    //profile
+    app.get('/profile', profileController().index)
+    app.post('/profile', profileController().editProfile)
 
     app.get('/trackParcel', trackController().index)
 

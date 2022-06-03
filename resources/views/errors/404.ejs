@@ -471,8 +471,12 @@
             <div class="max-w-sm m-8">
                 <div class="text-black text-5xl md:text-15xl font-black">404</div>
                 <div class="w-16 h-1 bg-purple-light my-3 md:my-6"></div>
+                <% if(typeof message !=='undefined') { %> 
+                    <p class="text-grey-darker text-2xl md:text-3xl font-light mb-8 leading-normal"><%= message %> </p>
+                    <% } else { %>
                 <p class="text-grey-darker text-2xl md:text-3xl font-light mb-8 leading-normal">Sorry, the page you are
                     looking for could not be found.</p>
+                    <% } %> 
                 <button
                     class="btn-primary tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
                     <a class="font-semibold uppercase" href="/"> Go

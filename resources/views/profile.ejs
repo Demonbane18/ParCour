@@ -1,0 +1,91 @@
+<%if(user) {%>
+    <% if (user.role == 'service_provider') {%>
+        <%- include('./_layouts/sp_header') %>
+        <%} else if (user.role == 'rider') {%>
+        <%- include('./_layouts/r_header') %> 
+        <%} else if (user.role == 'supplier') {%>
+            <%- include('./_layouts/sup_header') %> 
+        <%} else {%>
+            <%- include('./_layouts/layout') %>
+            <%}%> 
+        <%}%>
+    
+        <section class="profile flex justify-center pt-20">
+            <div class="w-full max-w-xs">
+                <form action="/profile " method="POST" class="bg-white shadow-md rounded content center px-4 pt-6 pb-8 mb-4">
+                    <div class="container">
+                        <div class="flex justify-center rounded-full">
+                            <img class="object-contain object-center h-40 w-40" src="/img/profile.png" alt="profile">
+                        </div>
+                        <label class="flex justify-center text-black text-lg font-bold mt-2 mb-0.5" for="name">
+                            <%= name %>
+                        </label>
+                        <label class="flex justify-center text-gray-700 text-sm font-bold mb-2" for="email">
+                            <%= email %>
+                        </label>
+                        <% if (!is_verified) { %>
+                        <div class="flex justify-center ">
+                            <button
+                            class="rounded-full bg-gray-700 text-white font-bold text-sm px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="submit">
+                            <a href="/verification">Verify Email </a>
+                        </button>
+                        </div>
+                       <% } %> 
+                    </div>
+                    <div class="container">
+                        <% if (messages.error) { %>
+                            <span class="text-red-500 text-sm"><%= messages.error %> </span>
+                            <% } %>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                                    Name
+                                </label>
+                                <input name="name" value="<%= name %>" maxlength="50"
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="name" type="text" placeholder="Enter your name">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
+                                    Phone Number
+                                </label>
+                                <input pattern="[0-9]+" maxlength="11"
+                                    onKeyPress="if(this.value.length==11) return false;" name="phone" value="<%= phone %>"
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="phone" type="text" placeholder="ex. 09XXXXXXXXX">
+                            </div class="">
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
+                                    Address
+                                </label>
+                                <input name="address" value="<%= address %>" maxlength="100"
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="address" type="text" placeholder="Enter your address">
+                            </div>
+                            
+                            <div class="flex flex-col justify-center px-16">
+                                <button
+                                    class="btn-primary rounded-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline justify-center"
+                                    type="submit">
+                                    Save 
+                                </button>
+                            </div>
+                    </div>
+                </form>
+            </div>
+            <% if (profileEdited) { %>
+                <script>
+                    Swal.fire({
+                        timer: 1500,
+                        showConfirmButton: false,
+                        title: 'Profile Updated',
+                        text: 'Changes has been saved successfully!',
+                        type: 'success',
+                        icon: 'success'
+                    })
+                </script>
+            
+                <% } %>
+        </section>
+       
+    <%- include('./_layouts/footer') %>

@@ -1,0 +1,49 @@
+<%if(user) {%>
+    <% if (user.role == 'service_provider') {%>
+        <%- include('../_layouts/sp_header') %>
+        <%} else if (user.role == 'rider') {%>
+            <%- include('../_layouts/r_header') %> 
+        <%} else if (user.role == 'supplier') {%>
+            <%- include('../_layouts/sup_header') %>     
+        <%} else {%> 
+            <%- include('../_layouts/admin_header') %>     
+<%}%>
+<%} else {%>
+    <%- include('../_layouts/layout') %>
+<%}%>
+<section class="verification flex justify-center pt-24">
+    <div class="w-full max-w-xs">
+        <form action="/verification" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-lg font-bold mb-4" for="name">
+                    Verify your email
+                </label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                    Email
+                </label>
+                <input name="email"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="email" type="email" value="<%= email %>">
+                    <% if (messages.error) { %>
+                        <span class="text-red-500 text-sm"><%= messages.error %> </span>
+                        <% } %>
+                    <% if (messages.success) { %>
+                        <span class="text-green-500 text-sm"><%= messages.success %> </span>
+                    <% } %>
+            </div>
+           
+            <div class="flex items-center justify-between">
+                <button
+                    class="btn-primary rounded-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit">
+                    Send Verification Link
+                </button>
+            </div>
+        </form>
+        <p class="text-center text-gray-500 text-xs">
+            &copy;2020 ParCour. All rights reserved.
+        </p>
+    </div>
+</section>
+</body>
+</html>

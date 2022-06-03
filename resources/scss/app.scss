@@ -112,6 +112,17 @@ section.status {
     min-height: calc(100vh - 86px);
 
 }
+
+section.profile {
+    background: $secondary;
+    min-height: calc(100vh - 86px);
+
+}
+section.change_password {
+    background: $secondary;
+    min-height: calc(100vh - 86px);
+
+}
 //background secondary sections
 section.orders {
     background: $secondary;

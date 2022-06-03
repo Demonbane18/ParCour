@@ -416,6 +416,16 @@ section.status {
   min-height: calc(100vh - 86px);
 }
 
+section.profile {
+  background: #F8F8F8;
+  min-height: calc(100vh - 86px);
+}
+
+section.change_password {
+  background: #F8F8F8;
+  min-height: calc(100vh - 86px);
+}
+
 section.orders {
   background: #F8F8F8;
   min-height: calc(100vh - 86px);

@@ -3,15 +3,15 @@ Suppliers
 jionavarro@gmail.com
 paul1234
 
+butterncreamz@gmail.com
+test1234
+
 admin: 
 parcourdelivery@gmail.com
 admin1234
 
-Service Providers
-Name: John Doe
-Company: MrSpeedy
-Phone:09285553519
-Address: China Bank Building8745, Paseo De Roxas Corner Villar Street,Salcedo Village 1226
+Service Providers:
+John Doe
 butterncreamz1@gmail.com
 test1234
 
@@ -23,7 +23,7 @@ parcour@gmail.com
 test1234
 
 
-Riders
+Riders:
 Krisna
 krisna.fusin@gmail.com
 test1234
