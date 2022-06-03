@@ -38,7 +38,7 @@ function authController() {
             from: config.emailUser,
             to: email,
             subject: ' For verification mail',
-            html: '<p> Hi ' + name + ', please click here to <a href="http://127.0.0.1:3000/verify?id='+user_id+'"> Verify </a> your email.</p>'
+            html: '<p> Hi ' + name + ', please click here to <a href="http://parcour.herokuapp.com/verify?id='+user_id+'"> Verify </a> your email.</p>'
         }
         transporter.sendMail(mailOptions, function(error, info){
             if (error) {
@@ -68,7 +68,7 @@ const sendResetPasswordMail =  async(name, email, token)=> {
             from: config.emailUser,
             to: email,
             subject: ' For Reset Password',
-            html: '<p> Hi ' + name + ', please click here to <a href="http://127.0.0.1:3000/reset_password?token='+token+'"> Reset </a> your password.</p>'
+            html: '<p> Hi ' + name + ', please click here to <a href="http://parcour.herokuapp.com/reset_password?token='+token+'"> Reset </a> your password.</p>'
         }
         transporter.sendMail(mailOptions, function(error, info){
             if (error) {
