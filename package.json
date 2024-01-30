@@ -11,7 +11,7 @@
     "development": "cross-env NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "watch": "npm run development -- --watch",
     "production": "cross-env NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "build": "npm run dev && production -- --watch"
+    "build": "node server.js --production"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
