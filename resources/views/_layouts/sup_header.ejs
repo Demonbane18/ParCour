@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ParCour - Supplier</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon/favicon-32x32.png?v=2" />
+    <link rel="icon" type="image/x-icon" href="/img/favicon/favicon-32x32.png?v=2" />
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/favicon/apple-touch-icon-57x57.png?v=2" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/favicon/apple-touch-icon-114x114.png?v=2" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/favicon/apple-touch-icon-72x72.png?v=2" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/favicon/apple-touch-icon-144x144.png?v=2" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/favicon/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/favicon/apple-touch-icon-120x120.png?v=2" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/favicon/apple-touch-icon-76x76.png?v=2" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/favicon/apple-touch-icon-152x152.png?v=2" />
+    <link rel="icon" type="image/png" href="/img/favicon//img/favicon/favicon-196x196.png?v=2" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/img/favicon/favicon-96x96.png?v=2" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/img/favicon/favicon-32x32.png?v=2" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/img/favicon/favicon-16x16.png?v=2" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/img/favicon/favicon-128.png?v=2" sizes="128x128" />
+    <meta name="application-name" content="&nbsp;" />
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="/img/favicon/mstile-144x144.png?v=2" />
+    <meta name="msapplication-square70x70logo" content="/img/favicon/mstile-70x70.png?v=2" />
+    <meta name="msapplication-square150x150logo" content="/img/favicon/mstile-150x150.png?v=2" />
+    <meta name="msapplication-wide310x150logo" content="/img/favicon/mstile-310x150.png?v=2" />
+    <meta name="msapplication-square310x310logo" content="/img/favicon/mstile-310x310.png?v=2" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet" />
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/app.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css" integrity="sha512-IXuoq1aFd2wXs4NqGskwX2Vb+I8UJ+tGJEu/Dc0zwLNKeQ7CW3Sr6v0yU3z5OQWe3eScVIkER4J9L7byrgR/fA==" crossorigin="anonymous" />
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js" integrity="sha512-JnjG+Wt53GspUQXQhc+c4j8SBERsgJAoHeehagKHlxQN+MtCCmFDghX9/AcbkkNRZptyZU4zC8utK59M5L45Iw==" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15.0.0/dist/smooth-scroll.polyfills.min.js">
+    </script>
+
+</head>
+
+<body>
+    <nav class="container mx-auto flex items-center justify-between py-4 ">
+        <div>
+            <a href="\"><img class="h-10 mb-2 mx-auto" src="/img/logo.png" alt="logo" /></a>
+
+        </div>
+        <div>
+            <ul class="flex items-center">
+                <li class="ml-6"><a href="/">Menu</a></li>
+                <li class="ml-6"><a href="/supplier/orders">Orders</a></li>
+                
+                <li class="ml-6">
+                    <!-- <form id="logout" action="/logout" method="POST">
+                        <a onclick="document.getElementById('logout').submit()" href="#">Log Out</a>
+                    </form> -->
+                    <div class="dropdown relative inline-block text-left">
+                        <div>
+                            <span class="rounded-md shadow-sm">
+                                <button type="button"
+                                    class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150"
+                                    id="options-menu" aria-haspopup="true" aria-expanded="true">
+                                    Options
+                                    <!-- Heroicon name: chevron-down -->
+                                    <svg class="-mr-1 ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </span>
+                            <div>
+                                <div
+                                    class="dropdown-menu absolute hidden z-50 origin-top-right absolute right-0 w-56 rounded-md shadow-lg">
+                                    <div class="rounded-md bg-white shadow-xs">
+                                        <div class="py-1" role="menu" aria-orientation="vertical"
+                                            aria-labelledby="options-menu">
+                                           <div class="text-center p-6  border-b">
+                                                <p class="pt-2 text-lg font-semibold"><%= user.name %> </p>
+                                                <p class="text-sm text-gray-600"><%= user.email %></p>
+                                            </div>
+                                            <div class="border-b">
+                                                <a href="/profile" class="px-4 py-2 hover:bg-gray-100 flex">
+                                                  <div class="text-gray-800">
+                                                    <svg
+                                                      fill="none"
+                                                      stroke="currentColor"
+                                                      strokeLinecap="round"
+                                                      strokeLinejoin="round"
+                                                      strokeWidth="1"
+                                                      viewBox="0 0 24 24"
+                                                      class="w-5 h-5"
+                                                    >
+                                                      <path d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    </svg>
+                                                  </div>
+                                                  <div class="pl-3">
+                                                    <p class="text-sm font-medium text-gray-800 leading-none">Personal Profile</p>
+                                                    <p class="text-xs text-gray-500">Edit profile, verify email</p>
+                                                  </div>
+                                                </a>
+                                                <a href="/change_password" class="px-4 py-2 hover:bg-gray-100 flex">
+                                                    <div class="text-gray-800">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"/></svg>
+                                                    </div>
+                                                    <div class="pl-3">
+                                                      <p class="text-sm font-medium text-gray-800 leading-none">Settings</p>
+                                                      <p class="text-xs text-gray-500">Change password</p>
+                                                    </div>
+                                                  </a>
+                                              </div>
+                                            <form id="logout" method="POST" action="/logout">
+                                                <button type="submit"
+                                                    class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+                                                    role="menuitem">
+                                                    Sign out
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                         
+                         </div>
+                </li>
+                <li class="ml-6">
+                    <a href="/parcel" class="inline-block px-4 py-2 rounded-full flex items-center">
+                        <span id="parcelCounter"
+                            class="text-white font-bold pr-2"><%= session.parcel ? session.parcel.total_qty:''%></span>
+                        <img src="/img/cart.png" alt="cart" /></a>
+                </li>
+            </ul>
+        </div>
+    </nav>

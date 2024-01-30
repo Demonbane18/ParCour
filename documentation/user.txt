@@ -1,0 +1,29 @@
+Suppliers
+
+jionavarro@gmail.com
+paul1234
+
+butterncreamz@gmail.com
+test1234
+
+admin: 
+parcourdelivery@gmail.com
+admin1234
+
+Service Providers:
+John Doe
+butterncreamz1@gmail.com
+test1234
+
+Name: Testing Service
+Company: LEX PH
+Phone: 09295525399
+Address: Test Address
+parcour@gmail.com
+test1234
+
+
+Riders:
+Krisna
+krisna.fusin@gmail.com
+test1234

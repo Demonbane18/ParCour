@@ -1,0 +1,32 @@
+<%- include('../_layouts/sp_header') %>
+<section id="move-content" class="orders light-section">
+
+<div class="container mx-auto pt-12 px-4">
+        <div class="py-4">
+        <button type="button"
+            class="back btn-primary text-white focus:outline-none font-bold py-2 px-5 rounded"><a class="block"
+                href="/rider/orders">Back to Orders</a></button>
+    </div>
+    <h1 class="font-bold text-lg mb-4"> Completed orders</h1>
+    <div class="tableorder">
+        <table class=" w-full table-auto bg-white">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2 text-left">Orders</th>
+                    <th class="px-4 py-2 text-left">Supplier Name</th>
+                    <th class="px-4 py-2 text-left">Company Name</th>
+                    <th class="px-4 py-2 text-left">Phone</th>
+                    <th class="px-4 py-2 text-left">Pickup Address</th>
+                    <th class="px-4 py-2 text-left">Dropoff Address</th>
+                    <th class="px-4 py-2 text-left">Status</th>
+                    <th class="px-4 py-2 text-left">Placed at</th>
+                </tr>
+            </thead>
+            <tbody id="orderTableBodycomp">
+            </tbody>
+        </table>
+    </div>
+</div>
+</section>
+</body>
+</html>

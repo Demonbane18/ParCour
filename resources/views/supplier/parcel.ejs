@@ -1,0 +1,352 @@
+<% if (user) {%>
+<%- include('../_layouts/sup_header') %>
+<%} else {%>
+    <%- include('../_layouts/layout') %>
+<%}%>
+<section class="parcel py-16">
+    <% if (session.order) {%>
+    <div class="order-container mx-auto w-1/2">
+        <div class="flex items-center border-b border-gray-300 pb-4">
+            <img src="/img/cart-black.png" alt="">
+            <h1 class="font-bold ml-4 text-2xl">Parcel Information</h1>
+        </div>
+        <div class="vehicle-list">
+            <% for(let parcel of Object.values(session.order.info)) { %>
+            <div class="flex items-center my-8">
+                <img class="w-24" src="/img/<%= parcel.info.image %>" alt="">
+                <div class="flex-1 ml-4">
+                    <h1><%= parcel.info.vehicle_type %></h1>
+                    <span><%= parcel.info.weight %> kg</span>
+                </div>
+                <span class="flex-1"><%= parcel.info.service_provider %></span>
+                <span class="flex-1"><%= parcel.qty %></span>
+                <span class="font-bold text-lg flex-1">₱<%= parcel.info.price * parcel.qty %></span>
+                <span class="pb-3">
+                    <button id="deleteParcel" data-delete="<%= JSON.stringify(parcel) %>" class="deleteParcel btn-primary px-6 py-2 rounded-full text-white font-bold mt-6" type="button">Cancel</button>
+                </span>
+            </div>
+            <% } %>
+
+        </div>
+        <hr>
+        <div class=" py-4">
+            <div>
+                <span class="text-lg font-bold">Total amount:</span>
+                <span class="amount text-2xl font-bold ml-2">₱<%= session.order.total_price%></span>
+            </div>
+            <% if(user) { %>
+            <div>
+                <form action="/orders" method="POST" class="mt-12">
+                    <% if (messages.error) { %>
+                    <span class="text-red-500 text-sm p-2 w-1/2 mb-4"><%= messages.error %> </span>
+                    <% } %>
+                    <div class="flex items-center border-b border-gray-300 pb-2 pt-8 mb-4">
+                        <i class="las la-user la-customer la-lg"></i>
+                        <h1 class="font-bold ml-4 text-xl">Customer Details</h1>
+                    </div>    
+                    <span class="text-lg font-bold pr-5 pt-2">Phone Number:</span>
+                    <input id="phone" name="phone" maxlength="12" class="border border-gray-400 p-2 w-1/4 mb-4 focus:outline-none "
+                        type="phone" placeholder="Phone Number(+63)" value="<%= user.phone %>"><br>
+
+                    <span class="text-lg font-bold pr-4">Pickup Address:</span>
+                    <input id="pickup_address" name="pickup_address" class="border border-gray-400 p-2 w-1/2 mb-4 focus:outline-none "
+                        type="text" placeholder="Pickup Address" value="<%= user.address %> "><br>
+                       
+                    <span class="text-lg font-bold pr-2">Dropoff Address:</span>
+                    <input id="dropoff_address" name="dropoff_address" class="border border-gray-400 p-2 w-1/2 focus:outline-none "
+                        type="text" placeholder="Dropoff Address">
+                    
+                    <!-- Item details -->   
+                    <div class="flex items-center border-b border-gray-300 pb-2 pt-8 mb-4">
+                        <i class="las la-box-open la-lg"></i>
+                        <h1 class="font-bold ml-4 text-xl">Item Details</h1>
+                    </div> 
+                    
+                        <div id="item_options" class="max-w-md mx-auto bg-white rounded overflow-hidden shadow-lg mb-3 item">
+                            <span class="text-lg font-bold pr-2 ml-2 mt-2 inline">Item Name:</span>
+                            <input id="item_name" name="item_name" class="item_name border border-gray-400 mt-2 p-2 w-1/2 focus:outline-none inline " type="text"> 
+                            <br>
+        
+                            <div class="py-2">
+                                <span class="text-lg font-bold ml-2 pr-6">Quantity:</span>
+                                <button class="dec bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">-</button>
+                                <input id="item_qty" name="item_qty" class="item_qty border border-gray-400 p-2 text-center" size="1" type="text" value="1">  
+                                <button class="inc bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">+</button>
+                            </div>
+                            <div class="py-2">
+                                <span class="text-lg font-bold pr-3 ml-2">Perishable:</span>   
+                                <input name="perishable" value="perishable" class="h-4 w-4 perishable_check border border-gray-300 rounded-sm bg-white checked:bg-red-600 checked:border-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer" type="checkbox" id="perishable_check">
+                            </div>
+        
+                            <div class="py-2">
+                                <span class="text-lg font-bold pr-8 mr-1 ml-2">Weight:</span>   
+                                <input id="item_weight" name="item_weight" class="item_weight border border-gray-400 p-2 text-center w-1/6 focus:outline-none " pattern="\d*" size="1" maxlength="3" type="text">  
+                                <span class="text-lg font-bold"> kg</span>   
+                            </div>
+                        </div>
+
+                        <div id="item_options2" class="max-w-md mx-auto bg-white rounded overflow-hidden shadow-lg mb-3 hidden">
+                            <span class="text-lg font-bold pr-2 ml-2 mt-2 inline">Item Name:</span>
+                            <input id="name2" name="item_name2" class="item_name border border-gray-400 mt-2 p-2 w-1/2 focus:outline-none inline " type="text" > 
+                                <button onclick="removeItem(2)" type="button" class=" remove btn-primary px-4 py-2 rounded text-white font-bold mt-6 ml-10 focus:outline-none inline" >x</button> 
+                            <br>
+        
+                            <div class="py-2">
+                                <span class="text-lg font-bold ml-2 pr-6">Quantity:</span>
+                                <button class="dec bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">-</button>
+                                <input id="qty2" name="item_qty2" class="item_qty border border-gray-400 p-2 text-center" size="1" type="text" value="1">  
+                                <button class="inc bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">+</button>
+                            </div>
+                            <div class="py-2">
+                                <span class="text-lg font-bold pr-3 ml-2">Perishable:</span>   
+                                <input id="perishable2" value="perishable" name="perishable2" class="h-4 w-4 perishable_check2 border border-gray-300 rounded-sm bg-white checked:bg-red-600 checked:border-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer" type="checkbox" id="perishable_check">
+                            </div>
+        
+                            <div class="py-2">
+                                <span class="text-lg font-bold pr-8 mr-1 ml-2">Weight:</span>   
+                                <input id="weight2" name="item_weight2" class="item_weight border border-gray-400 p-2 text-center w-1/6 focus:outline-none " pattern="\d*" size="1" maxlength="3" type="text">  
+                                <span class="text-lg font-bold"> kg</span>   
+                            </div>
+                        </div>
+                        <!-- add item 3 -->
+                        <div id="item_options3" class="max-w-md mx-auto bg-white rounded overflow-hidden shadow-lg mb-3 hidden">
+                            <span class="text-lg font-bold pr-2 ml-2 mt-2 inline">Item Name:</span>
+                            <input id="name3" name="item_name3" class="item_name border border-gray-400 mt-2 p-2 w-1/2 focus:outline-none inline " type="text" > 
+                                <button onclick="removeItem(3)" type="button" class=" remove btn-primary px-4 py-2 rounded text-white font-bold mt-6 ml-10 focus:outline-none inline" >x</button> 
+                            <br>
+        
+                            <div class="py-2">
+                                <span class="text-lg font-bold ml-2 pr-6">Quantity:</span>
+                                <button class="dec bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">-</button>
+                                <input id="qty3" name="item_qty3" class="item_qty border border-gray-400 p-2 text-center" size="1" type="text" value="1">  
+                                <button class="inc bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">+</button>
+                            </div>
+                            <div class="py-2">
+                                <span class="text-lg font-bold pr-3 ml-2">Perishable:</span>   
+                                <input id="perishable3" value="perishable" name="perishable3" class="h-4 w-4 perishable_check3 border border-gray-300 rounded-sm bg-white checked:bg-red-600 checked:border-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer" type="checkbox" id="perishable_check">
+                            </div>
+        
+                            <div class="py-2">
+                                <span class="text-lg font-bold pr-8 mr-1 ml-2">Weight:</span>   
+                                <input id="weight3" name="item_weight3" class="item_weight border border-gray-400 p-2 text-center w-1/6 focus:outline-none " pattern="\d*" size="1" maxlength="3" type="text">  
+                                <span class="text-lg font-bold"> kg</span>   
+                            </div>
+                        </div>
+                        <!-- item options 4 -->
+                        <div id="item_options4" class="max-w-md mx-auto bg-white rounded overflow-hidden shadow-lg mb-3 hidden">
+                            <span class="text-lg font-bold pr-2 ml-2 mt-2 inline">Item Name:</span>
+                            <input id="name4" name="item_name4" class="item_name border border-gray-400 mt-2 p-2 w-1/2 focus:outline-none inline " type="text" > 
+                                <button onclick="removeItem(4)" type="button" class=" remove btn-primary px-4 py-2 rounded text-white font-bold mt-6 ml-10 focus:outline-none inline" >x</button> 
+                            <br>
+        
+                            <div class="py-2">
+                                <span class="text-lg font-bold ml-2 pr-6">Quantity:</span>
+                                <button class="dec bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">-</button>
+                                <input id="qty4" name="item_qty4" class="item_qty border border-gray-400 p-2 text-center" size="1" type="text" value="1">  
+                                <button class="inc bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">+</button>
+                            </div>
+                            <div class="py-2">
+                                <span class="text-lg font-bold pr-3 ml-2">Perishable:</span>   
+                                <input id="perishable4" value="perishable" name="perishable4" class="h-4 w-4 perishable_check4 border border-gray-300 rounded-sm bg-white checked:bg-red-600 checked:border-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer" type="checkbox" id="perishable_check">
+                            </div>
+        
+                            <div class="py-2">
+                                <span class="text-lg font-bold pr-8 mr-1 ml-2">Weight:</span>   
+                                <input id="weight4" name="item_weight4" class="item_weight border border-gray-400 p-2 text-center w-1/6 focus:outline-none " pattern="\d*" size="1" maxlength="3" type="text">  
+                                <span class="text-lg font-bold"> kg</span>   
+                            </div>
+                        </div>
+
+                    <!-- items 5 -->
+                    <div id="item_options5" class="max-w-md mx-auto bg-white rounded overflow-hidden shadow-lg mb-3 hidden">
+                        <span class="text-lg font-bold pr-2 ml-2 mt-2 inline">Item Name:</span>
+                        <input id="name5" name="item_name5" class="item_name border border-gray-400 mt-2 p-2 w-1/2 focus:outline-none inline " type="text" > 
+                            <button onclick="removeItem(5)" type="button" class=" remove btn-primary px-4 py-2 rounded text-white font-bold mt-6 ml-10 focus:outline-none inline" >x</button> 
+                        <br>
+    
+                        <div class="py-2">
+                            <span class="text-lg font-bold ml-2 pr-6">Quantity:</span>
+                            <button class="dec bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">-</button>
+                            <input id="qty5" name="item_qty5" class="item_qty border border-gray-400 p-2 text-center" size="1" type="text" value="1">  
+                            <button class="inc bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none" type="button">+</button>
+                        </div>
+                        <div class="py-2">
+                            <span class="text-lg font-bold pr-3 ml-2">Perishable:</span>   
+                            <input id="perishable5"  value="perishable" name="perishable5" class="h-4 w-4 perishable_check border border-gray-300 rounded-sm bg-white checked:bg-red-600 checked:border-red-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer" type="checkbox" id="perishable_check">
+                        </div>
+    
+                        <div class="py-2">
+                            <span class="text-lg font-bold pr-8 mr-1 ml-2">Weight:</span>   
+                            <input id="weight5" name="item_weight5" class="item_weight border border-gray-400 p-2 text-center w-1/6 focus:outline-none " pattern="\d*" size="1" maxlength="3" type="text">  
+                            <span class="text-lg font-bold"> kg</span>   
+                        </div>
+                    </div>
+                        
+                    <button onclick="addItem()" type="button" class="btn-primary px-4 py-2 rounded text-white font-bold mt-6 focus:outline-none" >Add item</button>
+
+
+                    <div>
+                        <button class="btn-primary px-6 py-2 rounded-full text-white font-bold mt-6" type="submit">Book
+                            Now</button>
+                    </div>
+                </form>
+                <span>Note: The maximum distance is only 3km. For those higher than 3km please use the mobile app</span>
+            </div>
+            <%} else { %>
+            <a href="/login"
+                class="inline-block cursor-pointer px-6 btn-primary px-6 py-2 rounded-full text-white font-bold mt-6">Login
+                to Continue</a>
+            <% } %>
+        </div>
+
+    </div>
+    <% } else { %>
+    <div class="empty-parcel py-16">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl font-bold mb-2">You got no parcel on cart 😕</h1>
+            <p class="text-gray-500; text-lg mb-12">You probably haven't booked a parcel yet or you've already booked one. <br>
+                To book a delivery, go to the main page.</p>
+            <img class="w-2/5 mx-auto" src="/img/empty-cart.png" alt="empty-cart">
+            <a href="/" class="inline-block px-6 py-2 rounded-full btn-primary text-white font-bold mt-12">Go back</a>
+        </div>
+    </div>
+    <% } %>
+    <br>
+    <br>    
+    <br>
+    <br>
+    <br>
+    <br>
+</section>
+
+<script>
+    //add more items
+    var itemNumber=2;
+    function addItem() {
+        var item = document.getElementById(`item_options${itemNumber}`)
+        item.classList.remove("hidden")
+        if(itemNumber<6){
+            itemNumber++ 
+        }
+        if(itemNumber==6)
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You can only add up to 5 items!'
+            })
+    }
+    //element inside container
+    function GetElementInsideContainer(containerID, childID) {
+        var elm = document.getElementById(childID);
+        var parent = elm ? elm.parentNode : {};
+        return (parent.id && parent.id === containerID) ? elm : {};
+}
+
+    function removeItem(id){     
+        var item = document.getElementById(`item_options${id}`)
+        var name = document.getElementById(`name${id}`)
+        var qty = document.getElementById(`qty${id}`)
+        var perishable = document.getElementById(`perishable${id}`)
+        var weight = document.getElementById(`weight${id}`)
+        item.classList.add("hidden")
+        if(name.value)
+        name.value=''
+
+        if(qty.value!=0)
+        qty.value=0
+
+        if(perishable.checked)
+        perishable.checked= false
+        if(weight.value) {
+            weight.value=''
+        }
+        
+
+        itemNumber--
+    }
+
+        var incButton = document.getElementsByClassName('inc');
+        var decButton = document.getElementsByClassName('dec');
+        console.log(incButton)
+
+        for(var i = 0; i<incButton.length; i++){
+            var button =incButton[i];
+            if (button.getAttribute('listener') !== 'true') {
+            button.addEventListener('click',function(event){
+
+                var buttonClicked = event.target;
+                var input = buttonClicked.parentElement.children[2];
+
+                var inputValue = input.value;
+
+                var newValue = parseInt(inputValue)+1;
+                // console.log(newValue);
+                input.value = newValue
+            })
+        }
+        }
+
+        for(var i = 0; i<decButton.length; i++){
+            var button = decButton[i];
+            if (button.getAttribute('listener') !== 'true') {
+            button.addEventListener('click',function(event){
+
+                var buttonClicked = event.target;
+                var input = buttonClicked.parentElement.children[2];
+
+                var inputValue = input.value;
+
+                var newValue;
+                if(inputValue !=1)
+                 newValue = parseInt(inputValue)-1;
+                 else
+                 newValue = inputValue
+                // console.log(newValue);
+                input.value = newValue
+            })
+        }
+        }
+ 
+
+
+
+
+
+     let deleteParcel = document.querySelectorAll('#deleteParcel');
+        deleteParcel.forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                let parcel = JSON.parse(btn.dataset.delete);
+                console.log(parcel)
+                sweetalertParcel(parcel);
+            });
+        });
+
+        function sweetalertParcel(parcel) {
+            Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You are about to cancel your order, you won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                timer: 1000,
+                                showConfirmButton: false,
+                                title: 'Item deleted',
+                                text: 'Item is successfully deleted!',
+                                type: 'success',
+                                icon: 'success'
+                            })
+                            setTimeout(() => {
+                                document.location.href = "/delete-parcel/";
+                            }, 1500)
+
+
+                }
+                })
+                }
+</script>
+<%- include('../_layouts/footer') %>

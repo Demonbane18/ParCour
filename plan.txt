@@ -1,0 +1,75 @@
+
+ASAP
+[+]   add rider to service provider orders 
+[+]   add vehicles to service provider orders
+[+]   rider can see order details assigned
+[+]   
+[+]   admin Dashboard can add delete supplier
+[+]   service provider dashboard
+[+]   tracking of delivery
+[+]   client track order
+[+]   users can edit their info
+
+Authentication
+[+] Add Rider role and auth
+
+Parcel 
+[-]   redirect to parcel page after clicking add on landing page
+[+]   rider can see order details assigned
+[+]   Parcel info include parcel dimensions and can add?
+[+]   reset parcel if clicked a new add but save it to the cart even without confirming
+[-]   added update cart
+[-]   update basic parcel total price logic calculation 
+[+]   update parcel total price logic calculation with additional services and kilometer
+
+Parcel process
+* the supplier will add a parcel by adding a truck from the landing page
+* it will redirect to parcel page
+* after confirming it it will increment the "cart" or orders
+* pressing the cart will redirect it to my orders page
+
+Payment (paypal/stripe)
+[+]   add payment option for supplier
+
+Mapping System(mapbox)
+[+]  rider directions
+[+]   supplier, client and service provider parcel tracking
+
+
+Notification
++   add updates when service provider confirms for the supplier
+[-]   add update when a parcel was made by the supplier
+
+
+Login System
+[-]   supplier login and register
+[-]   service provider login and register
++     rider login 
+[-]   generate session keys
+[-]   session database
++     verify email verification
+
+Landing page
+[+]   add a navbar on the layouts to redirect to track delivery page order number search box
+
+
+
+Supplier Dashboard
+[-] Show orders
+[+] Vehicles dashboard add delete and modify
+[+] vehicle collection
+[+] mark completed deliveries and put them in different table
+
+Service Provider Dashboard
+[+] mark completed deliveries and put them in different table
+[+] mark cancelled deliveries and put them in different table and put a reason textbox for it
+
+Rider Dashboard
++   phone app??
+
+Admin Dashboard
+
+
+
+Geolocation tracking
++   activate google maps api 

@@ -1,0 +1,178 @@
+<%- include('../_layouts/sp_header') %>
+<section id="move-content" class="riders light-section">
+    <h2 class="font-bold text-lg pt-8 mb-4 px-4">Our <%= user.company_name %> Riders</h2>
+    <div class="px-4">
+        <button type="button"
+            class="add-rider btn-primary text-white focus:outline-none font-bold py-2 px-5 rounded"><a
+                href="/service_provider/add_rider"><i class="las la-user-plus"></i> Add rider</a></button>
+    </div>
+    <form class="flex justify-center content-center" action="/service_provider/riders" method="post">
+        <div class="pt-2 px-2 row-span-3">
+            <h2 class="font-bold text-md text-left text-black">Filter</h2>
+            <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+                id="term_rider" type="term_rider" name="term_rider" value="<%= term_rider %>">
+        </div>
+        <div class="px-2 pt-4 mt-4">
+            <button type="submit"
+                class="search-vehicle bg-blue-500 text-white focus:outline-none font-bold pt-2 py-2 px-5 rounded">Search</button>
+        </div>
+    </form>
+   <% if (messages.success) { %>
+   <span class="block flex justify-center text-green-500 text-sm"><%= messages.success %> </span>
+   <% } %>
+   <% if (messages.error) { %>
+   <span class="block flex justify-center text-red-500 text-sm"><%= messages.error %> </span>
+   <% } %>
+   <% if (messages.blank) { %>
+   <div class="block flex grid grid-rows-4 justify-center text-gray-900 text-md pt-5">
+       <span>Your search <b class="text-green-500">-<%= messages.blank %></b>- did not match any records</span>
+       <span class="block pt-3">Suggestions:</span>
+       <span class="block">• Make sure all words are spelled correctly.</span>
+       <span class="block">• Try different keywords.</span>
+       <span class="block">• Try more general keywords.</span>
+   </div>
+   <% } %>
+    <div class="container mx-auto pt-12 flex justify-center fixed">
+        <table class="w-1/2 table-auto bg-white">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-4 py-2 text-left w-1/3"><%= user.company_name %> Riders</th>
+                    <th class="border px-4 py-2 text-left w-1/12">Edit </th>
+                    <th class="border px-4 py-2 text-left w-1/12">Delete </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (searchedRider) { %>
+                <% searchedRider.forEach(function(rider){ %>
+                <tr>
+                    <td class="border px-4 py-2 text-left text-green-500"><%= rider.name %>
+                        <button class="accordion block focus:outline-none text-blue-500">Info <i
+                            class="las la-chevron-circle-up"></i></button>
+                    <div class="panel overflow-hidden text-black">
+                        <div>Company Name: <%= rider.phone %></div>
+                        <div>License: <%= rider.license %></div>
+                        <div>Age: <%= rider.age %></div>
+                        <div>Gender: <%= rider.gender %></div>
+                        <div>Phone: <%= rider.phone %></div>
+                        <div>Address: <%= rider.address %></div>
+                        <div>Email: <%= rider.email %></div>
+                    </div></td>
+                    <td class="border px-4 py-2 text-center">
+                        <button type="button" class="editRider bg-blue-500 hover:bg-blue-700 text-white block font-bold py-2 px-5
+                                rounded"><i class="las la-edit"></i><a
+                                href="/service_provider/edit_rider/<%= rider._id %>"> Edit</a></button>
+                    </td>
+                    <td class="border px-4 py-2 text-left"><button type="button" id="deleteRider" class="deleteRider bg-red-500 hover:bg-red-700 text-white block font-bold py-2 px-5
+                                rounded" data-delete2="<%= JSON.stringify(rider) %>"><i class="las la-trash"></i>
+                            Delete
+                        </button></td>
+                </tr>
+                <% }); %>
+                <% } else { %>
+                <% riders.forEach(function(rider){ %>
+                <tr>
+                    <td class="border px-4 py-2 text-left text-green-500"><%= rider.name %>
+                            <button class="accordion block focus:outline-none text-blue-500">Info <i
+                                    class="las la-chevron-circle-up"></i></button>
+                            <div class="panel overflow-hidden text-black">
+                                <div>Company Name: <%= rider.phone %></div>
+                                <div>License: <%= rider.license %></div>
+                                <div>Age: <%= rider.age %></div>
+                                <div>Gender: <%= rider.gender %></div>
+                                <div>Phone: <%= rider.phone %></div>
+                                <div>Address: <%= rider.address %></div>
+                                <div>Email: <%= rider.email %></div>
+                            </div>
+                        </td>
+                    <td class="border px-4 py-2 text-center">
+                            <button type="button" class="editRider bg-blue-500 hover:bg-blue-700 text-white block font-bold py-2 px-5
+                                rounded"><i class="las la-edit"></i><a
+                                    href="/service_provider/edit_rider/<%= rider._id %>"> Edit</a></button>
+                    </td>
+                    <td class="border px-4 py-2 text-left"><button type="button" id="deleteRider" class="deleteRider bg-red-500 hover:bg-red-700 text-white block font-bold py-2 px-5
+                                rounded" data-delete2="<%= JSON.stringify(rider) %>"><i class="las la-trash"></i>
+                            Delete
+                        </button></td>
+                </tr>
+                <% }); %>
+                <% } %>
+            </tbody>
+        </table>
+         <% if (riderAdded) { %>
+        <script>
+            Swal.fire({
+                timer: 1500,
+                showConfirmButton: false,
+                title: 'Rider Created',
+                text: 'A new rider user has been added!',
+                type: 'success',
+                icon: 'success'
+            })
+        </script>
+
+        <% } %>
+        <script>
+            /* Optional Javascript to close the radio button version by clicking it again */
+            var acc = document.getElementsByClassName("accordion");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function () {
+                    /* Toggle between adding and removing the "active" class,
+                    to highlight the button that controls the panel */
+                    this.classList.toggle("active");
+
+                    /* Toggle between hiding and showing the active panel */
+                    var panel = this.nextElementSibling;
+                    if (panel.style.display === "block") {
+                        panel.style.display = "none";
+                    } else {
+                        panel.style.display = "block";
+                    }
+                });
+            }
+        </script>
+        <script>
+         //delete rider dialog box
+        let deleteRider = document.querySelectorAll('#deleteRider');
+        deleteRider.forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                let rider = JSON.parse(btn.dataset.delete2);
+                console.log(rider)
+                sweetalertRider(rider);
+            });
+        });
+
+        function sweetalertRider(rider) {
+            Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You will delete the rider and the user! You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it'
+                }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                timer: 1000,
+                                showConfirmButton: false,
+                                title: 'Rider Deleted',
+                                text: 'This rider has been successfully deleted!',
+                                type: 'success',
+                                icon: 'success'
+                            })
+                            setTimeout(() => {
+                                document.location.href = "/service_provider/delete_rider/" + rider._id;
+                            }, 1500)
+
+
+                }
+                })
+                }
+        </script>
+    </div>
+</section>
+<%- include('../_layouts/footer') %>
+</body>
+</html>

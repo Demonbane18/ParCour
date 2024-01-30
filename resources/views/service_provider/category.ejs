@@ -1,0 +1,60 @@
+<%- include('../_layouts/sp_header') %>
+<section id="move-content" class="category light-section px-4">
+    <h2 class="font-bold text-lg mb-4 pt-8">Service Categories</h2>
+    <div class="px-4">
+        <button type="button" class="add-category btn-primary block text-white font-bold py-2 px-5 rounded"><a class="block"
+                href="/service_provider/add_category"><i class="las la-user-plus"></i> Add vehicle category</a></button>
+    </div>
+    <% if (messages.success) { %>
+            <span class="text-green-500 text-sm"><%= messages.success %> </span>
+            <% } %>
+            <% if (messages.error) { %>
+            <span class="text-red-500 text-sm"><%= messages.error %> </span>
+            <% } %>
+    <div class="container mx-auto pt-12">
+        <table class="w-full table-auto bg-white">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-4 py-2 text-left">Category</th>
+                    <th class="border px-4 py-2 text-left">Edit Category</th>
+                    <th class="border px-4 py-2 text-left">Delete Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% parcels.forEach(function(parcel){ %>
+                <tr>
+                    <td class="border px-4 py-2 text-left"><%= parcel.vehicle_type %></td>
+                    <td class="border px-4 py-2 text-left">
+                        <button type="button" class="editCategory bg-blue-500 hover:bg-blue-700 text-white block font-bold py-2 px-5
+                                rounded"><i class="las la-edit"></i><a
+                                href="/service_provider/edit_category/<%= parcel._id %>"> Edit</a></button>
+                    </td>
+                    <td class="border px-4 py-2 text-left">
+
+                        <button type="button" id="deleteCategory" class="deleteCategory bg-red-500 hover:bg-red-700 text-white block font-bold py-2 px-5
+                                rounded" data-delete="<%= JSON.stringify(parcel) %>"><i class="las la-trash"></i>
+                            Delete
+                        </button>
+                    </td>
+                </tr>     
+                <% }); %>
+            </tbody>
+        </table>
+        <% if (categoryAdded) { %>
+        <script>
+            Swal.fire({
+                timer: 1500,
+                showConfirmButton: false,
+                title: 'Category Created',
+                text: 'A new category has been added!',
+                type: 'success',
+                icon: 'success'
+            })
+        </script>
+
+        <% } %>
+    </div>
+</section>
+<%- include('../_layouts/footer') %>
+</body>
+</html>

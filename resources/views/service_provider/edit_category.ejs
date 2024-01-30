@@ -1,0 +1,70 @@
+<%- include('../_layouts/sp_header') %>
+<section id="move-content" class="editcategory">
+    <h2 class="font-bold text-lg mb-4 px-4">Edit a Category</h2>
+    <div class="px-4">
+        <button type="button" class="add-category btn-primary text-white block font-bold py-2 px-5 rounded"><a
+                href="/service_provider/category">Back to all Categories</a></button>
+    </div>
+    <br><br>
+
+    <div class="w-full items-center justify-center content-center">
+        <form method="POST" action="/service_provider/edit_category/<%= id %>" class="bg-white px-8 pt-2 pb-8 mb-4">
+            <% if (messages.success) { %>
+            <span class="text-green-500 text-sm"><%= messages.success %> </span>
+            <% } %>
+            <% if (messages.error) { %>
+            <span class="text-red-500 text-sm"><%= messages.error %> </span>
+            <% } %>
+            <div class="form-group p-4">
+                <label for="">Vehicle Type</label>
+                <input type="text" maxlength="20"
+                    class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="vehicle_type" name="vehicle_type" value="<%= vehicle_type %>"
+                    placeholder="Input a vehicle type ">
+            </div>
+            <div class="form-group p-4">
+                <label for="">Image</label>
+                <input type="text" maxlength="10"
+                    class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="image" name="image" value="<%= image %>" placeholder="Input image file">
+            </div>
+            <div class="form-group mb-4 p-4">
+                <label for="">Weight (kg)</label>
+                <input type="number" min="0" pattern="/^-?\d+\.?\d*$/"
+                    onKeyPress="if(this.value.length==5) return false;"
+                    class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="weight" name="weight" value="<%= weight %>" placeholder="Input a weight (in kg) ">
+            </div>
+            <div class="form-group mb-4 p-4">
+                <label for="">Price</label>
+                <input type="number" min="0" pattern="/^-?\d+\.?\d*$/"
+                    onKeyPress="if(this.value.length==9) return false;"
+                    class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="price" name="price" value="<%= price %>" placeholder="Input a base price ">
+            </div>
+            <div class="px-4 py-2">
+                <button id="editCategory"
+                    class="btn-primary rounded-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit">
+                    Edit
+                </button>
+            </div>
+        </form>
+        <% if (categoryEdited) { %>
+        <script>
+            Swal.fire({
+                timer: 1500,
+                showConfirmButton: false,
+                title: 'Category Edited',
+                text: 'Category has been edited successfully!',
+                type: 'success',
+                icon: 'success'
+            })
+        </script>
+
+        <% } %>
+    </div>
+    </div>
+</section>
+</body>
+</html>

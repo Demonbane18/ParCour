@@ -1,0 +1,11 @@
+f12 = go to definition
+ctrl + shift + p = open settings
+crtl + shift + ` = open new terminal
+ctrl + shift + k + c = code to comment
+ctrl + shift + k + u = comment to code
+ctrl+ shift + l = clear terminal
+ctrl + shift + x = kill terminal
+ctrl + up/down = switch between terminal
+ctrl + k + s = open keyboard shortcuts
+ctrl + w = close window
+rs in console to restart nodemon

@@ -1,0 +1,168 @@
+<%- include('../_layouts/admin_header') %>
+<section id="move-content" class="users light-section">
+    <h2 class="font-bold text-lg pt-8 mb-4 px-4">Users</h2>
+    <div class="px-4">
+        <button type="button"
+            class="add-user btn-primary text-white focus:outline-none font-bold py-2 px-5 rounded"><a
+                href="/admin/add_user"><i class="las la-user-plus"></i> Add user</a></button>
+    </div>
+    <form class="flex justify-center content-center" action="/admin/users" method="post">
+        <div class="pt-2 px-2 row-span-3">
+            <h2 class="font-bold text-md text-left text-black">Filter</h2>
+            <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+                id="term" type="term" name="term" value="<%= term %>">
+        </div>
+        <div class="px-2 pt-4 mt-4">
+            <button type="submit"
+                class="search-vehicle bg-blue-500 text-white focus:outline-none font-bold pt-2 py-2 px-5 rounded">Search</button>
+        </div>
+    </form>
+   <% if (messages.success) { %>
+   <span class="block flex justify-center text-green-500 text-sm"><%= messages.success %> </span>
+   <% } %>
+   <% if (messages.error) { %>
+   <span class="block flex justify-center text-red-500 text-sm"><%= messages.error %> </span>
+   <% } %>
+   <% if (messages.blank) { %>
+   <div class="block flex grid grid-rows-4 justify-center text-gray-900 text-md pt-5">
+       <span>Your search <b class="text-green-500">-<%= messages.blank %></b>- did not match any records</span>
+       <span class="block pt-3">Suggestions:</span>
+       <span class="block">• Make sure all words are spelled correctly.</span>
+       <span class="block">• Try different keywords.</span>
+       <span class="block">• Try more general keywords.</span>
+   </div>
+   <% } %>
+    <div class="container mx-auto pt-12 flex justify-center ">
+        <table class="w-3/4 table-auto bg-white">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-4 py-2 text-left w-1/4">Users</th>
+                    <th class="border px-4 py-2 text-left w-1/5">Role</th>
+                    <th class="border px-4 py-2 text-left w-1/4">Company Name</th>
+                    <th class="border px-4 py-2 text-left w-1/5">Delete </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (searchedUser) { %>
+                <% searchedUser.forEach(function(user){ %>
+                <tr>
+                    <td class="border px-4 py-2 text-left text-green-500"><%= user.name %>
+                            <button class="accordion block focus:outline-none text-blue-500">Info <i
+                                    class="las la-chevron-circle-up"></i></button>
+                            <div class="panel overflow-hidden text-black">
+                                <div>Phone: <%= user.phone %></div>
+                                <div>Address: <%= user.address %></div>
+                                <div>Email: <%= user.email %></div>
+                            </div>
+                        </td>
+                    <td class="border px-4 py-2 text-center text-green-500"><%= user.role %></td>
+                    <td class="border px-4 py-2 text-center text-green-500"><%= user.company_name %></td>
+                    <td class="border px-4 py-2 text-left"><button type="button" id="deleteUser" class="deleteUser bg-red-500 hover:bg-red-700 text-white block font-bold py-2 px-5
+                                rounded" data-delete2="<%= JSON.stringify(user) %>"><i class="las la-trash"></i>
+                            Delete
+                        </button></td>
+                </tr>
+                <% }); %>
+                <% } else { %>
+                <% users.forEach(function(user){ %>
+                <tr>
+                    <td class="border px-4 py-2 text-left text-green-500"><%= user.name %>
+                            <button class="accordion block focus:outline-none text-blue-500">Info <i
+                                    class="las la-chevron-circle-up"></i></button>
+                            <div class="panel overflow-hidden text-black">
+                                <div>Phone: <%= user.phone %></div>
+                                <div>Address: <%= user.address %></div>
+                                <div>Email: <%= user.email %></div>
+                            </div>
+                        </td>
+                    <td class="border px-4 py-2 text-center text-green-500"><%= user.role %></td>
+                    <td class="border px-4 py-2 text-center text-green-500"><%= user.company_name %></td>
+                    <td class="border px-4 py-2 text-left"><button type="button" id="deleteUser" class="deleteUser bg-red-500 hover:bg-red-700 text-white block font-bold py-2 px-5
+                                rounded" data-delete2="<%= JSON.stringify(user) %>"><i class="las la-trash"></i>
+                            Delete
+                        </button></td>
+                </tr>
+
+                <% }); %>
+                <% } %>
+            </tbody>
+        </table>
+         <% if (userAdded) { %>
+        <script>
+            Swal.fire({
+                timer: 1500,
+                showConfirmButton: false,
+                title: 'User Created',
+                text: 'A new user user has been added!',
+                type: 'success',
+                icon: 'success'
+            })
+        </script>
+
+        <% } %>
+        <script>
+            /* Optional Javascript to close the radio button version by clicking it again */
+            var acc = document.getElementsByClassName("accordion");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function () {
+                    /* Toggle between adding and removing the "active" class,
+                    to highlight the button that controls the panel */
+                    this.classList.toggle("active");
+
+                    /* Toggle between hiding and showing the active panel */
+                    var panel = this.nextElementSibling;
+                    if (panel.style.display === "block") {
+                        panel.style.display = "none";
+                    } else {
+                        panel.style.display = "block";
+                    }
+                });
+            }
+        </script>
+        <script>
+         //delete user dialog box
+        let deleteUser = document.querySelectorAll('#deleteUser');
+        deleteUser.forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                let user = JSON.parse(btn.dataset.delete2);
+                console.log(user)
+                sweetalertUser(user);
+            });
+        });
+
+        function sweetalertUser(user) {
+            Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You will delete the user? You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it'
+                }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                timer: 1000,
+                                showConfirmButton: false,
+                                title: 'User Deleted',
+                                text: 'This user has been successfully deleted!',
+                                type: 'success',
+                                icon: 'success'
+                            })
+                            setTimeout(() => {
+                                document.location.href = "/admin/delete_user/" + user._id;
+                            }, 1500)
+
+
+                }
+                })
+                }
+        </script>
+    </div>
+</section>
+<br>
+<br>
+</body>
+</html>

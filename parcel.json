@@ -1,0 +1,15 @@
+[{
+    "_id": {
+        "$oid": "5eee651f739f8c674fd736ee"
+    },
+    "vehicle_type": "Economy Van",
+    "image": "pizza.png",
+    "weight": "300kg",
+    "service_provider": "MrSpeedy",
+    "pickup_address": "84 A. Dimasalang St. Caloocan City",
+    "dropoff_address": "40 J. Llanes Street, Escoday",
+    "price": "250",
+    "additional_service": "",
+    "total_price": "500"
+
+}]

@@ -1,0 +1,63 @@
+<%- include('../_layouts/sp_header') %>
+<section id="move-content" class="orders light-section">
+    <div class="container mx-auto pt-12 px-4">
+        <h1 class="font-bold text-lg mb-4"> Pending orders</h1>
+        <form class="flex pb-4" action="/service_provider/orders" method="post">
+            <div class="pt-2 px-2 row-span-3">
+                <h2 class="font-bold text-md text-left text-black">Filter</h2>
+                <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+                    id="term_order" type="term_order" name="term_order" value="<%= term_order %>">
+            </div>
+            <div class="px-2 pt-4 mt-4">
+                <button type="submit"
+                    class="search-vehicle bg-blue-500 text-white focus:outline-none font-bold pt-2 py-2 px-5 rounded">Search</button>
+            </div>
+        </form>
+        <% if (messages.success) { %>
+        <span class="block flex justify-center text-green-500 text-sm"><%= messages.success %> </span>
+        <% } %>
+        <% if (messages.error) { %>
+        <span class="block flex justify-center text-red-500 text-sm"><%= messages.error %> </span>
+        <% } %>
+        <% if (messages.blank) { %>
+        <div class="block flex grid grid-rows-4 justify-center text-gray-900 text-md pt-5">
+            <span>Your search <b class="text-green-500">-<%= messages.blank %></b>- did not match any
+                records</span>
+            <span class="block pt-3">Suggestions:</span>
+            <span class="block">• Make sure all words are spelled correctly.</span>
+            <span class="block">• Try different keywords.</span>
+            <span class="block">• Try more general keywords.</span>
+        </div>
+        <% } %>
+        <div class="tableorder">
+            <% if (!messages.blank) { %>
+            <table class=" w-full table-auto bg-white">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2 text-left">Orders</th>
+                        <th class="px-4 py-2 text-left">Supplier Name</th>
+                        <th class="px-4 py-2 text-left">Company Name</th>
+                        <th class="px-4 py-2 text-left">Phone</th>
+                        <th class="px-4 py-2 text-left">Pickup Address</th>
+                        <th class="px-4 py-2 text-left">Dropoff Address</th>
+                        <th class="px-4 py-2 text-left">Rider Assigned</th>
+                        <th class="px-4 py-2 text-left">Status</th>
+                        <th class="px-4 py-2 text-left">Placed at</th>
+                    </tr>
+                </thead>
+                <tbody id="orderTableBody">
+                </tbody>
+            </table>
+            <%}%>
+              </div>
+        <div class="px-4 py-2 flex">
+        <button type="button" class="completed-orders btn-primary text-white font-bold py-2 px-5 rounded"><a class="block"
+                href="/service_provider/completed_orders"><i class="las la-list-alt"></i> Completed Orders</a></button>
+        </div>
+
+
+        </div>
+  
+</section>
+</body>
+</html>

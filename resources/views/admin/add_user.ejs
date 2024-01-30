@@ -1,0 +1,118 @@
+<%- include('../_layouts/admin_header') %>
+<section class="register flex justify-center pt-24">
+    <div class="w-full max-w-xs">
+        <form action="/admin/add_user" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <% if (messages.error) { %>
+            <span class="text-red-500 text-sm"><%= messages.error %> </span>
+            <% } %>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                    Name
+                </label>
+                <input name="name" value="<%= messages.name %>" maxlength="50"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="name" type="text" placeholder="Enter your name">
+            </div>
+            <div class="mb-4">
+                <script>
+                    function showAdmin() {
+                        var result = document.getElementById("role").value; 
+                        console.log(result)
+                        var companyNameSelect1 = document.getElementById("company1");
+                        var companyNameSelect2 = document.getElementById("company2");
+            
+                        if (result == "admin") {
+                            companyNameSelect1.style.display =  "block";
+                            companyNameSelect2.style.display =  "none";
+                        } else {
+                            companyNameSelect1.style.display =  "none";
+                            companyNameSelect2.style.display =  "block";
+                        }
+                       
+                    }
+                </script>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                    Role
+                </label>
+                <select name="role" id="role" onchange="showAdmin()" class="w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="admin">Admin</option>
+                    <option selected="selected" value="service_provider">Service Provider</option>
+                    <option value="supplier">Supplier</option>
+                  </select>
+            </div>
+            <div id="company1" class="mb-4" style="display: none">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                    Company Name
+                </label>
+                    <select name="company_name" value="company_name" id="company_name" disabled
+                    class="w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                    <option selected="selected" value="Parcour">Parcour</option>
+                </select>
+            </div>
+            <div id="company2" class="mb-4 block">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                    Company Name
+                </label>
+                <select name="company_name" value="company_name" id="company_name" 
+                    class="w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                    <option selected hidden value="Parcour">Parcour</option>
+                    <% company_names.forEach(function(company_name){ %>
+                    <option value="<%= company_name.name %>"><%= company_name.name %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <di class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
+                    Phone Number
+                </label>
+                <input pattern="[0-9]+" maxlength="11"
+                    onKeyPress="if(this.value.length==11) return false;" name="phone" value="<%= messages.phone %>"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="phone" type="text" placeholder="ex. 09XXXXXXXXX">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="address">
+                    Address
+                </label>
+                <input name="address" value="<%= messages.address %>" maxlength="100" size="100"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="address" type="text" placeholder="Enter your address">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                    Email
+                </label>
+                <input name="email" value="<%= messages.email %>" maxlength="64"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="email" type="email" placeholder="ex. test@gmail.com">
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                    Password
+                </label>
+                <input name="password" pattern="[a-zA-Z0-9]+" minlength="8" maxlength="20"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    id="password" type="password" placeholder="******************">
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                    Confirm your Password
+                </label>
+                <input name="confirm_password" minlength="8" maxlength="20"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    id="confirm_password" type="password" placeholder="******************">
+            </div>
+            <div class="flex items-center justify-between">
+                <button
+                    class="btn-primary rounded-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit">
+                    Add User
+                </button>
+            </div>
+        </form>
+        <p class="text-center text-gray-500 text-xs">
+            &copy;2020 ParCour. All rights reserved.
+        </p>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<%- include('../_layouts/admin_header') %>
+<section id="move-content" class="addserviceprovider">
+    <h2 class="font-bold text-lg mb-4 px-4">Add Service Provider</h2>
+    <div class="px-4">
+        <button type="button"
+            class="add-serviceprovider btn-primary focus:outline-none text-white font-bold py-2 px-5 rounded"><a class="block"
+                href="/admin/service_providers">Back to all Service Providers</a></button>
+    </div>
+    <br><br>
+
+    <form method="POST" action="/admin/add_service_provider" id="addServiceProviderForm">
+        <% if (messages.error) { %>
+        <span class="text-red-500 text-sm"><%= messages.error %> </span>
+        <% } %>
+        <div class="form-group p-4">
+            <label for="">Name</label>
+            <input type="text" maxlength="20"
+                class="form-control block shadow appearance-none border rounded w-1/5 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="name" name="name" value="<%= messages.name %>"
+                placeholder="Input Service Provider Name ">
+        </div>
+        <div class="form-group p-4">
+            <label for="">Address</label>
+            <input type="text" maxlength="100" size="100"
+                class="form-control block shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="address" name="address" value="<%= messages.address %>" placeholder="Input Address">
+        </div>
+        <div class="px-4 py-2">
+            <button id="addServiceProvider"
+                class="btn-primary rounded-full text-white font-bold block py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">
+                Add Service Provider
+            </button>
+        </div>
+    </form>
+</section>
+</body>
+</html>

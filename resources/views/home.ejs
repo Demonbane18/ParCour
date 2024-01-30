@@ -1,0 +1,123 @@
+<%if(user) {%>
+    <%if(user.role=='service_provider') {%>
+        <%- include('./_layouts/sp_header') %>
+    <% } %>
+    <%if(user.role=='supplier') {%>
+        <%- include('./_layouts/sup_header') %>
+    <% } %>
+    <%if(user.role=='rider') {%>
+        <%- include('./_layouts/r_header') %>
+    <% } %>
+<%} else {%>
+    <%- include('./_layouts/layout') %>
+<% } %> 
+<div class="home">
+<section class="hero py-16">
+    <div class="container mx-auto flex items-center justify-between">
+        <div class="w-1/2">
+            <h6 class="text-lg"><em>Need deliveries?</em></h6>
+            <h1 class="text-3xl md:text-6xl font-bold">Use ParCour!</h1>
+            <button class="px-6 py-2 rounded-full text-white text-white font-bold mt-4 mr-4 btn-primary"><a data-scroll href="#vehicleList">Book Now</a></button>
+            <!-- gform shortcut https://bit.ly/3c7fmxq -->
+            <button class="formButton px-6 py-2 rounded-full text-white text-white font-bold mt-4 p-2 btn-primary"><a href="#contactForm">Service Provider?</a></button>
+            <div class="mb-4 py-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="track">
+                    Tracking Number
+                </label>
+                <form action="/trackParcel/" method="get">
+                    <input name="track" pattern="[- +()0-9]+" maxlength="16"
+                         class="shadow appearance-none border rounded w-1/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                         id="track" type="text" placeholder="ex. 30167344287759">
+                </form>
+                <% if (messages.wrong_id) { %>
+                    <span class="block flex justify-center text-red-500 text-sm"><%= messages.wrong_id %> </span>
+                    <% } %>
+            </div>
+        </div>
+        <div class="cover object-center m-10">
+            <img class="h-1/2 object-center" src="/img/cover.png" alt="cover">
+        </div>
+    </div>
+</section>
+<section class="about py-16 px-5 flex-wrap items-center">
+           <em>
+               <p class="text-center break-all mx-20 text-gray word-wrap">"Parcour is a parcel tracking and management
+                   system. We
+                   serve as a hub for
+                   service providers and suppliers. Suppliers can book a delivery from our list of service
+                   providers. Suppliers can track their parcels in real time. Their clients track the parcel using tracking numbers."" </p>
+           </em>
+
+</section>
+<section id="vehicleList" class="menu container mx-auto py-10 mb-10">
+    <h1 class="text-xl font-bold mb-8">Our available fleet services</h1>
+    <div class="pb-4 mb-2 w-1/5">
+        <form action="/" method="post" onsubmit=>
+            <select name="name" value="<%= selection %>" id="name" onchange="this.form.submit()"
+                class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <option selected hidden>Choose here</option>
+                <% service_providers.forEach(function(service_provider){ %>
+                <option value="<%= service_provider.name %>"><%= service_provider.name %></option>
+                <% }) %>
+            </select>
+        </form>
+    <% if(passedVariable==true) {%> 
+    <h1 class="text-xl font-bold mt-3 mb-2"><%= selection %></h1>
+    <% } %> 
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 col-gap-12 row-gap-16">
+        <% parcels.forEach(function(parcel){ %>
+        <div class="h-1/2 w-full md:w-64 bg-white border rounded-lg overflow-hidden shadow-lg pb-2">
+            <div class="relative pb-1/3">
+                <img class="object-contain md:object-cover h-56 md:h-40 w-full items-center mb-4 mx-auto" src="/img/<%= parcel.image %>" alt="">
+            </div>
+            <div class="text-center">
+                <h2 class="mb-4 text-lg"><%= parcel.vehicle_type %></h2>
+                <span class="py-1 px-4 rounded-full text-xs"><%= parcel.weight %>kg</span>
+                <div class="flex items-center justify-around">
+                    <span class="font-bold text-lg">₱<%= parcel.price %></span>
+                    <% if(user) { %>
+                        <% if(user.role != 'supplier') { %> 
+                            <% } else { %>
+                                <% if(!session.order) { %>
+                                <button data-parcel="<%= JSON.stringify(parcel) %>" type="button" id="add-to-parcel"
+                                    class="add-to-parcel py-1 px-6 rounded-full flex items-center font-bold">
+                                    <span>+</span>
+                                    <span class="ml-4">Book</span>
+                                </button>
+                                <% } %> 
+                                <% } %>
+                    <% } else { %> 
+                        <% if(!session.order) { %>
+                        <button data-parcel="<%= JSON.stringify(parcel) %>" type="button" id="add-to-parcel"
+                            class="add-to-parcel py-1 px-6 rounded-full flex items-center font-bold">
+                            <span>+</span>
+                            <span class="ml-4">Book</span>
+                        </button>
+                        <% } %> 
+                <% } %> 
+                </div>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+    <div class="items-center justify-content object-center">
+    <br>
+        <% if (session.order) {%>
+            <span class="text-red-500 ">There is a pending order in your cart! Please confirm or cancel your order to book again!</span>
+        <%}%>
+    </div>
+    <br>
+</section>
+   <section id="contactForm" class="contactForm light-section">
+       <script type="text/javascript" src="https://form.jotform.com/jsform/202661093038451"></script>
+   </section>
+  <script>
+      var scroll = new SmoothScroll('a[href*="#"]');
+      function gotoParcel() {
+        document.location.href = "/parcel/";
+      }
+
+  </script>
+</div>
+<%- include('./_layouts/footer') %>
