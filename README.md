@@ -29,8 +29,9 @@ You can play it online here https://demonbane-test.herokuapp.com/ (may not be li
 
 - HTML
 - CSS
+- TailwindCSS
 - Javascript
-- VueJS
+- ejs
 
 **DBMS**
 
