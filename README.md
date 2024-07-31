@@ -1,6 +1,6 @@
 # ParCour
 
-A Courier tracker app for Software Engineering Project
+A courier tracker web app for Software Engineering Project
 
 ## Description
 
@@ -45,7 +45,7 @@ You can play it online here https://demonbane-test.herokuapp.com/ (may not be li
 **Testing/Launch:**
 
 - Heroku
-- POSTMAN
+- Postman
 
 ## Authors
 
